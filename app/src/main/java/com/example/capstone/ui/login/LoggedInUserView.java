@@ -1,7 +1,7 @@
 package com.example.capstone.ui.login;
 
 /**
- * Class exposing authenticated user details to the UI.
+ * 인증된 사용자 세부 정보를 UI에 노출하는 클래스입니다.
  */
 class LoggedInUserView {
     private String displayName;

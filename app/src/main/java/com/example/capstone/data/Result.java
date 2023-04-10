@@ -1,7 +1,7 @@
 package com.example.capstone.data;
 
 /**
- * A generic class that holds a result success w/ data or an error exception.
+ * 데이터 또는 오류 예외가 있는 결과를 유지하는 일반 클래스입니다.
  */
 public class Result<T> {
     // hide the private constructor to limit subclass types (Success, Error)

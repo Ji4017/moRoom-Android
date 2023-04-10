@@ -5,7 +5,7 @@ import com.example.capstone.data.model.LoggedInUser;
 import java.io.IOException;
 
 /**
- * Class that handles authentication w/ login credentials and retrieves user information.
+ * 로그인 자격 증명이 있는 인증을 처리하고 사용자 정보를 검색하는 클래스입니다.
  */
 public class LoginDataSource {
 

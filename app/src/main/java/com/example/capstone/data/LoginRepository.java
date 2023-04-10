@@ -3,8 +3,8 @@ package com.example.capstone.data;
 import com.example.capstone.data.model.LoggedInUser;
 
 /**
- * Class that requests authentication and user information from the remote data source and
- * maintains an in-memory cache of login status and user credentials information.
+ * 원격 데이터 소스에서 인증 및 사용자 정보를 요청하는 클래스 및
+ * 로그인 상태 및 사용자 자격 증명 정보의 메모리 내 캐시를 유지 관리합니다.
  */
 public class LoginRepository {
 

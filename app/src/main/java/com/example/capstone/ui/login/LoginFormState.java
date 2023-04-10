@@ -3,7 +3,7 @@ package com.example.capstone.ui.login;
 import androidx.annotation.Nullable;
 
 /**
- * Data validation state of the login form.
+ * 로그인 양식의 데이터 검증 상태.
  */
 class LoginFormState {
     @Nullable

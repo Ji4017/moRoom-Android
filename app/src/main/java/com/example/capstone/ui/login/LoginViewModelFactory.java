@@ -8,8 +8,8 @@ import com.example.capstone.data.LoginDataSource;
 import com.example.capstone.data.LoginRepository;
 
 /**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
+ * View 모델 공급자 팩토리에서 LoginView모델을 인스턴스화합니다.
+ * 지정된 필수 LoginView모델의 생성자가 비어 있지 않습니다
  */
 public class LoginViewModelFactory implements ViewModelProvider.Factory {
 
