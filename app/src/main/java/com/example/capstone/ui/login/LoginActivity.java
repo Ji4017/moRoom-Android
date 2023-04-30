@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstone.R;
+import com.example.capstone.SignupActivity;
 import com.example.capstone.ui.login.LoginViewModel;
 import com.example.capstone.ui.login.LoginViewModelFactory;
 import com.example.capstone.databinding.ActivityLoginBinding;
@@ -47,6 +49,14 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = binding.login;
         final Button signUpButton = binding.signUp;
         final ProgressBar loadingProgressBar = binding.loading;
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(intent);
+            }
+        });
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
