@@ -4,7 +4,7 @@
     <string name="prompt_id">아이디 입력</string>
     <string name="prompt_email">이메일 입력</string>
     <string name="prompt_password">비밀번호 입력</string>
-    <string name="action_sign_in">로그인회</string>
+    <string name="action_sign_in">로그인</string>
     <string name="action_sign_in_short">로그인</string>
     <string name="welcome">"환영합니다!"</string>
     <string name="invalid_username">유저네임이 올바르지 않습니다</string>

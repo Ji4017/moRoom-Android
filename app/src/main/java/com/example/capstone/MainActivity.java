@@ -15,7 +15,7 @@ import com.example.capstone.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
+    private long backPressedTime = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,4 +34,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backPressedTime + 2000) {
+            backPressedTime = System.currentTimeMillis();
+        } else if (System.currentTimeMillis() <= backPressedTime + 2000) {
+            finishAffinity();
+        }
+    }
 }

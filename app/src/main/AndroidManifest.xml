@@ -20,13 +20,14 @@
         <activity
             android:name=".SignupActivity"
             android:exported="true" >
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:host="moroom.page.link/m1r2"
-                    android:scheme="https"/>
+                    android:host="moroom.page.link"
+                    android:scheme="https"
+                    android:path="/link"/>
             </intent-filter>
         </activity>
         <activity

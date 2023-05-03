@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/prompt_id"
-        android:inputType="textEmailAddress"
         android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -27,8 +28,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/prompt_password"
-        android:inputType="textPassword"
         android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -42,8 +44,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
         android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -62,5 +65,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailAddress"
         app:layout_constraintVertical_bias="0.096" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_sign_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendEmail"
+        app:layout_constraintVertical_bias="0.056" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
