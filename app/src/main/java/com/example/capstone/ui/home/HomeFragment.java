@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstone.CustomAdapter;
+import com.example.capstone.ContentsAdapter;
 import com.example.capstone.R;
-import com.example.capstone.User;
+import com.example.capstone.Contents;
 import com.example.capstone.databinding.FragmentHomeBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +30,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<User> arrayList;
+    private ArrayList<Contents> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FragmentHomeBinding binding;
@@ -44,15 +46,27 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
 
+        FloatingActionButton fab = binding.fab;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("User");
+        databaseReference = database.getReference("Address").child("직지대로 864");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    User user = dataSnapshot.getValue(User.class);
-                    arrayList.add(user);
+                    Contents contents = dataSnapshot.getValue(Contents.class);
+                    arrayList.add(contents);
+
+                    // Log.d("HomeFragment", "DB data : " + dataSnapshot.getValue());
+                    // Firebase DB에 있는 데이터 로그로 출력
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -63,13 +77,12 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        adapter = new CustomAdapter(arrayList, getContext());
+        adapter = new ContentsAdapter(arrayList);
         recyclerView.setAdapter(adapter);
 
 
         return view;
     }
-
 
     @Override
     public void onDestroyView() {

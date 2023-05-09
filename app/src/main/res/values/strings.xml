@@ -16,4 +16,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="send_email">이메일 전송</string>
+    <string name="write">후기작성</string>
 </resources>
