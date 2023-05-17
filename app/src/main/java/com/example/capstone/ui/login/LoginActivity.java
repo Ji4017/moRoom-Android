@@ -30,8 +30,6 @@ import android.widget.Toast;
 import com.example.capstone.MainActivity;
 import com.example.capstone.R;
 import com.example.capstone.SignupActivity;
-import com.example.capstone.ui.login.LoginViewModel;
-import com.example.capstone.ui.login.LoginViewModelFactory;
 import com.example.capstone.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

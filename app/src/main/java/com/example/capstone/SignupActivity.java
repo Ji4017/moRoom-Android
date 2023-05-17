@@ -15,16 +15,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.capstone.databinding.ActivitySignUpBinding;
-import com.example.capstone.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-//import com.google.android.gms.tasks.*;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
@@ -93,6 +92,44 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    private void createUser(String email, String password){
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                    // createUser 완료하면 Firebase RealtimeDB에 email, password, uid 저장
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            saveDataToFirebaseDB(email, password, auth);
+                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(SignupActivity.this, "반갑습니다..", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+
+                        } else {
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignupActivity.this, "회원가입 오류.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+    private void saveDataToFirebaseDB(String email, String password, FirebaseAuth auth){
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        UserAccount userAccount = new UserAccount();
+        userAccount.setEmail(firebaseUser.getEmail());
+        userAccount.setPassword(password);
+        userAccount.setIdToken(firebaseUser.getUid());
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference("UserAccount");
+        databaseReference.child(firebaseUser.getUid()).setValue(userAccount);
+    }
+
     private void handleDeepLink(){
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -118,37 +155,6 @@ public class SignupActivity extends AppCompatActivity {
                         // 사용자 아이디 비밀번호 firebase에 추가하는 작업 후 화면 이동?
                     }
                 })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "getDynamicLink:onFailure", e);
-                    }
-                });
-    }
-
-    private void createUser(String email, String password){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(SignupActivity.this, "반갑습니다..", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-//                            FirebaseUser user = auth.getCurrentUser();
-//                            updateUI(user);
-
-                        } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignupActivity.this, "회원가입 오류.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
     }
 }

@@ -16,5 +16,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="send_email">이메일 전송</string>
-    <string name="write">후기작성</string>
+    <string name="write">작성하기</string>
+    <string name="untill_year">년도까지 거주</string>
+    <string name="additional_opinion">추가 의견을 말해주세요!</string>
+    <string name="address">검색한 주소명 타이틀로 들어감</string>
 </resources>
