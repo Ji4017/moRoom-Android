@@ -1,11 +1,14 @@
 package com.example.capstone;
 
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,12 +42,14 @@ public class WriteActivity extends AppCompatActivity {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final FirebaseAuth auth = FirebaseAuth.getInstance();
     final FirebaseUser firebaseUser = auth.getCurrentUser();
-    public TextView address;
-    private EditText textMultiLine;
+    public EditText etAddress;
+    private EditText etGoodThingMultiLine;
+    private EditText etBadThingMultiLine;
     private CheckedTextView checkedTextView;
-    private String title, selectedFloor, selectedYear, untillTheYear , selectedRentType;
+    private String selectedFloor, selectedYear, untillTheYear , selectedRentType;
 
     private ArrayList<String> checkedTextList;  // 체크된 텍스트를 저장할 리스트
+    private SaveReviewWithLatLng saveReviewWithLatLng = new SaveReviewWithLatLng();
 
 
     @Override
@@ -53,55 +58,51 @@ public class WriteActivity extends AppCompatActivity {
         binding = ActivityWriteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        address = binding.address;
+        etAddress = binding.etAddress;
         Spinner floorSpinner = binding.spinner1;
         Spinner yearSpinner = binding.spinner2;
         Spinner rentTypeSpinner = binding.spinner3;
         TextView betweenTextView = binding.spinnerTextView;
-        textMultiLine = binding.textMultiLine;
+        etGoodThingMultiLine = binding.goodMultiLine;
+        etBadThingMultiLine = binding.badMultiLine;
         Button writeButton = binding.writeButton;
         untillTheYear = betweenTextView.getText().toString();
         checkedTextView = findViewById(R.id.checkedTextView);
 
         checkedTextList = new ArrayList<>();  // 체크된 텍스트를 저장할 리스트 초기화
 
+        etAddress.setFocusable(false);
+//        detailAddress.setFocusable(false);
+        etAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WriteActivity.this, SearchActivity.class);
+                getSearchResult.launch(intent);
+            }
+        });
+
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveReviewToDB();
+                String address = etAddress.getText().toString();
+                String title = selectedFloor + " " + selectedYear + untillTheYear + " " + selectedRentType;
+                String goodThingMultiLine = etGoodThingMultiLine.getText().toString();
+                String badThingMultiLine = etBadThingMultiLine.getText().toString();
+
+                if (!etAddress.getText().toString().isEmpty()){
+                    saveReviewWithLatLng.getLatLngFromAddress(address, WriteActivity.this);
+                    saveReviewWithLatLng.saveReviewToDB(address, title, checkedTextList, goodThingMultiLine, badThingMultiLine );
+                    Toast.makeText(WriteActivity.this, "후기작성 완료", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(WriteActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                else{
+                    Toast.makeText(WriteActivity.this, "주소를 설정해주세요", Toast.LENGTH_LONG).show();
+                }
             }
         });
-
-        floorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedFloor = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
-        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedYear = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
-        rentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedRentType = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
 
 
         checkListRecyclerView = findViewById(R.id.checkListRecyclerView); // 아디 연결
@@ -137,30 +138,81 @@ public class WriteActivity extends AppCompatActivity {
         adapter = new CheckedTextViewAdapter(arrayList, this, this);
         checkListRecyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
+
+        // 사용자가 선택한 Spinner 값 텍스트 추출
+        floorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedFloor = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedYear = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        rentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedRentType = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
     }
 
+    private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달된다.
+                if (result.getResultCode() == RESULT_OK){
+                    if (result.getData() != null){
+                        String data = result.getData().getStringExtra("data");
+                        etAddress.setText(data);
+                    }
+                }
+            }
+    );
 
-    // 사용자가 작성한 리뷰 Firebase DB에 저장
-    private void saveReviewToDB(){
-        title = selectedFloor + " " + selectedYear + " " + untillTheYear + " " + selectedRentType;
 
-        WrittenReviewData writtenReviewData = new WrittenReviewData();
-        writtenReviewData.setIdToken(firebaseUser.getUid());
-        writtenReviewData.setAddress(address.getText().toString());
-        writtenReviewData.setTitle(title);
-        writtenReviewData.setOpinion(textMultiLine.getText().toString());
-
-        databaseReference = database.getReference("Address").child(address.getText().toString()).push();
-        databaseReference.setValue(writtenReviewData);
-        
-        // 사용자가 체크한 리스트의 텍스트값만 담겨진 리스트를 for each 문으로 DB에 저장
-        for (String checkedText : checkedTextList) {
-            writtenReviewData.setSelectedListText(checkedText);
-            databaseReference.child("selectedList").push().setValue(checkedText);
-        }
-
-        Toast.makeText(WriteActivity.this, "후기작성 완료", Toast.LENGTH_LONG).show();
-    }
+//    public void saveReviewToDB(){
+//
+//        if (!address.getText().toString().isEmpty()){
+//
+//            title = selectedFloor + " " + selectedYear + untillTheYear + " " + selectedRentType;
+//
+//            WrittenReviewData writtenReviewData = new WrittenReviewData();
+//            writtenReviewData.setIdToken(firebaseUser.getUid());
+//            writtenReviewData.setAddress(address.getText().toString());
+//            writtenReviewData.setTitle(title);
+//            writtenReviewData.setGoodThing(goodThingMultiLine.getText().toString());
+//            writtenReviewData.setBadThing(badThingMultiLine.getText().toString());
+//
+//            databaseReference = database.getReference("Address").child(address.getText().toString()).push();
+//            databaseReference.setValue(writtenReviewData);
+//
+//            // 사용자가 체크한 리스트의 텍스트값만 담겨진 리스트를 for each 문으로 DB에 저장
+//            for (String checkedText : checkedTextList) {
+//                writtenReviewData.setSelectedListText(checkedText);
+//                databaseReference.child("selectedList").push().setValue(checkedText);
+//            }
+//
+//            Toast.makeText(WriteActivity.this, "후기작성 완료", Toast.LENGTH_LONG).show();
+//        }
+//
+//        else { Toast.makeText(this, "주소를 설정해주세요", Toast.LENGTH_LONG).show(); }
+//    }
 
     // 체크된 텍스트를 리스트에 추가
     public void addTextToList(String text) {

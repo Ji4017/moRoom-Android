@@ -1,13 +1,13 @@
 package com.example.capstone;
 
-import java.util.List;
 
 public class WrittenReviewData {
     private String idToken;
     private String address;
     private String title;
-    private String opinion;
     private String selectedListText;
+    private String goodThing;
+    private String badThing;
 
     public WrittenReviewData(){}
 
@@ -43,11 +43,19 @@ public class WrittenReviewData {
         this.title = title;
     }
 
-    public String getOpinion() {
-        return opinion;
+    public String getGoodThing() {
+        return goodThing;
     }
 
-    public void setOpinion(String opinion) {
-        this.opinion = opinion;
+    public void setGoodThing(String goodThing) {
+        this.goodThing = goodThing;
+    }
+
+    public String getBadThing() {
+        return badThing;
+    }
+
+    public void setBadThing(String badThing) {
+        this.badThing = badThing;
     }
 }

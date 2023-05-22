@@ -17,9 +17,6 @@ public class CheckedTextViewAdapter extends RecyclerView.Adapter<CheckedTextView
     final Context context;
     private WriteActivity writeActivity;
 
-//    추후 DB에 true false 값 넣으려면
-//    public boolean isSelected;
-
 
     public CheckedTextViewAdapter(ArrayList<CheckedTextViewData> arrayList, Context context, WriteActivity writeActivity) {
         this.arrayList = arrayList;
@@ -37,26 +34,31 @@ public class CheckedTextViewAdapter extends RecyclerView.Adapter<CheckedTextView
 
     @Override
     public void onBindViewHolder(@NonNull ChdContentsViewHolder holder, int position) {
-        holder.checkedTextView.setText(String.valueOf(arrayList.get(position).getListText()));
-//        holder.checkedTextView.setChecked(arrayList.get(position).isSelected());
+        CheckedTextViewData data = arrayList.get(position);
+        holder.checkedTextView.setText(data.getListText());
+        holder.checkedTextView.setChecked(data.isChecked());
 
         holder.checkedTextView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 CheckedTextView checkBox = (CheckedTextView) view;
-                checkBox.setChecked(!checkBox.isChecked());
+                boolean isChecked = !checkBox.isChecked();
+
+                // 체크 여부를 데이터 모델에 업데이트
+                data.setChecked(isChecked);
 
                 // 체크 여부에 따라 리스트에 텍스트를 추가하거나 제거
-                String text = String.valueOf(arrayList.get(holder.getAdapterPosition()).getListText());
-                if (checkBox.isChecked()) {
+                String text = data.getListText();
+                if (isChecked) {
                     // 체크되었을 때 리스트에 추가
                     writeActivity.addTextToList(text);
                 } else {
                     // 체크 해제되었을 때 리스트에서 제거
                     writeActivity.removeTextFromList(text);
                 }
+
+                checkBox.setChecked(isChecked); // 체크박스 상태 업데이트
             }
         });
-
     }
 
     @Override

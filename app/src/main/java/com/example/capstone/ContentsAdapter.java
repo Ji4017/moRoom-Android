@@ -1,5 +1,6 @@
 package com.example.capstone;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstone.databinding.ListItemBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ContentsAdapter extends RecyclerView.Adapter<ContentsAdapter.ContentsViewHolder> {
 
     final ArrayList<Contents> arrayList;
-//    final Context context;
+    final Context context;
 
     public ContentsAdapter(ArrayList<Contents> arrayList) {
         this.arrayList = arrayList;
-//        this.context = context;
+        this.context = null;
+    }
+
+    public ContentsAdapter(ArrayList<Contents> arrayList, Context context){
+        this.arrayList = arrayList;
+        this.context = context;
     }
 
     @NonNull
@@ -33,8 +40,19 @@ public class ContentsAdapter extends RecyclerView.Adapter<ContentsAdapter.Conten
     public void onBindViewHolder(@NonNull ContentsViewHolder holder, int position) {
         // 객체 담아서 리스트 컬럼 여러 개 뿌려줌
         holder.tv_title.setText(String.valueOf(arrayList.get(position).getTitle()));
-        holder.tv_cbxList.setText(String.valueOf(arrayList.get(position).getCbxList()));
-        holder.tv_opinion.setText(String.valueOf(arrayList.get(position).getOpinion()));
+        holder.tv_goodThing.setText(String.valueOf(arrayList.get(position).getGoodThing()));
+        holder.tv_badThing.setText(String.valueOf(arrayList.get(position).getBadThing()));
+
+        // selectedList 값 처리
+        HashMap<String, String> selectedList = arrayList.get(position).getSelectedList();
+        StringBuilder selectedListText = new StringBuilder();
+
+        for (String key : selectedList.keySet()) {
+            String value = selectedList.get(key);
+            selectedListText.append(value).append("\n");
+        }
+
+        holder.tv_selectedList.setText(selectedListText.toString());
     }
 
     @Override
@@ -46,15 +64,17 @@ public class ContentsAdapter extends RecyclerView.Adapter<ContentsAdapter.Conten
 
         ListItemBinding listItemBinding;
         TextView tv_title;
-        TextView tv_cbxList;
-        TextView tv_opinion;
+        TextView tv_selectedList;
+        TextView tv_goodThing;
+        TextView tv_badThing;
 
         public ContentsViewHolder(@NonNull View itemView) {
             super(itemView);
             listItemBinding = ListItemBinding.bind(itemView);
             tv_title = listItemBinding.tvTitle;
-            tv_cbxList = listItemBinding.tvCbxList;
-            tv_opinion = listItemBinding.tvOpinion;
+            tv_selectedList = listItemBinding.tvSelectedList;
+            tv_goodThing = listItemBinding.tvGoodThing;
+            tv_badThing = listItemBinding.tvBadThing;
         }
     }
 }

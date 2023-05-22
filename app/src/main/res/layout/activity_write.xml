@@ -6,18 +6,24 @@
     android:orientation="vertical"
     tools:context=".WriteActivity">
 
-    <androidx.appcompat.widget.SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.appcompat.widget.SearchView>
-
     <TextView
-        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:text="주소입력"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="주소를 입력해주세요"
+        android:importantForAutofill="no"
         android:minHeight="48dp"
-        android:text="@string/address" />
+        tools:ignore="TextFields" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,19 +70,46 @@
         android:id="@+id/checkListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/goodThing"
+        android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/textMultiLine"
+        android:id="@+id/goodMultiLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="@string/additional_opinion"
+        android:hint="@string/say_goodThing"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
         android:minHeight="48dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/badThing"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/badMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/say_badThing"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"/>
 
     <Button
         android:id="@+id/writeButton"

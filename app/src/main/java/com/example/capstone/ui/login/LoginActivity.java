@@ -37,6 +37,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
@@ -46,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        existingUserMovetoMain();
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -58,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = binding.login;
         final Button signUpButton = binding.signUp;
         final ProgressBar loadingProgressBar = binding.loading;
+
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +147,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void existingUserMovetoMain(){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            // 사용자가 이미 로그인한 경우 MainActivity로 이동
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // LoginActivity 종료
+        }
+    }
+
     private void signIn(String email, String password){
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(email, password)
@@ -179,4 +195,26 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
-}
+
+    // 릴리즈용 키 구하기
+//    private void getHashKey(){
+//        PackageInfo packageInfo = null;
+//        try {
+//            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        if (packageInfo == null)
+//            Log.e("KeyHash", "KeyHash:null");
+//
+//        for (Signature signature : packageInfo.signatures) {
+//            try {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            } catch (NoSuchAlgorithmException e) {
+//                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+//            }
+//        }
+//    }
+ }

@@ -1,9 +1,12 @@
 package com.example.capstone;
 
+import java.util.HashMap;
+
 public class Contents {
     private String title;
-    private String cbxList;
-    private String opinion;
+    private HashMap<String, String> selectedList;
+    private String goodThing;
+    private String badThing;
 
     public Contents(){}
 
@@ -15,19 +18,27 @@ public class Contents {
         this.title = title;
     }
 
-    public String getCbxList() {
-        return cbxList;
+    public HashMap<String, String> getSelectedList() {
+        return selectedList;
     }
 
-    public void setCbxList(String cbxList) {
-        this.cbxList = cbxList;
+    public void setSelectedList(HashMap<String, String> selectedList) {
+        this.selectedList = selectedList;
     }
 
-    public String getOpinion() {
-        return opinion;
+    public String getGoodThing() {
+        return goodThing;
     }
 
-    public void setOpinion(String opinion) {
-        this.opinion = opinion;
+    public void setGoodThing(String goodThing) {
+        this.goodThing = goodThing;
+    }
+
+    public String getBadThing() {
+        return badThing;
+    }
+
+    public void setBadThing(String badThing) {
+        this.badThing = badThing;
     }
 }

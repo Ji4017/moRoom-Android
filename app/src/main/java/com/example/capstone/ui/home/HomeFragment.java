@@ -1,12 +1,19 @@
 package com.example.capstone.ui.home;
 
+
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstone.ContentsAdapter;
 import com.example.capstone.R;
 import com.example.capstone.Contents;
+import com.example.capstone.SearchActivity;
+import com.example.capstone.SearchedActivity;
 import com.example.capstone.WriteActivity;
 import com.example.capstone.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,12 +38,8 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Contents> arrayList;
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
+    private final ArrayList<Contents> arrayList = new ArrayList<>();
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,28 +47,32 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        recyclerView = view.findViewById(R.id.homeRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<>();
 
+        RecyclerView recyclerView = view.findViewById(R.id.homeRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        EditText searchView = binding.etAddress;
         FloatingActionButton fab = binding.fab;
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(getActivity(), WriteActivity.class);
-                startActivity(intent);
-//                finish();
+        searchView.setFocusable(false);
 
-            }
+        searchView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            getSearchResult.launch(intent);
         });
 
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Address").child("직지대로 864");
+
+        fab.setOnClickListener(view12 -> {
+//            Snackbar.make(view12, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+            Intent intent = new Intent(getActivity(), WriteActivity.class);
+            startActivity(intent);
+
+        });
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference("Address").child("검색한 주소명 타이틀로 들어감");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -96,4 +105,21 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달됨.
+                if (result.getResultCode() == RESULT_OK){
+                    if (result.getData() != null){
+                        String data = result.getData().getStringExtra("data");
+
+                        Intent intent = new Intent(getActivity(), SearchedActivity.class);
+                        intent.putExtra("searchedAddress", data);
+                        startActivity(intent);
+
+                    }
+                }
+            }
+    );
 }

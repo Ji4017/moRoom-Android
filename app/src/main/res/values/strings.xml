@@ -18,6 +18,18 @@
     <string name="send_email">이메일 전송</string>
     <string name="write">작성하기</string>
     <string name="untill_year">년도까지 거주</string>
-    <string name="additional_opinion">추가 의견을 말해주세요!</string>
+    <string name="say_goodThing">좋은 점을 말해주세요!</string>
+    <string name="say_badThing">나쁜 점을 말해주세요!</string>
     <string name="address">검색한 주소명 타이틀로 들어감</string>
+    <string name="goodThing">좋은점</string>
+    <string name="badThing">나쁜점</string>
+    <string name="title_activity_searched">Searched</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
