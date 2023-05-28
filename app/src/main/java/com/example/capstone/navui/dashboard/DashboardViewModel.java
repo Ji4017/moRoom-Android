@@ -1,7 +1,5 @@
-package com.example.capstone.ui.dashboard;
+package com.example.capstone.navui.dashboard;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class DashboardViewModel extends ViewModel {

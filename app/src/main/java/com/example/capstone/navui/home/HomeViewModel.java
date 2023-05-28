@@ -1,7 +1,5 @@
-package com.example.capstone.ui.home;
+package com.example.capstone.navui.home;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class HomeViewModel extends ViewModel {

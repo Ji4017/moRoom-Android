@@ -13,18 +13,19 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:hint="주소를 검색해 보세요."
         android:importantForAutofill="no"
         android:minHeight="48dp"
-        tools:ignore="TextFields" />
+        tools:ignore="TextFields"
+        android:background="@drawable/edit_text_border"/>
 
     <TextView
         android:id="@+id/tv_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="moRooom HomeFragemnt"
+        android:text="가장 많이 본 후기"
         android:textSize="24sp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/et_address"/>

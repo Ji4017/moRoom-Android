@@ -1,4 +1,6 @@
-package com.example.capstone.ui.dashboard;
+package com.example.capstone.navui.dashboard;
+
+import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,8 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -21,7 +26,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstone.R;
+import com.example.capstone.SearchActivity;
 import com.example.capstone.SearchedActivity;
+import com.example.capstone.WriteActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,10 +56,26 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
     private Double longitude = 0.0;
     private String address;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        EditText searchView = view.findViewById(R.id.et_address);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+
+        searchView.setFocusable(false);
+
+        searchView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            getSearchResult.launch(intent);
+        });
+
+        fab.setOnClickListener(view12 -> {
+            Intent intent = new Intent(getActivity(), WriteActivity.class);
+            startActivity(intent);
+
+        });
 
         try {
             PackageInfo info = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), PackageManager.GET_SIGNATURES);
@@ -90,6 +114,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
         mapView.setMapViewEventListener(this);
         mapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter());
         mapView.setPOIItemEventListener(this);
+
 
         // 지도의 중심 및 줌 레벨 설정
         MapPoint chungjuUnivPoint = MapPoint.mapPointWithGeoCoord(CHUNGJU_UNIV_LATITUDE, CHUNGJU_UNIV_LONGITUDE);
@@ -155,6 +180,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
         public View getCalloutBalloon(MapPOIItem poiItem) {
             // 마커 클릭 시 나오는 말풍선
             Log.d("getCalloutBallon", "마커 클릭 됨");
+            String address = poiItem.getItemName();  // 각 마커의 주소 가져오기
             ((TextView) mCalloutBalloon.findViewById(R.id.balloon_address)).setText(address);
             return mCalloutBalloon;
         }
@@ -192,6 +218,23 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
             }
         }
     }
+
+    private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달됨.
+                if (result.getResultCode() == RESULT_OK){
+                    if (result.getData() != null){
+                        String data = result.getData().getStringExtra("data");
+
+                        Intent intent = new Intent(getActivity(), SearchedActivity.class);
+                        intent.putExtra("searchedAddress", data);
+                        startActivity(intent);
+
+                    }
+                }
+            }
+    );
 
     @Override
     public void onDestroyView() {
@@ -273,7 +316,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
         // 말풍선 클릭 시
         Log.d("onCalloutBalloonOfPOIItemTouched", "POIItem 터치 됨");
         Intent intent = new Intent(getActivity(), SearchedActivity.class);
-        intent.putExtra("searchedAddress", address);
+        intent.putExtra("searchedAddress", mapPOIItem.getItemName());
         startActivity(intent);
     }
 

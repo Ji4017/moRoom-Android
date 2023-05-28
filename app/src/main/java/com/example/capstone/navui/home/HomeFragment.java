@@ -1,4 +1,4 @@
-package com.example.capstone.ui.home;
+package com.example.capstone.navui.home;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -27,7 +27,6 @@ import com.example.capstone.SearchedActivity;
 import com.example.capstone.WriteActivity;
 import com.example.capstone.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,15 +63,13 @@ public class HomeFragment extends Fragment {
 
 
         fab.setOnClickListener(view12 -> {
-//            Snackbar.make(view12, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show();
             Intent intent = new Intent(getActivity(), WriteActivity.class);
             startActivity(intent);
 
         });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference("Address").child("검색한 주소명 타이틀로 들어감");
+        DatabaseReference databaseReference = database.getReference("Address").child("메인용 후기");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
