@@ -105,7 +105,7 @@ public class WriteActivity extends AppCompatActivity {
         });
 
 
-        checkListRecyclerView = findViewById(R.id.checkListRecyclerView); // 아디 연결
+        checkListRecyclerView = findViewById(R.id.checkListRecyclerView); // 아이디 연결
         checkListRecyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(this);
         checkListRecyclerView.setLayoutManager(layoutManager);
@@ -185,34 +185,6 @@ public class WriteActivity extends AppCompatActivity {
             }
     );
 
-
-//    public void saveReviewToDB(){
-//
-//        if (!address.getText().toString().isEmpty()){
-//
-//            title = selectedFloor + " " + selectedYear + untillTheYear + " " + selectedRentType;
-//
-//            WrittenReviewData writtenReviewData = new WrittenReviewData();
-//            writtenReviewData.setIdToken(firebaseUser.getUid());
-//            writtenReviewData.setAddress(address.getText().toString());
-//            writtenReviewData.setTitle(title);
-//            writtenReviewData.setGoodThing(goodThingMultiLine.getText().toString());
-//            writtenReviewData.setBadThing(badThingMultiLine.getText().toString());
-//
-//            databaseReference = database.getReference("Address").child(address.getText().toString()).push();
-//            databaseReference.setValue(writtenReviewData);
-//
-//            // 사용자가 체크한 리스트의 텍스트값만 담겨진 리스트를 for each 문으로 DB에 저장
-//            for (String checkedText : checkedTextList) {
-//                writtenReviewData.setSelectedListText(checkedText);
-//                databaseReference.child("selectedList").push().setValue(checkedText);
-//            }
-//
-//            Toast.makeText(WriteActivity.this, "후기작성 완료", Toast.LENGTH_LONG).show();
-//        }
-//
-//        else { Toast.makeText(this, "주소를 설정해주세요", Toast.LENGTH_LONG).show(); }
-//    }
 
     // 체크된 텍스트를 리스트에 추가
     public void addTextToList(String text) {

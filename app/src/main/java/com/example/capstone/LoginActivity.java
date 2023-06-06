@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstone.databinding.ActivityLoginBinding;
@@ -35,14 +36,18 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
-    private Button signUpButton;
+    private TextView signUpTextView;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 이미 존재하는 유저면 로그인 화면 건너뛰고 메인으로 이동
         existingUserMovetoMain();
+
+        // 동적링크 처리
+        handleDeepLink();
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -50,14 +55,11 @@ public class LoginActivity extends AppCompatActivity {
         usernameEditText = binding.username;
         passwordEditText = binding.password;
         loginButton = binding.login;
-        signUpButton = binding.signUp;
+        signUpTextView = binding.signUp;
 
         loginButton.setEnabled(false);
 
-        handleDeepLink();
-
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
@@ -195,10 +197,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkSignUpButtonVisibility() {
-        if (usernameEditText.getError() == null && passwordEditText.getError() == null) {
-            loginButton.setEnabled(true);  // ID와 Password에 모두 에러가 없는 경우 버튼 활성화
+        String username = usernameEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+
+        if (!username.isEmpty() && !password.isEmpty() && isValidEmailFormat(username)) {
+            loginButton.setEnabled(true);  // ID와 Password에 모두 값이 있고 유효한 이메일 형식인 경우 버튼 활성화
         } else {
-            loginButton.setEnabled(false);  // 에러가 있는 경우 버튼 비활성화
+            loginButton.setEnabled(false);  // 그 외의 경우 버튼 비활성화
         }
     }
 

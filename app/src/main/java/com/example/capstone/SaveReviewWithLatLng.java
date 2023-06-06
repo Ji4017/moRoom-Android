@@ -97,6 +97,16 @@ public class SaveReviewWithLatLng {
                 databaseRef.child("selectedList").push().setValue(checkedText);
             }
 
+            // 리뷰를 작성했으니 UserAccount의 review 노드의 값을 true로 바꿔줌
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("UserAccount");
+
+            Map<String, Object> update = new HashMap<>();
+            update.put(user.getUid() + "/review", true);
+
+            // 저장된 데이터 업데이트
+            usersRef.updateChildren(update);
+
         }
     }
 }

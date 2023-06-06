@@ -3,16 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/blur"
+        android:visibility="gone"
+        android:contentDescription="ReviewBlur" />
+
     <TextView
         android:id="@+id/tv_addressTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="10dp"
+        android:textStyle="bold"
         android:text="주소 제목"
         android:textSize="20sp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchedRecyclerView"
@@ -20,7 +30,11 @@
         android:layout_height="match_parent"
         android:layout_below="@id/tv_addressTitle"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -32,5 +46,52 @@
         android:contentDescription="@string/write"
         android:src="@drawable/baseline_edit_24" />
 
+    <TextView
+        android:id="@+id/pleaseMessage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:text="잠깐!" />
+
+    <TextView
+        android:id="@+id/pleaseMessage2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pleaseMessage1"
+        android:layout_marginTop="12dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:text="후기를 작성하고 마음껏 볼 수 있어요" />
+
+    <Button
+        android:id="@+id/moveToWrite"
+        android:text="후기 작성하러 가기"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pleaseMessage2"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"
+        android:background="@drawable/button_style_1">
+    </Button>
+
+    <TextView
+        android:id="@+id/pleaseMessage3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:text="아직 후기가 없어요\n\n일등으로 후기를 작성해주시겠어요?" />
 
 </RelativeLayout>

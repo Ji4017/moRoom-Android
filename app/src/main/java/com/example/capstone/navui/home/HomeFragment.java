@@ -3,6 +3,7 @@ package com.example.capstone.navui.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -90,7 +91,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        adapter = new ContentsAdapter(arrayList);
+        Contents contents = new Contents();
+        contents.setBlur(false);
+
+        Context context = getActivity();
+        adapter = new ContentsAdapter(arrayList, context);
         recyclerView.setAdapter(adapter);
 
 

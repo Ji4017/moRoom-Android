@@ -4,6 +4,7 @@ public class UserAccount {
     private String idToken;
     private String email;
     private String password;
+    private boolean review;
 
     public UserAccount(){}
 
@@ -29,5 +30,13 @@ public class UserAccount {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isReview() {
+        return review;
+    }
+
+    public void setReview(boolean review) {
+        this.review = review;
     }
 }

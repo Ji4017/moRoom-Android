@@ -18,7 +18,7 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:background="@drawable/edit_text_border" />
+        android:background="@drawable/edit_text_style_1" />
 
     <EditText
         android:id="@+id/setPassword"
@@ -30,7 +30,7 @@
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:background="@drawable/edit_text_border" />
+        android:background="@drawable/edit_text_style_1" />
 
     <EditText
         android:id="@+id/emailAddress"
@@ -41,14 +41,15 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:background="@drawable/edit_text_border" />
+        android:background="@drawable/edit_text_style_1" />
 
     <Button
         android:id="@+id/sendEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/send_email" />
+        android:text="@string/send_email"
+        android:background="@drawable/button_style_1"/>
 
     <Button
         android:id="@+id/register"
@@ -56,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:paddingHorizontal="25dp"
-        android:text="@string/action_sign_up" />
+        android:text="@string/action_sign_up"
+        android:background="@drawable/button_style_1"/>
 
 </LinearLayout>

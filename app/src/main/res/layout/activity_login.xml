@@ -12,31 +12,31 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="12"
         android:layout_marginTop="270dp"
+        android:ems="12"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
-        android:minHeight="48dp"
         android:selectAllOnFocus="true"
         android:importantForAutofill="no"
-        android:background="@drawable/edit_text_border"/>
+        android:minHeight="48dp"
+        android:background="@drawable/edit_text_style_1" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="12"
         android:layout_marginTop="8dp"
+        android:ems="12"
         android:hint="@string/prompt_password"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:selectAllOnFocus="true"
-        android:importantForAutofill="no"
-        android:background="@drawable/edit_text_border"/>
+        android:background="@drawable/edit_text_style_1" />
 
     <Button
         android:id="@+id/login"
@@ -45,12 +45,16 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="5dp"
         android:enabled="false"
-        android:text="@string/action_sign_in" />
+        android:text="@string/action_sign_in"
+        android:background="@drawable/button_style_1"/>
 
-    <Button
+    <TextView
         android:id="@+id/sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="32dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:gravity="center"
         android:text="@string/action_sign_up" />
 
     <ProgressBar
