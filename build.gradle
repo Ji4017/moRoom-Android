@@ -11,7 +11,12 @@ buildscript {
     }
 }
 
+
 plugins {
     id 'com.android.application' version '7.4.2' apply false
     id 'com.android.library' version '7.4.2' apply false
 }
+
+
+// 최신 안드로이드 스튜디오 버전인 Arctic Fox(2020.3.1) 이후 버전은 라이브러리 추가를 위해 allprojects { } 코드 사용 시 에러가 발생함
+// allprojects에 작성할 내용을 settings.gradle 파일에 작성

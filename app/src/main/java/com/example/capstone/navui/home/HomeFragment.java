@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -48,6 +49,8 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+
+        ImageView mainImageView = binding.mainImage;
         RecyclerView recyclerView = view.findViewById(R.id.homeRecyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -55,8 +58,11 @@ public class HomeFragment extends Fragment {
         EditText searchView = binding.etAddress;
         FloatingActionButton fab = binding.fab;
 
-        searchView.setFocusable(false);
 
+
+        mainImageView.setClipToOutline(true);
+
+        searchView.setFocusable(false);
         searchView.setOnClickListener(view1 -> {
             Intent intent = new Intent(getActivity(), SearchActivity.class);
             getSearchResult.launch(intent);

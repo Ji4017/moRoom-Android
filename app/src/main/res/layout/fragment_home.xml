@@ -1,51 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:hint="주소를 검색해 보세요."
-        android:importantForAutofill="no"
-        android:minHeight="48dp"
-        tools:ignore="TextFields"
-        android:background="@drawable/edit_text_border"/>
-
-    <TextView
-        android:id="@+id/tv_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="가장 많이 본 후기"
-        android:textSize="24sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/et_address"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeRecyclerView"
+    <com.amar.library.ui.StickyScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tv_test"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        app:stickyHeader="@+id/et_address">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/imageContainer"
+                android:layout_width="352dp"
+                android:layout_height="198dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:contentDescription="mainImage">
+
+                <ImageView
+                    android:id="@+id/mainImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_image"
+                    android:contentDescription="mainIamge"
+                    android:src="@drawable/cju" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/et_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageContainer"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:text="어떤 집을 찾으시나요?"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_1"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="30dp"
+                android:hint="주소를 검색해주세요"
+                android:importantForAutofill="no"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                tools:ignore="TextFields"
+                android:background="@drawable/border_et_home" />
+
+            <TextView
+                android:id="@+id/tv_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_address"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="30dp"
+                android:text="Best! 후기"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homeRecyclerView"
+                android:layout_below="@id/tv_test"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="30dp"
+                android:nestedScrollingEnabled="false" />
+
+        </RelativeLayout>
+
+    </com.amar.library.ui.StickyScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:contentDescription="@string/write"
-        android:src="@drawable/baseline_edit_24" />
-
+        android:backgroundTint="@color/sky"
+        android:contentDescription="후기 작성"
+        android:src="@drawable/fab_baseline"
+        app:borderWidth="0dp"
+        app:tint="@color/white" />
 
 </RelativeLayout>

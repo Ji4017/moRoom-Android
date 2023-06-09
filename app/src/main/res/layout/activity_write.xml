@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="3dp"
         android:text="주소입력"
         android:textSize="20sp"
         android:textStyle="bold"/>
@@ -21,10 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:paddingLeft="10dp"
         android:hint="주소를 입력해주세요"
         android:importantForAutofill="no"
         android:minHeight="48dp"
-        tools:ignore="TextFields" />
+        tools:ignore="TextFields"
+        android:background="@drawable/border_et_dashboard" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,18 +88,20 @@
         android:id="@+id/goodMultiLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
-        android:gravity="start|top"
+        android:gravity="center_vertical"
         android:hint="@string/say_goodThing"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:background="@drawable/border_et_dashboard"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/badThing"
         android:textStyle="bold" />
 
@@ -104,13 +109,14 @@
         android:id="@+id/badMultiLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
-        android:gravity="start|top"
+        android:gravity="center_vertical"
         android:hint="@string/say_badThing"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:minHeight="48dp"/>
+        android:minHeight="48dp"
+        android:background="@drawable/border_et_dashboard"/>
 
     <Button
         android:id="@+id/writeButton"
@@ -118,5 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="@string/write" />
+        android:text="작성 완료"
+
+        />
 </LinearLayout>
