@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -15,10 +17,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstone.databinding.ActivitySearchedBinding;
+import com.example.capstone.navui.dashboard.DashboardFragment;
+import com.example.capstone.navui.home.HomeFragment;
+import com.example.capstone.navui.profile.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,15 +48,13 @@ public class SearchedActivity extends AppCompatActivity {
     private final ArrayList<Contents> arrayList = new ArrayList<>();
     public String searchedAddress;
     private EditText searchView;
-    private TextView addressTitle;
     private RecyclerView recyclerView;
+    private LinearLayout linearFooterMessage, linearBottom;
     private FloatingActionButton fab;
-    private ImageView stripBannerImage;
-    private ImageView blurView;
-    private TextView pleaseMessage1;
-    private TextView pleaseMessage2;
-    private TextView pleaseMessage3;
+    private ImageView stripBannerImage, blurView;
+    private TextView addressTitle, pleaseMessage1, pleaseMessage2, pleaseMessage3;
     private Button moveToWrite;
+    private ImageButton imgBack, imgHome, imgDash, imgProfile;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +66,20 @@ public class SearchedActivity extends AppCompatActivity {
         addressTitle = binding.tvAddressTitle;
 
         recyclerView = binding.searchedRecyclerView;
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true); // 아이템이 추가, 삭제, 변경되면 사이즈가 변경될 수 있는 뷰이므로 사이즈 고정해서 불필요한 리소스 아낌
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        imgBack = binding.imgBack;
+        imgHome = binding.imgHome;
+        imgDash = binding.imgDash;
+        imgProfile = binding.imgProfile;
+
         fab = binding.fab;
         stripBannerImage = binding.stripBannerImage;
+        linearFooterMessage = binding.linearFooterMessage;
+        linearBottom = binding.linearBottom;
+
 
         blurView = binding.blurView;
         pleaseMessage1 = binding.pleaseMessage1;
@@ -74,26 +88,56 @@ public class SearchedActivity extends AppCompatActivity {
         moveToWrite = binding.moveToWrite;
 
 
+        imgBack.setOnClickListener(view -> {
+            // 뒤로 가기
+            onBackPressed();
+        });
+
+        imgHome.setOnClickListener(view -> {
+            Intent intent = new Intent(SearchedActivity.this, MainActivity.class);
+            intent.putExtra("selectedFragment", "home"); // 선택한 프래그먼트를 전달
+            startActivity(intent);
+            finish();
+        });
+
+        imgDash.setOnClickListener(view -> {
+            Intent intent = new Intent(SearchedActivity.this, MainActivity.class);
+            intent.putExtra("selectedFragment", "dashboard"); // 선택한 프래그먼트를 전달
+            startActivity(intent);
+            finish();
+        });
+
+        imgProfile.setOnClickListener(view -> {
+            Intent intent = new Intent(SearchedActivity.this, MainActivity.class);
+            intent.putExtra("selectedFragment", "profile"); // 선택한 프래그먼트를 전달
+            startActivity(intent);
+            finish();
+        });
+
+
+
         searchView.setFocusable(false);
         searchView.setOnClickListener(view1 -> {
+            // 주소 검색 화면으로 이동
             Intent intent = new Intent(SearchedActivity.this, SearchActivity.class);
             getSearchResult.launch(intent);
         });
 
-
         fab.setOnClickListener(view -> {
+            // 후기 작성 화면으로 이동
             Intent intent = new Intent(SearchedActivity.this, WriteActivity.class);
             startActivity(intent);
 
         });
 
         stripBannerImage.setOnClickListener(view -> {
+            // 후기 작성 화면으로 이동
             Intent intent = new Intent(SearchedActivity.this, WriteActivity.class);
             startActivity(intent);
         });
 
-
         moveToWrite.setOnClickListener(view -> {
+            // 후기 작성 화면으로 이동
             Intent intent = new Intent(SearchedActivity.this, WriteActivity.class);
             startActivity(intent);
         });
@@ -107,7 +151,8 @@ public class SearchedActivity extends AppCompatActivity {
         ShowReview();
     }
 
-    private void CheckReviewExistence(){
+
+    private void CheckReviewExistence() {
         // 현재 유저가 작성한 리뷰가 있는지 없는지 확인
 
         String uid = user.getUid();
@@ -119,8 +164,7 @@ public class SearchedActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("에러 발생", "Error getting data", task.getException());
-                }
-                else {
+                } else {
                     DataSnapshot dataSnapshot = task.getResult();
                     if (dataSnapshot.exists()) {
                         Boolean reviewValue = dataSnapshot.child("review").getValue(Boolean.class);
@@ -128,7 +172,7 @@ public class SearchedActivity extends AppCompatActivity {
                         Contents contents = new Contents();
 
                         // 사용자가 작성한 리뷰가 있는 경우 Blur값을 false로
-                        if (reviewValue == true){
+                        if (Boolean.TRUE.equals(reviewValue)) {
                             contents.setBlur(false);
                             ShowReview();
                         }
@@ -152,7 +196,7 @@ public class SearchedActivity extends AppCompatActivity {
     }
 
 
-    private void ShowReview(){
+    private void ShowReview() {
         // 디비에 있는 리뷰를 보여줌
 
         addressTitle.setText(searchedAddress);
@@ -162,7 +206,7 @@ public class SearchedActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     // 해당 주소의 후기가 있을 때
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         if (dataSnapshot.getKey().equals("latitude") || dataSnapshot.getKey().equals("longitude")) {
@@ -179,11 +223,14 @@ public class SearchedActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataSetChanged();
 
-                }
-
-                else{
+                } else {
                     // 해당 주소의 후기가 없을 때 후기 작성 권유 텍스트 보여줌
                     pleaseMessage3.setVisibility(View.VISIBLE);
+
+                    // 하단의 BannerImage, footerMessage, linearBottom 숨김
+                    stripBannerImage.setVisibility(View.GONE);
+                    linearFooterMessage.setVisibility(View.GONE);
+                    linearBottom.setVisibility(View.GONE);
                 }
             }
 
@@ -201,8 +248,8 @@ public class SearchedActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달됨.
-                if (result.getResultCode() == RESULT_OK){
-                    if (result.getData() != null){
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
                         String data = result.getData().getStringExtra("data");
 
                         Intent intent = new Intent(SearchedActivity.this, SearchedActivity.class);

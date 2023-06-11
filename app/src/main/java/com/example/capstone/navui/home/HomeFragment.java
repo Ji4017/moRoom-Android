@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -51,13 +52,43 @@ public class HomeFragment extends Fragment {
 
 
         ImageView mainImageView = binding.mainImage;
+        EditText searchView = binding.etAddress;
+
         RecyclerView recyclerView = view.findViewById(R.id.homeRecyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        EditText searchView = binding.etAddress;
+
         FloatingActionButton fab = binding.fab;
 
+        LinearLayout linearUam = binding.linearUam;
+        LinearLayout linearYeJi = binding.linearYeJi;
+        LinearLayout linearGukJe = binding.linearGukJe;
+        LinearLayout linearJinWon = binding.linearJinWon;
+
+        linearUam.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            intent.putExtra("searchedAddress", "충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 우암마을");
+            startActivity(intent);
+        });
+
+        linearYeJi.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            intent.putExtra("searchedAddress", "충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 예지관");
+            startActivity(intent);
+        });
+
+        linearGukJe.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            intent.putExtra("searchedAddress", "충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 국제학사");
+            startActivity(intent);
+        });
+
+        linearJinWon.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            intent.putExtra("searchedAddress", "충북 청주시 청원구 수암로66번길 48-2 (우암동, 한진 신세대 아파트)");
+            startActivity(intent);
+        });
 
 
         mainImageView.setClipToOutline(true);

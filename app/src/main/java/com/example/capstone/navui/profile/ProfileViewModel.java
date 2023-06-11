@@ -1,12 +1,12 @@
-package com.example.capstone.navui.notifications;
+package com.example.capstone.navui.profile;
 
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class ProfileViewModel extends ViewModel {
 
 //    private final MutableLiveData<String> mText;
 //
-//    public NotificationsViewModel() {
+//    public ProfileViewModel() {
 //        mText = new MutableLiveData<>();
 //        mText.setValue("This is notifications fragment");
 //    }

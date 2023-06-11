@@ -26,7 +26,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_notifications_black_24dp" />
+                app:srcCompat="@drawable/ic_profile_black_24dp" />
 
             <TextView
                 android:textStyle="bold"
@@ -50,6 +50,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#EAEAEA"/>
+
+    <LinearLayout
         android:background="@drawable/border_recycler_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,6 +71,11 @@
             android:textStyle="bold"
             android:minHeight="30dp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#EAEAEA"/>
 
     <LinearLayout
         android:background="@drawable/border_recycler_item"
