@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">capstone</string>
+    <string name="app_name">모룸지기</string>
     <!-- Strings related to login -->
     <string name="prompt_id">아이디 입력</string>
     <string name="prompt_email">이메일 입력</string>
@@ -12,9 +12,10 @@
     <string name="login_failed">"로그인 실패"</string>
     <string name="action_sign_up">처음이신가요? 회원가입</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">홈</string>
+    <string name="title_dashboard">지도</string>
+    <string name="title_notifications">알림</string>
+    <string name="title_profile">내정보</string>
     <string name="send_email">이메일 전송</string>
     <string name="write">작성 완료</string>
     <string name="untill_year">년도까지 거주</string>

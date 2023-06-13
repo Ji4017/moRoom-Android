@@ -1,12 +1,20 @@
 package com.example.capstone;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.capstone.databinding.ActivityMainBinding;
 import com.example.capstone.navui.dashboard.DashboardFragment;
 import com.example.capstone.navui.home.HomeFragment;
 import com.example.capstone.navui.profile.ProfileFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -28,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        handleDeepLink();
+
         // activity_main.xml의 BottomNavigationView 가져오기
         BottomNavigationView navView = binding.navView;
 
@@ -44,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         String selectedFragment;
         selectedFragment = getIntent().getStringExtra("selectedFragment");
 
-        // 선택한 프래그먼트에 따라 이동
+        // SearchedActivity에서 사용자가 터치한 아이콘(홈,지도,프로필)에 따라 프래그먼트에 따라 이동
         if (selectedFragment != null) {
             switch (selectedFragment) {
                 case "home":
@@ -78,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
 
+            // 프래그먼트 이동 메서드 호출
             navigateToFragment(fragment);
             return true;
         });
@@ -92,13 +103,50 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void handleDeepLink(){
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                            // deepLink가 존재하면 동적 링크를 클릭한 경우
+                            if (deepLink != null) {
+                                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+                                intent.putExtra("showSignupForm", true);
+                                startActivity(intent);
+                            }
+                        }
+
+                    }
+                })
+                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
+    }
+
+
 
     @Override
     public void onBackPressed() {
-        if (System.currentTimeMillis() > backPressedTime + 2000) {
-            backPressedTime = System.currentTimeMillis();
-        } else if (System.currentTimeMillis() <= backPressedTime + 2000) {
-            finishAffinity();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main);
+        if (currentFragment instanceof ProfileFragment || currentFragment instanceof DashboardFragment) {
+            // ProfileFragment에서 뒤로가기를 눌렀을 때 HomeFragment로 이동
+            showHomeFragment();
+        } else{
+            if (System.currentTimeMillis() > backPressedTime + 2000) {
+                backPressedTime = System.currentTimeMillis();
+            } else if (System.currentTimeMillis() <= backPressedTime + 2000) {
+                finishAffinity();
+            }
         }
+    }
+
+    public void showHomeFragment() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
     }
 }

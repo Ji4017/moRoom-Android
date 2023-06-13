@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
+    private FirebaseUser user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,20 +31,47 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView tvLogout = binding.tvLogout;
         final TextView tvUserEmail = binding.tvUserEmail;
+        final TextView tvLogout = binding.tvLogout;
+        final TextView tvMoRoomVersion = binding.tvMoRoomVersion;
 
-        tvUserEmail.setText(getUserEmail());
+        final LinearLayout linearTop = binding.linearTop;
+        final LinearLayout linearSeparation1 = binding.linearSeparation1;
+        final LinearLayout linearSeparation2 = binding.linearSeparation2;
 
-        tvLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showLogoutConfirmationDialog();
-            }
+        final Button moveToLogin = binding.moveToLogin;
+
+
+        // 로그인 된 유저면 화면 보여주고 그렇지 않으면 로그인 화면 이동하기 버튼 보여줌
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            tvUserEmail.setText(getUserEmail());
+        } else {
+            tvUserEmail.setVisibility(View.GONE);
+            tvLogout.setVisibility(View.GONE);
+            tvMoRoomVersion.setVisibility(View.GONE);
+            linearTop.setVisibility(View.GONE);
+            linearSeparation1.setVisibility(View.GONE);
+            linearSeparation2.setVisibility(View.GONE);
+
+            moveToLogin.setVisibility(View.VISIBLE);
+        }
+
+
+        tvLogout.setOnClickListener(view -> {
+            showLogoutConfirmationDialog();
         });
 
 
+        moveToLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        });
+
         return root;
+
+
     }
 
     private String getUserEmail(){
@@ -77,5 +107,4 @@ public class ProfileFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

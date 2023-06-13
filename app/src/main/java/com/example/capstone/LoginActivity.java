@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         existingUserMovetoMain();
 
         // 동적링크 처리
-        handleDeepLink();
+        // handleDeepLink();
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -167,28 +167,28 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void handleDeepLink(){
-        FirebaseDynamicLinks.getInstance()
-                .getDynamicLink(getIntent())
-                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-                    @Override
-                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-                        // Get deep link from result (may be null if no link is found)
-                        Uri deepLink = null;
-                        if (pendingDynamicLinkData != null) {
-                            deepLink = pendingDynamicLinkData.getLink();
-                            // deepLink가 존재하면 동적 링크를 클릭한 경우
-                            if (deepLink != null) {
-                                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                                intent.putExtra("showSignupForm", true);
-                                startActivity(intent);
-                            }
-                        }
-
-                    }
-                })
-                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
-    }
+//    private void handleDeepLink(){
+//        FirebaseDynamicLinks.getInstance()
+//                .getDynamicLink(getIntent())
+//                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+//                    @Override
+//                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+//                        // Get deep link from result (may be null if no link is found)
+//                        Uri deepLink = null;
+//                        if (pendingDynamicLinkData != null) {
+//                            deepLink = pendingDynamicLinkData.getLink();
+//                            // deepLink가 존재하면 동적 링크를 클릭한 경우
+//                            if (deepLink != null) {
+//                                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+//                                intent.putExtra("showSignupForm", true);
+//                                startActivity(intent);
+//                            }
+//                        }
+//
+//                    }
+//                })
+//                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
+//    }
 
     private boolean isValidEmailFormat(String email) {
         // 정규식 사용해서 검사도 가능

@@ -10,8 +10,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:stickyHeader="@+id/linear_top"
-        app:stickyFooter="@id/linear_bottom">
+        app:stickyHeader="@+id/linear_top">
 
         <RelativeLayout
             android:id="@+id/relative_child"
@@ -43,17 +42,56 @@
 
                     <EditText
                         android:id="@+id/et_address"
-                        android:layout_width="match_parent"
+                        android:layout_width="180dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="20dp"
-                        android:layout_marginEnd="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
                         android:hint="주소를 검색해주세요"
                         android:importantForAutofill="no"
                         android:minHeight="48dp"
                         android:padding="10dp"
                         tools:ignore="TextFields"
                         android:background="@drawable/border_et_home" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_navIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:paddingVertical="4dp"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@android:color/transparent">
+
+                        <ImageButton
+                            android:id="@+id/img_home"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_home_black_24dp"
+                            android:contentDescription="imageHome"
+                            android:background="@android:color/transparent"/>
+
+                        <ImageButton
+                            android:id="@+id/img_dash"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:src="@drawable/baseline_location_on_test_24"
+                            android:contentDescription="imageDash"
+                            android:background="@android:color/transparent"/>
+
+                        <ImageButton
+                            android:id="@+id/img_profile"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_profile_black_24dp"
+                            android:contentDescription="imageProfile"
+                            android:background="@android:color/transparent"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -105,13 +143,6 @@
                     android:text="ⓒ 2023 moRoom All right reserverd \n 서비스 내 콘텐츠 저작권은 moRoom에게 있으며 \n 모든 콘텐츠의 무단 복제, 수집배포 등의 행위를 엄격히 금합니다." />
 
             </LinearLayout>
-            
-            <LinearLayout
-                android:layout_width="408dp"
-                android:layout_height="80dp"
-                android:orientation="vertical"
-                android:layout_below="@+id/linear_footerMessage"
-                android:background="@color/white"/>
 
             <ImageView
                 android:id="@+id/blurView"
@@ -173,43 +204,6 @@
         </RelativeLayout>
 
     </com.amar.library.ui.StickyScrollView>
-
-    <LinearLayout
-        android:id="@+id/linear_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="4dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:background="@color/white">
-
-        <ImageButton
-            android:id="@+id/img_home"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_home_black_24dp"
-            android:background="@color/white"
-            android:contentDescription="imageHome"/>
-
-        <ImageButton
-            android:id="@+id/img_dash"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginHorizontal="88dp"
-            android:src="@drawable/location_on_24dp"
-            android:background="@color/white"
-            android:contentDescription="imageDash"/>
-
-        <ImageButton
-            android:id="@+id/img_profile"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_profile_black_24dp"
-            android:background="@color/white"
-            android:contentDescription="imageProfile"/>
-
-    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

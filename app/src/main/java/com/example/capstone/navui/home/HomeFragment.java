@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstone.ContentsAdapter;
+import com.example.capstone.MoveToLogin;
 import com.example.capstone.R;
 import com.example.capstone.Contents;
 import com.example.capstone.SearchActivity;
@@ -30,6 +31,8 @@ import com.example.capstone.SearchedActivity;
 import com.example.capstone.WriteActivity;
 import com.example.capstone.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -101,7 +104,13 @@ public class HomeFragment extends Fragment {
 
 
         fab.setOnClickListener(view12 -> {
-            Intent intent = new Intent(getActivity(), WriteActivity.class);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Intent intent;
+            if (user != null) {
+                intent = new Intent(getActivity(), WriteActivity.class);
+            } else {
+                intent = new Intent(getActivity(), MoveToLogin.class);
+            }
             startActivity(intent);
 
         });

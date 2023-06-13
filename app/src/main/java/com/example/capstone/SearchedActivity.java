@@ -17,16 +17,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstone.databinding.ActivitySearchedBinding;
-import com.example.capstone.navui.dashboard.DashboardFragment;
-import com.example.capstone.navui.home.HomeFragment;
-import com.example.capstone.navui.profile.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,7 +43,7 @@ public class SearchedActivity extends AppCompatActivity {
     public String searchedAddress;
     private EditText searchView;
     private RecyclerView recyclerView;
-    private LinearLayout linearFooterMessage, linearBottom;
+    private LinearLayout linearFooterMessage, linearNavIcon;
     private FloatingActionButton fab;
     private ImageView stripBannerImage, blurView;
     private TextView addressTitle, pleaseMessage1, pleaseMessage2, pleaseMessage3;
@@ -78,7 +72,7 @@ public class SearchedActivity extends AppCompatActivity {
         fab = binding.fab;
         stripBannerImage = binding.stripBannerImage;
         linearFooterMessage = binding.linearFooterMessage;
-        linearBottom = binding.linearBottom;
+        linearNavIcon = binding.linearNavIcon;
 
 
         blurView = binding.blurView;
@@ -124,8 +118,12 @@ public class SearchedActivity extends AppCompatActivity {
         });
 
         fab.setOnClickListener(view -> {
-            // 후기 작성 화면으로 이동
-            Intent intent = new Intent(SearchedActivity.this, WriteActivity.class);
+            Intent intent;
+            if (user != null) {
+                intent = new Intent(SearchedActivity.this, WriteActivity.class);
+            } else {
+                intent = new Intent(SearchedActivity.this, MoveToLogin.class);
+            }
             startActivity(intent);
 
         });
@@ -230,7 +228,7 @@ public class SearchedActivity extends AppCompatActivity {
                     // 하단의 BannerImage, footerMessage, linearBottom 숨김
                     stripBannerImage.setVisibility(View.GONE);
                     linearFooterMessage.setVisibility(View.GONE);
-                    linearBottom.setVisibility(View.GONE);
+                    linearNavIcon.setVisibility(View.GONE);
                 }
             }
 

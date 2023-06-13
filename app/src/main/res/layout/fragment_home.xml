@@ -27,9 +27,10 @@
                     android:id="@+id/mainImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/border_image"
+                    android:layout_marginTop="24dp"
                     android:contentDescription="mainIamge"
-                    android:src="@drawable/cju" />
+                    android:src="@drawable/logo"
+                    android:background="@android:color/transparent"/>
 
             </RelativeLayout>
 
@@ -107,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@id/homeRecyclerView"
-                android:layout_marginTop="40dp"
+                android:layout_marginVertical="40dp"
                 android:layout_marginHorizontal="30dp">
 
                 <TextView
