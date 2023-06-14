@@ -225,10 +225,9 @@ public class SearchedActivity extends AppCompatActivity {
                     // 해당 주소의 후기가 없을 때 후기 작성 권유 텍스트 보여줌
                     pleaseMessage3.setVisibility(View.VISIBLE);
 
-                    // 하단의 BannerImage, footerMessage, linearBottom 숨김
+                    // 하단의 BannerImage, footerMessage 숨김
                     stripBannerImage.setVisibility(View.GONE);
                     linearFooterMessage.setVisibility(View.GONE);
-                    linearNavIcon.setVisibility(View.GONE);
                 }
             }
 
