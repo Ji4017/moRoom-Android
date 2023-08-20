@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                             // deepLink가 존재하면 동적 링크를 클릭한 경우
                             if (deepLink != null) {
                                 Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-                                intent.putExtra("showSignupForm", true);
                                 startActivity(intent);
                             }
                         }
