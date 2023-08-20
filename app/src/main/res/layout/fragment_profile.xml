@@ -10,12 +10,10 @@
 
     <LinearLayout
         android:id="@+id/linearTop"
-        android:background="@drawable/border_recycler_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical">
-
 
         <LinearLayout
         android:layout_width="match_parent"
@@ -57,23 +55,16 @@
         android:background="#EAEAEA"
         android:orientation="horizontal" />
 
-    <LinearLayout
-        android:background="@drawable/border_recycler_item"
+    <TextView
+        android:id="@+id/tv_myReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="로그아웃"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:minHeight="30dp" />
-    </LinearLayout>
+        android:padding="15dp"
+        android:text="내 리뷰 관리"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:minHeight="30dp" />
 
     <LinearLayout
         android:id="@+id/linearSeparation2"
@@ -82,23 +73,53 @@
         android:orientation="horizontal"
         android:background="#EAEAEA"/>
 
-    <LinearLayout
-        android:background="@drawable/border_recycler_item"
+    <TextView
+        android:id="@+id/tv_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:padding="15dp"
+        android:text="로그아웃"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:minHeight="30dp" />
 
-        <TextView
-            android:id="@+id/tv_moRoomVersion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="moRoom V1.0.0"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:minHeight="30dp" />
-    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearSeparation3"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:orientation="horizontal"
+        android:background="#EAEAEA"/>
+
+    <TextView
+        android:id="@+id/tv_withdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:text="회원탈퇴"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:minHeight="30dp" />
+
+    <LinearLayout
+        android:id="@+id/linearSeparation4"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:orientation="horizontal"
+        android:background="#EAEAEA"/>
+
+
+    <TextView
+        android:id="@+id/tv_moRoomVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:text="moRoom V1.0.0"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:minHeight="30dp" />
 
     <Button
         android:id="@+id/moveToLogin"
