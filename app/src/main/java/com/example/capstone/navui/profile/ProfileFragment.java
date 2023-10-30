@@ -33,17 +33,6 @@ public class ProfileFragment extends Fragment {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    final TextView tvUserEmail = binding.tvUserEmail;
-    final TextView tvMyReview = binding.tvMyReview;
-    final TextView tvLogout = binding.tvLogout;
-    final TextView tvWithdrawal = binding.tvWithdrawal;
-    final TextView tvMoRoomVersion = binding.tvMoRoomVersion;
-
-    final LinearLayout linearTop = binding.linearTop;
-    final LinearLayout linearSeparation1 = binding.linearSeparation1;
-    final LinearLayout linearSeparation2 = binding.linearSeparation2;
-
-    final Button moveToLogin = binding.moveToLogin;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +40,20 @@ public class ProfileFragment extends Fragment {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        final TextView tvUserEmail = binding.tvUserEmail;
+        final TextView tvMyReview = binding.tvMyReview;
+        final TextView tvLogout = binding.tvLogout;
+        final TextView tvWithdrawal = binding.tvWithdrawal;
+        final TextView tvMoRoomVersion = binding.tvMoRoomVersion;
+
+        final LinearLayout linearTop = binding.linearTop;
+        final LinearLayout linearSeparation1 = binding.linearSeparation1;
+        final LinearLayout linearSeparation2 = binding.linearSeparation2;
+        final LinearLayout linearSeparation3 = binding.linearSeparation3;
+        final LinearLayout linearSeparation4 = binding.linearSeparation4;
+
+        final Button moveToLogin = binding.moveToLogin;
 
         if (user != null) {
             // 로그인 된 유저면 화면 보여주고
@@ -60,12 +63,14 @@ public class ProfileFragment extends Fragment {
             // 그렇지 않으면 뷰들 다 숨기고 로그인 화면 이동하기 버튼만 보여줌
             tvUserEmail.setVisibility(View.GONE);
             tvMyReview.setVisibility(View.GONE);
-            tvWithdrawal.setVisibility(View.GONE);
             tvLogout.setVisibility(View.GONE);
+            tvWithdrawal.setVisibility(View.GONE);
             tvMoRoomVersion.setVisibility(View.GONE);
             linearTop.setVisibility(View.GONE);
             linearSeparation1.setVisibility(View.GONE);
             linearSeparation2.setVisibility(View.GONE);
+            linearSeparation3.setVisibility(View.GONE);
+            linearSeparation4.setVisibility(View.GONE);
 
             moveToLogin.setVisibility(View.VISIBLE);
         }
