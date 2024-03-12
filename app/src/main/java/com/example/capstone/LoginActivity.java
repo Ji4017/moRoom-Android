@@ -43,12 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 이미 존재하는 유저면 로그인 화면 건너뛰고 메인으로 이동
-        existingUserMovetoMain();
-
-        // 동적링크 처리
-        // handleDeepLink();
-
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -66,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LoginActivity.this, "반갑습니다..", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "반갑습니다", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = auth.getCurrentUser();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -154,45 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void existingUserMovetoMain(){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-
-        if (user != null) {
-            // 사용자가 이미 로그인한 경우 MainActivity로 이동
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish(); // LoginActivity 종료
-        }
-    }
-
-
-//    private void handleDeepLink(){
-//        FirebaseDynamicLinks.getInstance()
-//                .getDynamicLink(getIntent())
-//                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-//                    @Override
-//                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-//                        // Get deep link from result (may be null if no link is found)
-//                        Uri deepLink = null;
-//                        if (pendingDynamicLinkData != null) {
-//                            deepLink = pendingDynamicLinkData.getLink();
-//                            // deepLink가 존재하면 동적 링크를 클릭한 경우
-//                            if (deepLink != null) {
-//                                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-//                                intent.putExtra("showSignupForm", true);
-//                                startActivity(intent);
-//                            }
-//                        }
-//
-//                    }
-//                })
-//                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
-//    }
-
     private boolean isValidEmailFormat(String email) {
-        // 정규식 사용해서 검사도 가능
-        // return email.matches("이메일_정규식_표현");
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 

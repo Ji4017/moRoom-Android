@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.capstone.databinding.ActivitySignUpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
@@ -25,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -38,6 +42,9 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        handleDeepLink();
+
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -47,25 +54,6 @@ public class SignupActivity extends AppCompatActivity {
         emailSendButton = binding.sendEmail;
         signUpButton = binding.register;
 
-        // 폼 양식에 맞게 입력 했을 때 true로 함
-        emailSendButton.setEnabled(false);
-        signUpButton.setEnabled(false);
-
-        // 사용자가 이메일로부터 받은 인증 링크를 눌렀을 때 보이게 할 예정
-        idEditText.setVisibility(View.GONE);
-        passwordEditText.setVisibility(View.GONE);
-        signUpButton.setVisibility(View.GONE);
-
-        // 인증링크를 눌렀을 때 회원가입 폼이 보이게 함.
-        boolean showForm = getIntent().getBooleanExtra("showSignupForm", false);
-        if (showForm){
-            emailAddressText.setVisibility(View.GONE);
-            emailSendButton.setVisibility(View.GONE);
-
-            idEditText.setVisibility(View.VISIBLE);
-            passwordEditText.setVisibility(View.VISIBLE);
-            signUpButton.setVisibility(View.VISIBLE);
-        }
 
         emailSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +69,8 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // 인증용 이메일 텍스트필드 초기 셋팅
         emailAddressText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            // 인증용 이메일 필드 초기 셋팅
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
@@ -98,8 +86,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-
-        // 인증용 이메일 텍스트필드 이메일 검증 및 제어
         emailAddressText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,6 +95,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 입력이 변경될 때 호출되는 메서드
+                // 인증용 이메일 형식 검사
                 String email = s.toString().trim();
                 if (!isValidEmailDomain(email)) {
                     emailSendButton.setEnabled(false);
@@ -127,7 +114,6 @@ public class SignupActivity extends AppCompatActivity {
         });
 
 
-        // ID용 Email 형식 검사
         idEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -137,6 +123,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 입력이 변경될 때 호출되는 메서드
+                // 아이디용 이메일 형식 검사
                 String email = s.toString().trim();
                 if (isValidEmailFormat(email)) {
                     idEditText.setError(null);  // 유효한 형식인 경우 에러 제거
@@ -153,7 +140,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // Password 길이 검사
         passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -163,6 +149,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 입력이 변경될 때 호출되는 메서드
+                // 패스워드 길이 제한
                 String password = s.toString().trim();
                 if (password.length() >= 6) {
                     passwordEditText.setError(null);  // 6자리 이상인 경우 에러 제거
@@ -192,16 +179,14 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean isValidEmailFormat(String email) {
-        // 정규식 사용해서 검사도 가능
-        // return email.matches("이메일_정규식_표현");
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private void checkSignUpButtonVisibility() {
         if (idEditText.getError() == null && passwordEditText.getError() == null) {
-            signUpButton.setEnabled(true);  // ID와 Password에 모두 에러가 없는 경우 버튼 활성화
+            signUpButton.setEnabled(true);
         } else {
-            signUpButton.setEnabled(false);  // 에러가 있는 경우 버튼 비활성화
+            signUpButton.setEnabled(false);
         }
     }
 
@@ -213,7 +198,7 @@ public class SignupActivity extends AppCompatActivity {
                 ActionCodeSettings.newBuilder()
                         // URL you want to redirect back to. The domain (www.example.com) for this
                         // URL must be whitelisted in the Firebase Console.
-                        // firebase 다이나믹 링크 prefix
+                        // firebase dynamic link prefix
                         .setUrl("https://moroom.page.link/m1r2")
                         .setHandleCodeInApp(true)
                         .setAndroidPackageName(
@@ -237,6 +222,25 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    private void handleDeepLink(){
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        if (pendingDynamicLinkData != null) {
+                            Uri deepLink = pendingDynamicLinkData.getLink();
+                            if (deepLink != null) {
+                                showSignUpForm();
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
+    }
+
+
+
     private void createUser(String email, String password){
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -249,7 +253,7 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             saveDataToFirebaseDB(email, password, auth);
                             Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(SignupActivity.this, "반갑습니다..", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "반갑습니다", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -283,5 +287,14 @@ public class SignupActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference("UserAccount");
         databaseReference.child(firebaseUser.getUid()).setValue(userAccount);
+    }
+
+    private void showSignUpForm() {
+        emailAddressText.setVisibility(View.GONE);
+        emailSendButton.setVisibility(View.GONE);
+
+        idEditText.setVisibility(View.VISIBLE);
+        passwordEditText.setVisibility(View.VISIBLE);
+        signUpButton.setVisibility(View.VISIBLE);
     }
 }

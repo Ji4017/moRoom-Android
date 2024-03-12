@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".SignupActivity">
 
     <EditText
@@ -13,51 +13,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_style_1"
         android:ems="12"
         android:hint="회원가입 할 이메일 입력"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:background="@drawable/edit_text_style_1" />
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/setPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_style_1"
         android:ems="12"
         android:hint="비밀번호 (6자 이상)"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:background="@drawable/edit_text_style_1" />
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/emailAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_style_1"
         android:ems="12"
         android:hint="인증용 학교 이메일 입력"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:background="@drawable/edit_text_style_1" />
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/sendEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/send_email"
-        android:background="@drawable/button_style_1"/>
+        android:background="@drawable/button_style_1"
+        android:text="@string/send_email" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:background="@drawable/button_style_1"
         android:paddingHorizontal="25dp"
         android:text="회원가입 하기"
-        android:background="@drawable/button_style_1"/>
+        android:visibility="gone" />
 
 </LinearLayout>
