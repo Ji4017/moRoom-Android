@@ -27,7 +27,7 @@
 
         <activity
             android:name=".LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MoveToLogin"
             android:exported="false" />
