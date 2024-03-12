@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment {
         });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference("Address").child("메인용 후기");
+        DatabaseReference databaseReference = database.getReference("Address").child("reviewForMain");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
