@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
@@ -80,6 +81,14 @@ public class WriteActivity extends AppCompatActivity {
                 getSearchResult.launch(intent);
             }
         });
+        ArrayAdapter<CharSequence> floorAdapter = ArrayAdapter.createFromResource(this, R.array.floor_array, android.R.layout.simple_spinner_item);
+        floorSpinner.setAdapter(floorAdapter);
+        floorSpinner.setSelection(1);
+
+        ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(this, R.array.year_array, android.R.layout.simple_spinner_item);
+        yearSpinner.setAdapter(yearAdapter);
+        yearSpinner.setSelection(yearAdapter.getCount() - 1);
+
 
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override
