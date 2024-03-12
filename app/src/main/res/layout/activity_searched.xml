@@ -35,61 +35,59 @@
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginRight="4dp"
+                        android:background="@android:color/transparent"
                         android:contentDescription="imageBack"
-                        android:src="@drawable/baseline_arrow_back_ios_new_24"
-                        android:background="@android:color/transparent"/>
+                        android:src="@drawable/baseline_arrow_back_ios_new_24" />
 
                     <EditText
                         android:id="@+id/et_address"
                         android:layout_width="180dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginBottom="20dp"
                         android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_et_home"
                         android:gravity="center"
                         android:hint="주소를 검색해주세요"
                         android:importantForAutofill="no"
                         android:minHeight="48dp"
-                        android:padding="10dp"
-                        tools:ignore="TextFields"
-                        android:background="@drawable/border_et_home" />
+                        android:padding="1dp"
+                        tools:ignore="TextFields" />
 
                     <LinearLayout
                         android:id="@+id/linear_navIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:paddingVertical="4dp"
                         android:layout_alignParentBottom="true"
-                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp"
+                        android:background="@android:color/transparent"
                         android:gravity="center"
-                        android:background="@android:color/transparent">
+                        android:orientation="horizontal"
+                        android:paddingVertical="4dp">
 
                         <ImageButton
                             android:id="@+id/img_home"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/ic_home_black_24dp"
+                            android:background="@android:color/transparent"
                             android:contentDescription="imageHome"
-                            android:background="@android:color/transparent"/>
+                            android:src="@drawable/ic_home_black_24dp" />
 
                         <ImageButton
                             android:id="@+id/img_dash"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:layout_marginHorizontal="5dp"
-                            android:src="@drawable/baseline_location_on_test_24"
+                            android:background="@android:color/transparent"
                             android:contentDescription="imageDash"
-                            android:background="@android:color/transparent"/>
+                            android:src="@drawable/baseline_location_on_test_24" />
 
                         <ImageButton
                             android:id="@+id/img_profile"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/ic_profile_black_24dp"
+                            android:background="@android:color/transparent"
                             android:contentDescription="imageProfile"
-                            android:background="@android:color/transparent"/>
+                            android:src="@drawable/ic_profile_black_24dp" />
 
                     </LinearLayout>
 
@@ -99,11 +97,11 @@
 
             <TextView
                 android:id="@+id/tv_addressTitle"
-                android:layout_below="@id/linear_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_below="@id/linear_top"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
                 android:text="주소 제목"
                 android:textAlignment="center"
@@ -116,14 +114,13 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/tv_addressTitle"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_marginRight="20dp"></androidx.recyclerview.widget.RecyclerView>
 
             <ImageView
                 android:id="@+id/stripBannerImage"
-                android:layout_below="@id/searchedRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/searchedRecyclerView"
                 android:layout_marginTop="32dp"
                 android:contentDescription="stripBannerIamge"
                 android:src="@drawable/strip_banner" />
@@ -133,8 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/stripBannerImage"
-                android:paddingVertical="8dp"
-                android:background="@color/backgroundColor">
+                android:background="@color/backgroundColor"
+                android:paddingVertical="8dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -151,7 +148,6 @@
                 android:background="@drawable/blur"
                 android:contentDescription="ReviewBlur"
                 android:visibility="gone" />
-
 
             <TextView
                 android:id="@+id/pleaseMessage1"
@@ -182,8 +178,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/linear_top"
-                android:layout_marginTop="240dp"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="240dp"
                 android:text="아직 후기가 없어요\n\n일등으로 후기를 작성해주시겠어요?"
                 android:textAlignment="center"
                 android:textSize="24sp"
