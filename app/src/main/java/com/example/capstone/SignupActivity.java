@@ -25,6 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -251,8 +252,8 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            saveDataToFirebaseDB(email, password, auth);
-                            Log.d(TAG, "createUserWithEmail:success");
+                            saveDataToFirebaseDB(email, password);
+                            Log.d("check", "createUserWithEmail:success");
                             Toast.makeText(SignupActivity.this, "반갑습니다", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
@@ -260,7 +261,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
                         } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Log.e("error", "createUserWithEmail:failure", task.getException());
 
                             if (task.getException() instanceof FirebaseAuthException) {
                                 FirebaseAuthException authException = (FirebaseAuthException) task.getException();
@@ -275,18 +276,27 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void saveDataToFirebaseDB(String email, String password, FirebaseAuth auth){
-        FirebaseUser firebaseUser = auth.getCurrentUser();
+    private void saveDataToFirebaseDB(String email, String password){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
 
         UserAccount userAccount = new UserAccount();
-        userAccount.setEmail(firebaseUser.getEmail());
+        userAccount.setEmail(email);
         userAccount.setPassword(password);
-        userAccount.setIdToken(firebaseUser.getUid());
+        userAccount.setIdToken(uid);
         userAccount.setReview(false);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference("UserAccount");
-        databaseReference.child(firebaseUser.getUid()).setValue(userAccount);
+//        Log.d("check", userAccount.getEmail()+ "\n" + userAccount.getPassword()+ "\n" + userAccount.getIdToken());
+
+        DatabaseReference databaseReference;
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserAccount");
+        databaseReference.child(uid).setValue(userAccount, (databaseError, databaseReference1) -> {
+            if (databaseError != null) {
+                Log.d("check", "데이터 저장 실패: " + databaseError.getMessage());
+            } else {
+                Log.d("check", "데이터 저장 성공");
+            }
+        });
     }
 
     private void showSignUpForm() {
