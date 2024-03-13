@@ -66,7 +66,10 @@ public class SignupActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUser(idEditText.getText().toString(), passwordEditText.getText().toString());
+                // 아이디 패스워드 형식 검사 후 유저 생성
+                if (validateForm()) {
+                    createUser(idEditText.getText().toString(), passwordEditText.getText().toString());
+                }
             }
         });
 
@@ -74,7 +77,7 @@ public class SignupActivity extends AppCompatActivity {
             // 인증용 이메일 필드 초기 셋팅
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     emailAddressText.setText("@cju.ac.kr");
                     emailAddressText.post(new Runnable() {
                         @Override
@@ -113,65 +116,7 @@ public class SignupActivity extends AppCompatActivity {
                 // 입력 변경 후 호출되는 메서드
             }
         });
-
-
-        idEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // 입력 변경 전 호출되는 메서드
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 입력이 변경될 때 호출되는 메서드
-                // 아이디용 이메일 형식 검사
-                String email = s.toString().trim();
-                if (isValidEmailFormat(email)) {
-                    idEditText.setError(null);  // 유효한 형식인 경우 에러 제거
-                    checkSignUpButtonVisibility();
-                } else {
-                    idEditText.setError("유효하지 않은 이메일 형식입니다.");
-                    signUpButton.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // 입력 변경 후 호출되는 메서드
-            }
-        });
-
-        passwordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // 입력 변경 전 호출되는 메서드
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 입력이 변경될 때 호출되는 메서드
-                // 패스워드 길이 제한
-                String password = s.toString().trim();
-                if (password.length() >= 6) {
-                    passwordEditText.setError(null);  // 6자리 이상인 경우 에러 제거
-                    checkSignUpButtonVisibility();
-                } else {
-                    passwordEditText.setError("비밀번호는 6자리 이상이어야 합니다.");
-                    signUpButton.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // 입력 변경 후 호출되는 메서드
-            }
-        });
-
     }
-
-
-
-
 
 
     private boolean isValidEmailDomain(String email) {
@@ -179,19 +124,35 @@ public class SignupActivity extends AppCompatActivity {
         return domain.equalsIgnoreCase("cju.ac.kr");
     }
 
-    private boolean isValidEmailFormat(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    private boolean isValidId(String id) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(id).matches();
     }
 
-    private void checkSignUpButtonVisibility() {
-        if (idEditText.getError() == null && passwordEditText.getError() == null) {
-            signUpButton.setEnabled(true);
+    private boolean isValidPassword(String password) {
+        return password.length() >= 6;
+    }
+
+    private boolean validateForm() {
+        boolean id = isValidId(idEditText.getText().toString());
+        boolean password = isValidPassword(passwordEditText.getText().toString());
+
+        if (!id) {
+            idEditText.setError("유효하지 않은 이메일 형식입니다.");
         } else {
-            signUpButton.setEnabled(false);
+            idEditText.setError(null);
         }
+
+        if (!password) {
+            passwordEditText.setError("비밀번호는 6자리 이상이어야 합니다.");
+        } else {
+            passwordEditText.setError(null);
+        }
+
+        return (id && password);
     }
 
-    private void sendEmail(){
+
+    private void sendEmail() {
         String email = emailAddressText.getText().toString();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -206,7 +167,7 @@ public class SignupActivity extends AppCompatActivity {
                                 "com.example.capstone",
                                 false, /* installIfNotAvailable */
                                 "12"                  /* minimumVersion */
-                                )
+                        )
                         .build();
         auth.sendSignInLinkToEmail(email, actionCodeSettings).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -214,8 +175,7 @@ public class SignupActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "이메일을 보냈습니다.");
                     Toast.makeText(getApplicationContext(), "이메일을 보냈습니다", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Log.e(TAG, "이메일 보내기 실패", task.getException());
                     Toast.makeText(getApplicationContext(), "이메일 전송 실패", Toast.LENGTH_SHORT).show();
                 }
@@ -223,7 +183,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void handleDeepLink(){
+    private void handleDeepLink() {
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
@@ -239,10 +199,8 @@ public class SignupActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
     }
-
-
-
-    private void createUser(String email, String password){
+    
+    private void createUser(String email, String password) {
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(email, password)
@@ -264,11 +222,10 @@ public class SignupActivity extends AppCompatActivity {
                             Log.e("error", "createUserWithEmail:failure", task.getException());
 
                             if (task.getException() instanceof FirebaseAuthException) {
-                                FirebaseAuthException authException = (FirebaseAuthException) task.getException();
-//                                String errorMessage = authException.getMessage();
+                                // FirebaseAuthException authException = (FirebaseAuthException) task.getException();
+                                // String errorMessage = authException.getMessage();
                                 Toast.makeText(SignupActivity.this, "해당 이메일은 이미 사용 중입니다", Toast.LENGTH_LONG).show();
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(SignupActivity.this, "회원가입 오류입니다 이메일을 다시 확인해주세요", Toast.LENGTH_LONG).show();
                             }
 
@@ -276,7 +233,8 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void saveDataToFirebaseDB(String email, String password){
+
+    private void saveDataToFirebaseDB(String email, String password) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
