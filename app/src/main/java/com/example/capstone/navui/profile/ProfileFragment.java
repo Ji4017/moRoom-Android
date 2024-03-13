@@ -11,13 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstone.Contents;
 import com.example.capstone.LoginActivity;
+import com.example.capstone.MainActivity;
 import com.example.capstone.MyReviewActivity;
+import com.example.capstone.UserAccount;
 import com.example.capstone.databinding.FragmentProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,8 +33,23 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference databaseReference;
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    private TextView tvUserEmail;
+    private TextView tvMyReview;
+    private TextView tvLogout;
+    private TextView tvDeleteAccount;
+    private TextView tvMoRoomVersion;
+
+    private LinearLayout linearTop;
+    private LinearLayout linearSeparation1;
+    private LinearLayout linearSeparation2;
+    private LinearLayout linearSeparation3;
+    private LinearLayout linearSeparation4;
+
+    private Button moveToLogin;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,38 +59,27 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView tvUserEmail = binding.tvUserEmail;
-        final TextView tvMyReview = binding.tvMyReview;
-        final TextView tvLogout = binding.tvLogout;
-        final TextView tvWithdrawal = binding.tvWithdrawal;
-        final TextView tvMoRoomVersion = binding.tvMoRoomVersion;
+        tvUserEmail = binding.tvUserEmail;
+        tvMyReview = binding.tvMyReview;
+        tvLogout = binding.tvLogout;
+        tvDeleteAccount = binding.tvDeleteAccount;
+        tvMoRoomVersion = binding.tvMoRoomVersion;
 
-        final LinearLayout linearTop = binding.linearTop;
-        final LinearLayout linearSeparation1 = binding.linearSeparation1;
-        final LinearLayout linearSeparation2 = binding.linearSeparation2;
-        final LinearLayout linearSeparation3 = binding.linearSeparation3;
-        final LinearLayout linearSeparation4 = binding.linearSeparation4;
+        linearTop = binding.linearTop;
+        linearSeparation1 = binding.linearSeparation1;
+        linearSeparation2 = binding.linearSeparation2;
+        linearSeparation3 = binding.linearSeparation3;
+        linearSeparation4 = binding.linearSeparation4;
 
-        final Button moveToLogin = binding.moveToLogin;
+        moveToLogin = binding.moveToLogin;
 
         if (user != null) {
-            // 로그인 된 유저면 화면 보여주고
+            // 로그인 된 유저의 `프로필`을 보여줌
             tvUserEmail.setText(user.getEmail());
 
         } else {
-            // 그렇지 않으면 뷰들 다 숨기고 로그인 화면 이동하기 버튼만 보여줌
-            tvUserEmail.setVisibility(View.GONE);
-            tvMyReview.setVisibility(View.GONE);
-            tvLogout.setVisibility(View.GONE);
-            tvWithdrawal.setVisibility(View.GONE);
-            tvMoRoomVersion.setVisibility(View.GONE);
-            linearTop.setVisibility(View.GONE);
-            linearSeparation1.setVisibility(View.GONE);
-            linearSeparation2.setVisibility(View.GONE);
-            linearSeparation3.setVisibility(View.GONE);
-            linearSeparation4.setVisibility(View.GONE);
-
-            moveToLogin.setVisibility(View.VISIBLE);
+            // 로그인 하러 가기 `버튼`을 보여줌
+            goToLogin();
         }
 
         tvMyReview.setOnClickListener(view -> {
@@ -80,10 +87,9 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         });
 
-        tvLogout.setOnClickListener(view -> {
-            showLogoutConfirmationDialog();
-        });
+        tvLogout.setOnClickListener(view -> showLogoutDialog());
 
+        tvDeleteAccount.setOnClickListener(view -> showDeleteDialog());
 
         moveToLogin.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -92,61 +98,23 @@ public class ProfileFragment extends Fragment {
         });
 
         return root;
-
-
     }
 
-    private void ReviewOfCurrentUser(){
-
-    }
-
-    private void CheckReviewExistence() {
-        // 현재 유저가 작성한 리뷰가 있는지 없는지 확인
-
-        String uid = user.getUid();
-        DatabaseReference userRef = database.getReference("UserAccount").child(uid);
-
-        userRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("에러 발생", "Error getting data", task.getException());
-                } else {
-                    DataSnapshot dataSnapshot = task.getResult();
-                    if (dataSnapshot.exists()) {
-                        Boolean reviewValue = dataSnapshot.child("review").getValue(Boolean.class);
-
-                        Contents contents = new Contents();
-
-                        // 사용자가 작성한 리뷰가 있는 경우 Blur값을 false로
-                        // 이거 그냥 if(reviewValue) 로 하면 안되나
-                        if (Boolean.TRUE.equals(reviewValue)) {
-                            contents.setBlur(false);
-                        }
-
-                        // 사용자가 작성한 리뷰가 없는 경우 Blur값을 true로
-                        else {
-                            contents.setBlur(true);
-
-
-                        }
-                    }
-                }
-            }
-        });
-
-    }
-
-    private void showLogoutConfirmationDialog() {
+    private void showLogoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("로그아웃");
-        builder.setMessage("정말로 로그아웃 하시겠습니까?");
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                logout();
-            }
-        });
+        builder.setMessage("정말 로그아웃 하시겠습니까?");
+        builder.setPositiveButton("확인", (dialogInterface, i) -> logout());
+        builder.setNegativeButton("취소", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("회원탈퇴");
+        builder.setMessage("정말 회원탈퇴 하시겠습니까?");
+        builder.setPositiveButton("확인", (dialogInterface, i) -> deleteAccount());
         builder.setNegativeButton("취소", null);
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -157,6 +125,36 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    private void deleteAccount() {
+        // delete Authentication data
+        user.delete()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(getActivity(), "회원탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // delete realTimeDatabase data
+        database.getReference("UserAccount").child(user.getUid()).removeValue();
+    }
+
+    private void goToLogin() {
+        moveToLogin.setVisibility(View.VISIBLE);
+
+        tvUserEmail.setVisibility(View.GONE);
+        tvMyReview.setVisibility(View.GONE);
+        tvLogout.setVisibility(View.GONE);
+        tvDeleteAccount.setVisibility(View.GONE);
+        tvMoRoomVersion.setVisibility(View.GONE);
+        linearTop.setVisibility(View.GONE);
+        linearSeparation1.setVisibility(View.GONE);
+        linearSeparation2.setVisibility(View.GONE);
+        linearSeparation3.setVisibility(View.GONE);
+        linearSeparation4.setVisibility(View.GONE);
     }
 
     @Override
