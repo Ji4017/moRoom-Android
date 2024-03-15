@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        handleDeepLink();
-
         // activity_main.xml의 BottomNavigationView 가져오기
         BottomNavigationView navView = binding.navView;
 
@@ -102,30 +100,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, fragment);
         fragmentTransaction.commit();
     }
-
-    private void handleDeepLink(){
-        FirebaseDynamicLinks.getInstance()
-                .getDynamicLink(getIntent())
-                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-                    @Override
-                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-                        // Get deep link from result (may be null if no link is found)
-                        Uri deepLink = null;
-                        if (pendingDynamicLinkData != null) {
-                            deepLink = pendingDynamicLinkData.getLink();
-                            // deepLink가 존재하면 동적 링크를 클릭한 경우
-                            if (deepLink != null) {
-                                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-                                startActivity(intent);
-                            }
-                        }
-
-                    }
-                })
-                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
-    }
-
-
 
     @Override
     public void onBackPressed() {
