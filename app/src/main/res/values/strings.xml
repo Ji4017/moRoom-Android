@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">모룸지기</string>
+    <string name="app_name">모룸</string>
     <!-- Strings related to login -->
     <string name="prompt_id">아이디 입력</string>
     <string name="prompt_email">이메일 입력</string>
