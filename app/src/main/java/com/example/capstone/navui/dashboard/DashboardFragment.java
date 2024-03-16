@@ -25,11 +25,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.capstone.MoveToLogin;
 import com.example.capstone.R;
 import com.example.capstone.SearchActivity;
 import com.example.capstone.SearchedActivity;
 import com.example.capstone.WriteActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,9 +75,15 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
         });
 
         fab.setOnClickListener(view12 -> {
-            Intent intent = new Intent(getActivity(), WriteActivity.class);
-            startActivity(intent);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Intent intent;
+            if (user != null) {
+                intent = new Intent(getActivity(), WriteActivity.class);
+            } else {
+                intent = new Intent(getActivity(), MoveToLogin.class);
+            }
 
+            startActivity(intent);
         });
 
         try {
