@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:493753692871:android:68b39719c37eff1e6444e2",
         "android_client_info": {
-          "package_name": "com.example.capstone"
+          "package_name": "com.example.moroom"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "493753692871-9dihr5kdvstkm8dc9n77ksc2mm7pmi0g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.capstone",
+            "package_name": "com.example.moroom",
             "certificate_hash": "663bfabfad9e3df7190ed3aad4df70a7ba783997"
           }
         },

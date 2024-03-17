@@ -15,5 +15,5 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-rootProject.name = "capstone"
+rootProject.name = "moroom"
 include ':app'

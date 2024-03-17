@@ -1,4 +1,4 @@
-package com.example.capstone;
+package com.example.moroom;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import com.example.capstone.databinding.ActivityMyReviewBinding;
+import com.example.moroom.databinding.ActivityMyReviewBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,15 +36,18 @@ public class MyReviewActivity extends AppCompatActivity {
         binding = ActivityMyReviewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        View blankView = findViewById(R.id.blank_view);
-        TextView tvDelete = findViewById(R.id.tv_delete);
+//        View blankView = findViewById(R.id.blank_view);
+//        TextView tvDelete = findViewById(R.id.tv_delete);
         RecyclerView recyclerView = binding.myReviewRecyclerView;
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        blankView.setVisibility(View.VISIBLE);
-        tvDelete.setVisibility(View.VISIBLE);
+//        blankView.setVisibility(View.VISIBLE);
+//        tvDelete.setVisibility(View.VISIBLE);
+
+        CheckReviewExistence();
+        ShowMyReview();
 
     }
 

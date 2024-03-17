@@ -1,4 +1,4 @@
-package com.example.capstone;
+package com.example.moroom;
 
 
 import android.content.Intent;
@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstone.databinding.ActivitySearchedBinding;
+import com.example.moroom.databinding.ActivitySearchedBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -52,7 +52,7 @@ public class SearchedActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.example.capstone.databinding.ActivitySearchedBinding binding = ActivitySearchedBinding.inflate(getLayoutInflater());
+        com.example.moroom.databinding.ActivitySearchedBinding binding = ActivitySearchedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 

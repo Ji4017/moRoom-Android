@@ -1,4 +1,4 @@
-package com.example.capstone;
+package com.example.moroom;
 
 import static android.content.ContentValues.TAG;
 
@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.capstone.databinding.ActivitySignUpBinding;
+import com.example.moroom.databinding.ActivitySignUpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +25,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -164,7 +163,7 @@ public class SignupActivity extends AppCompatActivity {
                         .setUrl("https://moroom.page.link/m1r2")
                         .setHandleCodeInApp(true)
                         .setAndroidPackageName(
-                                "com.example.capstone",
+                                "com.example.moroom",
                                 false, /* installIfNotAvailable */
                                 "12"                  /* minimumVersion */
                         )

@@ -1,13 +1,12 @@
-package com.example.capstone;
+package com.example.moroom;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.capstone.databinding.ActivityMoveToLoginBinding;
+import com.example.moroom.databinding.ActivityMoveToLoginBinding;
 
 public class MoveToLogin extends AppCompatActivity {
 

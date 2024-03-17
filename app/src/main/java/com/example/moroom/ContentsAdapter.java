@@ -1,4 +1,4 @@
-package com.example.capstone;
+package com.example.moroom;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstone.databinding.ListItemBinding;
+import com.example.moroom.databinding.ListItemBinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;

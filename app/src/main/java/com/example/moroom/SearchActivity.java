@@ -1,4 +1,4 @@
-package com.example.capstone;
+package com.example.moroom;
 
 import androidx.appcompat.app.AppCompatActivity;
 

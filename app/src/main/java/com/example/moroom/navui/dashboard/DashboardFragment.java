@@ -1,4 +1,4 @@
-package com.example.capstone.navui.dashboard;
+package com.example.moroom.navui.dashboard;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -25,11 +25,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.capstone.MoveToLogin;
-import com.example.capstone.R;
-import com.example.capstone.SearchActivity;
-import com.example.capstone.SearchedActivity;
-import com.example.capstone.WriteActivity;
+import com.example.moroom.MoveToLogin;
+import com.example.moroom.R;
+import com.example.moroom.SearchActivity;
+import com.example.moroom.SearchedActivity;
+import com.example.moroom.WriteActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

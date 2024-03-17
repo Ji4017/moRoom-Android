@@ -1,4 +1,4 @@
-package com.example.capstone.navui.home;
+package com.example.moroom.navui.home;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -22,14 +22,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstone.ContentsAdapter;
-import com.example.capstone.MoveToLogin;
-import com.example.capstone.R;
-import com.example.capstone.Contents;
-import com.example.capstone.SearchActivity;
-import com.example.capstone.SearchedActivity;
-import com.example.capstone.WriteActivity;
-import com.example.capstone.databinding.FragmentHomeBinding;
+import com.example.moroom.ContentsAdapter;
+import com.example.moroom.MoveToLogin;
+import com.example.moroom.R;
+import com.example.moroom.Contents;
+import com.example.moroom.SearchActivity;
+import com.example.moroom.SearchedActivity;
+import com.example.moroom.WriteActivity;
+import com.example.moroom.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

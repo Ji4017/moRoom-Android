@@ -1,4 +1,4 @@
-package com.example.capstone;
+package com.example.moroom;
 
 public class CheckedTextViewData {
 

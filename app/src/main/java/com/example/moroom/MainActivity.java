@@ -1,20 +1,12 @@
-package com.example.capstone;
+package com.example.moroom;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.example.capstone.databinding.ActivityMainBinding;
-import com.example.capstone.navui.dashboard.DashboardFragment;
-import com.example.capstone.navui.home.HomeFragment;
-import com.example.capstone.navui.profile.ProfileFragment;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.moroom.databinding.ActivityMainBinding;
+import com.example.moroom.navui.dashboard.DashboardFragment;
+import com.example.moroom.navui.home.HomeFragment;
+import com.example.moroom.navui.profile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;

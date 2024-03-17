@@ -1,4 +1,4 @@
-package com.example.capstone;
+package com.example.moroom;
 
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.capstone.databinding.ActivityWriteBinding;
+import com.example.moroom.databinding.ActivityWriteBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

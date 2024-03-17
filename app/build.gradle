@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.capstone'
+    namespace 'com.example.moroom'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.capstone"
+        applicationId "com.example.moroom"
         minSdk 24
         targetSdk 33
         versionCode 1

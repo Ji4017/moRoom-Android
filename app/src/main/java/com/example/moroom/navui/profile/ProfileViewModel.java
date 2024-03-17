@@ -1,4 +1,4 @@
-package com.example.capstone.navui.profile;
+package com.example.moroom.navui.profile;
 
 import androidx.lifecycle.ViewModel;
 
