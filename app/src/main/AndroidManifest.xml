@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
+        android:name=".BaseApplication"
         tools:targetApi="31">
         <activity
             android:name=".MyReviewActivity"
