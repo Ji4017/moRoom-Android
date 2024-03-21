@@ -1,6 +1,10 @@
 
 # moRoom (모두의 원룸)
-<b>대학가 부동산 후기 어플</br>
+<b>대학가 원룸 거주 후기 어플</br>
+
+<p align="left">
+<img width="50%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/917a27b5-9811-4173-ae97-d919208eabe3">
+</p>
 
 # Contents
 - <b> <a href="#1"> 🔗 Motive </a> </b>
@@ -60,7 +64,8 @@
 </h2>
 
 ### TechStack
-`Java`, `DataBinding`, `ViewModel`, `Navigation`, `RecyclerView`, `Daum Postcode API`, `Kakao Maps API`, `Firebase` (Authentication, DynamicLinks, RealtimeDatabase, Hosting)
+`Java`, `DataBinding`, `ViewModel`, `Navigation`, `RecyclerView`, `Daum Postcode API`, `Kakao Maps API`,  
+`Firebase` (Authentication, DynamicLinks, RealtimeDatabase, Hosting)
 
 <hr>
 
@@ -68,39 +73,45 @@
     <b>Result</b>
 </h2>
 
-<h3 align="left">메인 화면</h3>
+<h3 align="left">홈 화면</h3>
 
 <p align="left">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/167fb99a-5958-49dd-962f-b60f9a823d78">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/4f093a18-3065-4d63-a36c-d2466ead087a">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/ad886007-ce32-4730-bf1b-4bff4eaffdf7">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/5e92bb7d-0015-4fb9-9283-7a10a3afedeb">
 </p>
 <br>
 
 <h3 align="left">지도</h3>
 <p align="left">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/bd77b7cc-f1a0-4df6-af1f-d3496bea0ffa">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/1334a117-21f9-4acf-96f3-94ea560952c5">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/f7fff8b2-6447-4b83-8dfc-f6dce077ae92">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/1f711475-a281-4339-bbb4-30fa292d2181">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/62a6d37b-4a5e-46cf-b5cd-a9259588f992">
 </p>
 <br>
 
 <h3 align="left">검색</h3>
 <p align="left">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/641ae3b6-fe56-4bf3-bf27-2d762412fcad">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/fc3b62ae-eca8-43bb-a634-d1c7f6ed3c4c">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/d503bb86-e7be-49db-92f3-80620f6b87e2">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/cdf1215b-bc91-4696-8151-3f4a0e929ebc">
+</p>
+<br>
+
+<h3 align="left">후기 작성</h3>
+<p align="left">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/14c2dd5b-3fa1-48a3-94bf-e7349cf4bbae">
+</p>
+<br>
+
+<h3 align="left">로그인</h3>
+<p align="left">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/d1a99bd1-4110-4c3d-bbb6-70a96200ca70">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/f9aab642-6a01-42c8-be63-6e64ce3d6994">
 </p>
 <br>
 
 <h3 align="left">회원가입</h3>
 <p align="left">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/ada35d73-89c0-47ce-92fc-9fac7bcfef04">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/ba0774b7-4fea-42c4-82bf-2fc99b4ab714">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/daa297ca-9a2e-416c-b3f6-755fec7067c1">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/87e9d5b9-e1e6-4c39-aeae-4c701e688c62">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/7cc42bd1-977c-4bbe-af7f-8e860234bd63">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/3ec00b17-ca62-43ee-84c3-589f0a331dad">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/49b3b3e0-96a3-4cda-b1fa-63e36b1b3d40">
+<img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/f5e3ec93-b736-4903-ad51-7f46e82b1a34">
 </p>
 
-<h3 align="left">후기 작성</h3>
-<p align="left">
-<img width="25%" src="https://github.com/Ji4017/moroom/assets/90889656/f22f2693-dbfe-43db-8554-6d2567f4f529">
-</p>
