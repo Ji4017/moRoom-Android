@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.moroom'
+    namespace 'com.moroom.android'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.moroom"
+        applicationId "com.moroom.android"
         minSdk 24
         targetSdk 33
         versionCode 1
