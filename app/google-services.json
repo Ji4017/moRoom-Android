@@ -1,28 +1,21 @@
 {
   "project_info": {
     "project_number": "493753692871",
+    "firebase_url": "https://moroomtest-default-rtdb.firebaseio.com",
     "project_id": "moroomtest",
     "storage_bucket": "moroomtest.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:493753692871:android:68b39719c37eff1e6444e2",
+        "mobilesdk_app_id": "1:493753692871:android:197b5e97bbf04f7a6444e2",
         "android_client_info": {
           "package_name": "com.moroom.android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "493753692871-9dihr5kdvstkm8dc9n77ksc2mm7pmi0g.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.moroom.android",
-            "certificate_hash": "663bfabfad9e3df7190ed3aad4df70a7ba783997"
-          }
-        },
-        {
-          "client_id": "493753692871-7kfki00dutp12lnfusiq4rbee7p471qf.apps.googleusercontent.com",
+          "client_id": "493753692871-453elp4r8pmj7865qm2b98l519nv1l9g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,7 +28,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "493753692871-7kfki00dutp12lnfusiq4rbee7p471qf.apps.googleusercontent.com",
+              "client_id": "493753692871-453elp4r8pmj7865qm2b98l519nv1l9g.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
