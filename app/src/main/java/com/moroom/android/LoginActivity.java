@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     usernameEditText.setError(null);  // 유효한 형식인 경우 에러 제거
                     checkSignUpButtonVisibility();
                 } else {
-                    usernameEditText.setError("유효하지 않은 이메일 형식입니다.");
+                    usernameEditText.setError(getString(R.string.invalid_email));
                     loginButton.setEnabled(false);
                 }
 
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                     passwordEditText.setError(null);  // 6자리 이상인 경우 에러 제거
                     checkSignUpButtonVisibility();
                 } else {
-                    passwordEditText.setError("비밀번호는 6자리 이상이어야 합니다.");
+                    passwordEditText.setError(getString(R.string.invalid_password));
                     loginButton.setEnabled(false);
                 }
 
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LoginActivity.this, "반갑습니다", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, R.string.welcome, Toast.LENGTH_SHORT).show();
                             FirebaseUser user = auth.getCurrentUser();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "로그인 실패" + task.getException(),
+                            Toast.makeText(LoginActivity.this, getString(R.string.login_failed) + task.getException(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -157,26 +157,4 @@ public class LoginActivity extends AppCompatActivity {
             loginButton.setEnabled(false);  // 그 외의 경우 버튼 비활성화
         }
     }
-
-    // 릴리즈용 키 구하기
-//    private void getHashKey(){
-//        PackageInfo packageInfo = null;
-//        try {
-//            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        if (packageInfo == null)
-//            Log.e("KeyHash", "KeyHash:null");
-//
-//        for (Signature signature : packageInfo.signatures) {
-//            try {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            } catch (NoSuchAlgorithmException e) {
-//                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
-//            }
-//        }
-//    }
  }
