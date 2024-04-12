@@ -98,7 +98,7 @@ public class ContentsAdapter extends RecyclerView.Adapter<ContentsAdapter.Conten
 
         // isBlur 값에 따라 리뷰를 블러 처리
         Contents contents = new Contents();
-        Log.d("이즈블러 : ", "review is - " + contents.isBlur());
+        // Log.d("이즈블러 : ", "review is - " + contents.isBlur());
         if (contents.isBlur()) {
             // 리뷰를 블러 처리하는 코드 작성
             holder.tv_title.setText("****");

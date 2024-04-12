@@ -130,7 +130,7 @@ public class WriteActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     CheckedTextViewData checkedTextViewData = dataSnapshot.getValue(CheckedTextViewData.class); // 만들어뒀던 CheckedTextViewData 객체에 데이터 담음.
                     arrayList.add(checkedTextViewData); // 담은 데이터들을 배열 리스트에 넣고 리사이클러뷰로 보낼 준비
-                     Log.d("WriteActivity", "DB data : " + dataSnapshot.getValue());
+                     // Log.d("WriteActivity", "DB data : " + dataSnapshot.getValue());
                     // Firebase DB에 있는 데이터 잘 받아 왔는지 로그로 출력
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로 고침
@@ -140,7 +140,7 @@ public class WriteActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 디비를 가져오던중 에러 발생 시
-                Log.e("WriteActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                // Log.e("WriteActivity", String.valueOf(databaseError.toException()));
             }
         });
 

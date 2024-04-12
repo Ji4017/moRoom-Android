@@ -91,7 +91,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d("키해시는 :", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                // Log.d("키해시는 :", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -139,9 +139,9 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
                     latitude = addressSnapshot.child("latitude").getValue(Double.class);
                     longitude = addressSnapshot.child("longitude").getValue(Double.class);
                     address = addressSnapshot.getKey();
-                    Log.d("Data", "Latitude: " + latitude);
-                    Log.d("Data", "Longitude: " + longitude);
-                    Log.d("Data", "주소: " + address);
+                    // Log.d("Data", "Latitude: " + latitude);
+                    // Log.d("Data", "Longitude: " + longitude);
+                    // Log.d("Data", "주소: " + address);
 
                     if (latitude != null && longitude != null && address != null) {
 
@@ -156,7 +156,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
                         marker.setCustomImageAutoscale(false);
                         marker.setCustomImageAnchor(0.5f, 1.0f);
 
-//                        marker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
+                        // marker.setSelectedMarkerType(MapPOIItem.MarkerType.CustomImage);
 
                         mapView.addPOIItem(marker);
 
@@ -170,9 +170,9 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
             }
         });
 
-//        createCustomMarker(mapView);
+        // createCustomMarker(mapView);
 
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+        // mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
         return view;
     }
@@ -188,7 +188,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
         @Override
         public View getCalloutBalloon(MapPOIItem poiItem) {
             // 마커 클릭 시 나오는 말풍선
-            Log.d("getCalloutBallon", "마커 클릭 됨");
+            // Log.d("getCalloutBallon", "마커 클릭 됨");
             String address = poiItem.getItemName();  // 각 마커의 주소 가져오기
             ((TextView) mCalloutBalloon.findViewById(R.id.balloon_address)).setText(address);
             return mCalloutBalloon;
@@ -197,7 +197,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
         @Override
         public View getPressedCalloutBalloon(MapPOIItem poiItem) {
             // 말풍선 클릭 시
-            Log.d("getPressedCalloutBallon", "말풍선 클릭 됨");
+            // Log.d("getPressedCalloutBallon", "말풍선 클릭 됨");
             return mCalloutBalloon;
         }
     }
@@ -323,7 +323,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
         // 말풍선 클릭 시
-        Log.d("onCalloutBalloonOfPOIItemTouched", "POIItem 터치 됨");
+        // Log.d("onCalloutBalloonOfPOIItemTouched", "POIItem 터치 됨");
         Intent intent = new Intent(getActivity(), SearchedActivity.class);
         intent.putExtra("searchedAddress", mapPOIItem.getItemName());
         startActivity(intent);

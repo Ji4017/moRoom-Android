@@ -112,7 +112,6 @@ public class HomeFragment extends Fragment {
                 intent = new Intent(getActivity(), MoveToLogin.class);
             }
             startActivity(intent);
-
         });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -121,7 +120,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Contents contents = dataSnapshot.getValue(Contents.class);
                     arrayList.add(contents);
 
@@ -133,7 +132,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("HomeFragment", String.valueOf(error.toException()));
+                // Log.e("HomeFragment", String.valueOf(error.toException()));
             }
         });
 
@@ -158,8 +157,8 @@ public class HomeFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달됨.
-                if (result.getResultCode() == RESULT_OK){
-                    if (result.getData() != null){
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
                         String data = result.getData().getStringExtra("data");
 
                         Intent intent = new Intent(getActivity(), SearchedActivity.class);
