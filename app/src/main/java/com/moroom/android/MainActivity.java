@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupBottomNavigationView() {
-        // activity_main.xml의 BottomNavigationView 가져오기
+        // BottomNavigationView Binding
         BottomNavigationView navView = binding.navView;
 
         // NavController 설정
