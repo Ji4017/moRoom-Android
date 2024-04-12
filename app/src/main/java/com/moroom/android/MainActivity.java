@@ -31,11 +31,6 @@ public class MainActivity extends AppCompatActivity {
         // activity_main.xml의 BottomNavigationView 가져오기
         BottomNavigationView navView = binding.navView;
 
-        // AppBarConfiguration 설정
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_profile)
-                .build();
-
         // NavController 설정
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         navController = navHostFragment.getNavController();
