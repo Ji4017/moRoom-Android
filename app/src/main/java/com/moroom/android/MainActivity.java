@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
-            Toast.makeText(getApplicationContext(), R.string.shut_down_app, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.shut_down, Toast.LENGTH_SHORT).show();
         } else {
             finishAffinity();
         }
