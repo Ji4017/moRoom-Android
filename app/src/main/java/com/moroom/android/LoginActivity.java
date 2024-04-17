@@ -22,10 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private EditText usernameEditText;
+    private EditText idEditText;
     private EditText passwordEditText;
     private Button loginButton;
-    private TextView signUpTextView;
+    private TextView action_signUp;
 
 
     @Override
@@ -35,22 +35,26 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        usernameEditText = binding.username;
+        idEditText = binding.id;
         passwordEditText = binding.password;
         loginButton = binding.login;
-        signUpTextView = binding.signUp;
+        action_signUp = binding.signUp;
 
         loginButton.setEnabled(false);
 
-        signUpTextView.setOnClickListener(view -> {
+        loginButton.setOnClickListener(view -> signIn(idEditText.getText().toString(), passwordEditText.getText().toString()));
+
+        action_signUp.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
         });
 
-        loginButton.setOnClickListener(view -> signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString()));
+        validateId();
+        validatePassword();
+    }
 
-
-        usernameEditText.addTextChangedListener(new TextWatcher() {
+    private void validateId() {
+        idEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
@@ -59,10 +63,10 @@ public class LoginActivity extends AppCompatActivity {
                 String email = charSequence.toString().trim();
 
                 if (isValidEmailFormat(email)) {
-                    usernameEditText.setError(null);
+                    idEditText.setError(null);
                     checkSignUpButtonVisibility();
                 } else {
-                    usernameEditText.setError(getString(R.string.invalid_email));
+                    idEditText.setError(getString(R.string.invalid_email));
                     loginButton.setEnabled(false);
                 }
 
@@ -71,7 +75,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) { }
         });
+    }
 
+    private void validatePassword() {
         passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -93,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) { }
         });
     }
-
 
     private void signIn(String email, String password){
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -117,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkSignUpButtonVisibility() {
-        String username = usernameEditText.getText().toString().trim();
+        String username = idEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
         // ID와 Password에 모두 값이 있고 유효한 이메일 형식인 경우 버튼 활성화
