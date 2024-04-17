@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText idEditText;
     private EditText passwordEditText;
     private Button loginButton;
-    private TextView action_signUp;
+    private TextView go_signUp;
 
 
     @Override
@@ -38,13 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         idEditText = binding.id;
         passwordEditText = binding.password;
         loginButton = binding.login;
-        action_signUp = binding.signUp;
+        go_signUp = binding.signUp;
 
         loginButton.setEnabled(false);
 
         loginButton.setOnClickListener(view -> signIn(idEditText.getText().toString(), passwordEditText.getText().toString()));
 
-        action_signUp.setOnClickListener(view -> {
+        go_signUp.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
         });
