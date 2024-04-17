@@ -6,7 +6,6 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,8 @@ import com.moroom.android.ContentsAdapter;
 import com.moroom.android.MoveToLogin;
 import com.moroom.android.R;
 import com.moroom.android.Contents;
+import com.moroom.android.ResultActivity;
 import com.moroom.android.SearchActivity;
-import com.moroom.android.SearchedActivity;
 import com.moroom.android.WriteActivity;
 import com.moroom.android.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -70,25 +69,25 @@ public class HomeFragment extends Fragment {
         LinearLayout linearJinWon = binding.linearJinWon;
 
         linearUam.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            Intent intent = new Intent(getActivity(), ResultActivity.class);
             intent.putExtra("searchedAddress", "충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 우암마을");
             startActivity(intent);
         });
 
         linearYeJi.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            Intent intent = new Intent(getActivity(), ResultActivity.class);
             intent.putExtra("searchedAddress", "충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 예지관");
             startActivity(intent);
         });
 
         linearGukJe.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            Intent intent = new Intent(getActivity(), ResultActivity.class);
             intent.putExtra("searchedAddress", "충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 국제학사");
             startActivity(intent);
         });
 
         linearJinWon.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getActivity(), SearchedActivity.class);
+            Intent intent = new Intent(getActivity(), ResultActivity.class);
             intent.putExtra("searchedAddress", "충북 청주시 청원구 수암로66번길 48-2 (우암동, 한진 신세대 아파트)");
             startActivity(intent);
         });
@@ -161,7 +160,7 @@ public class HomeFragment extends Fragment {
                     if (result.getData() != null) {
                         String data = result.getData().getStringExtra("data");
 
-                        Intent intent = new Intent(getActivity(), SearchedActivity.class);
+                        Intent intent = new Intent(getActivity(), ResultActivity.class);
                         intent.putExtra("searchedAddress", data);
                         startActivity(intent);
 

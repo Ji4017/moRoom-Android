@@ -111,7 +111,7 @@ public class MyReviewActivity extends AppCompatActivity {
 
 
                         // DB에 데이터 잘 받아 오는지 로그로 출력
-                        // Log.d("SearchedActivity", "DB data : " + dataSnapshot.getValue());
+                        // Log.d("ResultActivity", "DB data : " + dataSnapshot.getValue());
                     }
                     adapter.notifyDataSetChanged();
 
@@ -122,7 +122,7 @@ public class MyReviewActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("SearchedActivity", String.valueOf(error.toException()));
+                Log.e("ResultActivity", String.valueOf(error.toException()));
             }
         });
     }

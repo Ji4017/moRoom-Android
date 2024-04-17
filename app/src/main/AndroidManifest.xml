@@ -33,10 +33,10 @@
             android:name=".MoveToLogin"
             android:exported="false" />
         <activity
-            android:name=".SearchedActivity"
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".ResultActivity"
             android:exported="false" />
         <activity
             android:name=".WriteActivity"

@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moroom.android.databinding.ActivitySearchedBinding;
+import com.moroom.android.databinding.ActivityResultBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SearchedActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity {
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -52,7 +52,7 @@ public class SearchedActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.moroom.android.databinding.ActivitySearchedBinding binding = ActivitySearchedBinding.inflate(getLayoutInflater());
+        com.moroom.android.databinding.ActivityResultBinding binding = ActivityResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 
@@ -88,21 +88,21 @@ public class SearchedActivity extends AppCompatActivity {
         });
 
         imgHome.setOnClickListener(view -> {
-            Intent intent = new Intent(SearchedActivity.this, MainActivity.class);
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
             intent.putExtra("selectedFragment", "home"); // 선택한 프래그먼트를 전달
             startActivity(intent);
             finish();
         });
 
         imgDash.setOnClickListener(view -> {
-            Intent intent = new Intent(SearchedActivity.this, MainActivity.class);
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
             intent.putExtra("selectedFragment", "dashboard"); // 선택한 프래그먼트를 전달
             startActivity(intent);
             finish();
         });
 
         imgProfile.setOnClickListener(view -> {
-            Intent intent = new Intent(SearchedActivity.this, MainActivity.class);
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
             intent.putExtra("selectedFragment", "profile"); // 선택한 프래그먼트를 전달
             startActivity(intent);
             finish();
@@ -113,16 +113,16 @@ public class SearchedActivity extends AppCompatActivity {
         searchView.setFocusable(false);
         searchView.setOnClickListener(view1 -> {
             // 주소 검색 화면으로 이동
-            Intent intent = new Intent(SearchedActivity.this, SearchActivity.class);
+            Intent intent = new Intent(ResultActivity.this, SearchActivity.class);
             getSearchResult.launch(intent);
         });
 
         fab.setOnClickListener(view -> {
             Intent intent;
             if (user != null) {
-                intent = new Intent(SearchedActivity.this, WriteActivity.class);
+                intent = new Intent(ResultActivity.this, WriteActivity.class);
             } else {
-                intent = new Intent(SearchedActivity.this, MoveToLogin.class);
+                intent = new Intent(ResultActivity.this, MoveToLogin.class);
             }
             startActivity(intent);
 
@@ -130,13 +130,13 @@ public class SearchedActivity extends AppCompatActivity {
 
         stripBannerImage.setOnClickListener(view -> {
             // 후기 작성 화면으로 이동
-            Intent intent = new Intent(SearchedActivity.this, WriteActivity.class);
+            Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
             startActivity(intent);
         });
 
         moveToWrite.setOnClickListener(view -> {
             // 후기 작성 화면으로 이동
-            Intent intent = new Intent(SearchedActivity.this, WriteActivity.class);
+            Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
             startActivity(intent);
         });
 
@@ -217,7 +217,7 @@ public class SearchedActivity extends AppCompatActivity {
 
 
                         // DB에 데이터 잘 받아 오는지 로그로 출력
-                        // Log.d("SearchedActivity", "DB data : " + dataSnapshot.getValue());
+                        // Log.d("ResultActivity", "DB data : " + dataSnapshot.getValue());
                     }
                     adapter.notifyDataSetChanged();
 
@@ -233,7 +233,7 @@ public class SearchedActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("SearchedActivity", String.valueOf(error.toException()));
+                Log.e("ResultActivity", String.valueOf(error.toException()));
             }
         });
 
@@ -249,7 +249,7 @@ public class SearchedActivity extends AppCompatActivity {
                     if (result.getData() != null) {
                         String data = result.getData().getStringExtra("data");
 
-                        Intent intent = new Intent(SearchedActivity.this, SearchedActivity.class);
+                        Intent intent = new Intent(ResultActivity.this, ResultActivity.class);
                         intent.putExtra("searchedAddress", data);
                         startActivity(intent);
 

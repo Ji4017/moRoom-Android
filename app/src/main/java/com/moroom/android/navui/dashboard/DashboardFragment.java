@@ -9,8 +9,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.Signature;
 
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +25,8 @@ import androidx.fragment.app.Fragment;
 
 import com.moroom.android.MoveToLogin;
 import com.moroom.android.R;
+import com.moroom.android.ResultActivity;
 import com.moroom.android.SearchActivity;
-import com.moroom.android.SearchedActivity;
 import com.moroom.android.WriteActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -236,7 +234,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
                     if (result.getData() != null){
                         String data = result.getData().getStringExtra("data");
 
-                        Intent intent = new Intent(getActivity(), SearchedActivity.class);
+                        Intent intent = new Intent(getActivity(), ResultActivity.class);
                         intent.putExtra("searchedAddress", data);
                         startActivity(intent);
 
@@ -324,7 +322,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
         // 말풍선 클릭 시
         // Log.d("onCalloutBalloonOfPOIItemTouched", "POIItem 터치 됨");
-        Intent intent = new Intent(getActivity(), SearchedActivity.class);
+        Intent intent = new Intent(getActivity(), ResultActivity.class);
         intent.putExtra("searchedAddress", mapPOIItem.getItemName());
         startActivity(intent);
     }
