@@ -9,13 +9,24 @@
     tools:context=".SignupActivity">
 
     <EditText
+        android:id="@+id/emailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_style_1"
+        android:ems="12"
+        android:hint="@string/enter_signUp_email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp" />
+
+    <EditText
         android:id="@+id/setId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:background="@drawable/edit_text_style_1"
         android:ems="12"
-        android:hint="회원가입 할 이메일 입력"
+        android:hint="@string/enter_signUp_id"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
@@ -28,22 +39,11 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/edit_text_style_1"
         android:ems="12"
-        android:hint="비밀번호 (6자 이상)"
+        android:hint="@string/enter_signUp_password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/emailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_style_1"
-        android:ems="12"
-        android:hint="인증용 학교 이메일 입력"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/sendEmail"
@@ -60,7 +60,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/button_style_1"
         android:paddingHorizontal="25dp"
-        android:text="회원가입 하기"
+        android:text="@string/action_signUp"
         android:visibility="gone" />
 
 </LinearLayout>

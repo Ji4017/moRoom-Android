@@ -31,34 +31,34 @@
 
                     <ImageButton
                         android:id="@+id/img_back"
-                        android:layout_width="48dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:contentDescription="imageBack"
                         android:src="@drawable/baseline_arrow_back_ios_new_24" />
 
                     <EditText
                         android:id="@+id/et_address"
-                        android:layout_width="180dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_et_home"
                         android:gravity="center"
-                        android:hint="주소를 검색해주세요"
+                        android:hint="@string/search_address"
                         android:importantForAutofill="no"
                         android:minHeight="48dp"
-                        android:padding="1dp"
+                        android:paddingHorizontal="16dp"
                         tools:ignore="TextFields" />
 
                     <LinearLayout
                         android:id="@+id/linear_navIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_marginTop="12dp"
                         android:background="@android:color/transparent"
                         android:gravity="center"
@@ -67,24 +67,27 @@
 
                         <ImageButton
                             android:id="@+id/img_home"
-                            android:layout_width="48dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="48dp"
+                            android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:contentDescription="imageHome"
                             android:src="@drawable/ic_home_black_24dp" />
 
                         <ImageButton
                             android:id="@+id/img_dash"
-                            android:layout_width="48dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="48dp"
+                            android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:contentDescription="imageDash"
                             android:src="@drawable/baseline_location_on_test_24" />
 
                         <ImageButton
                             android:id="@+id/img_profile"
-                            android:layout_width="48dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="48dp"
+                            android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:contentDescription="imageProfile"
                             android:src="@drawable/ic_profile_black_24dp" />
@@ -114,7 +117,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/tv_addressTitle"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp" />
 
             <ImageView
                 android:id="@+id/stripBannerImage"
@@ -138,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/copyRight"/>
+                    android:text="@string/copyRight" />
 
             </LinearLayout>
 
@@ -155,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="잠깐!"
+                android:text="@string/blur_1"
                 android:textAlignment="center"
                 android:textSize="36sp"
                 android:textStyle="bold"
@@ -168,7 +171,7 @@
                 android:layout_below="@id/pleaseMessage1"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="12dp"
-                android:text="후기를 작성하고 마음껏 볼 수 있어요"
+                android:text="@string/blur_2"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -181,7 +184,7 @@
                 android:layout_below="@id/linear_top"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="240dp"
-                android:text="아직 후기가 없어요\n\n일등으로 후기를 작성해주시겠어요?"
+                android:text="@string/not_exist"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -195,7 +198,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/button_style_1"
-                android:text="후기 작성하러 가기"
+                android:text="@string/action_writing"
                 android:visibility="gone" />
 
         </RelativeLayout>

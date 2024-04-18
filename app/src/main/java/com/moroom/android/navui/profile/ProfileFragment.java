@@ -16,16 +16,15 @@ import androidx.fragment.app.Fragment;
 
 import com.moroom.android.LoginActivity;
 import com.moroom.android.MyReviewActivity;
+import com.moroom.android.R;
 import com.moroom.android.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-    private DatabaseReference databaseReference;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -94,20 +93,20 @@ public class ProfileFragment extends Fragment {
 
     private void showLogoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("로그아웃");
-        builder.setMessage("정말 로그아웃 하시겠습니까?");
-        builder.setPositiveButton("확인", (dialogInterface, i) -> logout());
-        builder.setNegativeButton("취소", null);
+        builder.setTitle(getString(R.string.log_out));
+        builder.setMessage(getString(R.string.log_out_box));
+        builder.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> logout());
+        builder.setNegativeButton(getString(R.string.no), null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("회원탈퇴");
-        builder.setMessage("정말 회원탈퇴 하시겠습니까?");
-        builder.setPositiveButton("확인", (dialogInterface, i) -> deleteAccount());
-        builder.setNegativeButton("취소", null);
+        builder.setTitle(getString(R.string.delete_account));
+        builder.setMessage(getString(R.string.delete_account_box));
+        builder.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> deleteAccount());
+        builder.setNegativeButton(getString(R.string.no), null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -126,7 +125,7 @@ public class ProfileFragment extends Fragment {
                     if (task.isSuccessful()) {
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
-                        Toast.makeText(getActivity(), "회원탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.delete_complete), Toast.LENGTH_SHORT).show();
                     }
                 });
 

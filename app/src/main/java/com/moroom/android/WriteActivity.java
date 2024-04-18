@@ -101,14 +101,14 @@ public class WriteActivity extends AppCompatActivity {
                 if (!etAddress.getText().toString().isEmpty()){
                     saveReviewWithLatLng.getLatLngFromAddress(address, WriteActivity.this);
                     saveReviewWithLatLng.saveReviewToDB(address, title, checkedTextList, goodThingMultiLine, badThingMultiLine );
-                    Toast.makeText(WriteActivity.this, "후기작성 완료", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WriteActivity.this, getString(R.string.completed), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(WriteActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
 
                 else{
-                    Toast.makeText(WriteActivity.this, "주소를 설정해주세요", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WriteActivity.this, getString(R.string.enter_address_2), Toast.LENGTH_LONG).show();
                 }
             }
         });

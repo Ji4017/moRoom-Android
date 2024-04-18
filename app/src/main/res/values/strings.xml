@@ -2,49 +2,83 @@
     <string name="app_name">모룸</string>
 
     <!-- Login -->
-    <string name="welcome">반갑습니다!</string>
-    <string name="action_sign_in">로그인</string>
-    <string name="action_sign_in_short">로그인</string>
+    <string name="enter_login_id">아이디 입력</string>
+    <string name="enter_login_password">비밀번호 입력</string>
+    <string name="action_login">로그인</string>
     <string name="login_failed">아이디와 비밀번호를 다시 확인해주세요</string>
     <string name="invalid_email">유효하지 않은 이메일 형식입니다</string>
     <string name="invalid_password">비밀번호를 6자 이상 입력해주세요</string>
+    <string name="go_signUp">처음이신가요? 회원가입</string>
+    <string name="welcome">반갑습니다!</string>
 
     <!-- SignUp -->
+    <string name="enter_signUp_email">인증용 학교 이메일 입력</string>
+    <string name="enter_signUp_id">회원가입 할 이메일 입력</string>
+    <string name="enter_signUp_password">비밀번호 (6자 이상)</string>
     <string name="domain">cju.ac.kr</string>
+    <string name="send_email">이메일 전송</string>
     <string name="only_cju_email">청주대학교 이메일만 가능합니다</string>
     <string name="in_use_email">이미 사용중인 이메일입니다</string>
     <string name="signUp_error">회원가입 오류입니다 이메일을 다시 확인해주세요</string>
+    <string name="action_signUp">회원가입 하기</string>
 
-    <!-- Home -->
-    <string name="shut_down">뒤로가기를 한 번 더 누르면 앱이 종료됩니다</string>
+    <!-- Result -->
+    <string name="search_address">주소를 검색해주세요</string>
+    <string name="not_exist">아직 후기가 없어요\n\n일등으로 후기를 작성해주시겠어요?</string>
+    <string name="blur_1">잠깐!</string>
+    <string name="blur_2">후기를 작성하고 마음껏 볼 수 있어요</string>
+    <string name="action_writing">후기 작성하러 가기</string>
 
-
-    <string name="prompt_id">아이디 입력</string>
-    <string name="prompt_email">이메일 입력</string>
-    <string name="prompt_password">비밀번호 입력</string>
-    <string name="invalid_username">유저네임이 올바르지 않습니다</string>
-    <string name="action_sign_up">처음이신가요? 회원가입</string>
-
-    <string name="title_home">홈</string>
-    <string name="title_dashboard">지도</string>
-    <string name="title_notifications">알림</string>
-
-    <string name="title_profile">내정보</string>
-    <string name="send_email">이메일 전송</string>
-    <string name="write">작성 완료</string>
+    <!-- Write -->
+    <string name="enter_address_1">주소입력</string>
+    <string name="enter_address_2">주소를 입력해주세요</string>
     <string name="untill_year">년도까지 거주</string>
-    <string name="say_goodThing">좋은 점을 말해주세요!</string>
-    <string name="say_badThing">나쁜 점을 말해주세요!</string>
-    <string name="address">검색한 주소명 타이틀로 들어감</string>
     <string name="goodThing">좋은점</string>
     <string name="badThing">나쁜점</string>
+    <string name="say_goodThing">좋은 점을 말해주세요!</string>
+    <string name="say_badThing">나쁜 점을 말해주세요!</string>
+    <string name="completed">후기 작성 완료</string>
+
+    <!-- Home -->
+    <string name="what_kind_of_house">어떤 집을 찾으시나요?</string>
+    <string name="house_type">#원룸  #오피스텔  #기숙사</string>
+    <string name="best_review">Best! 후기  👍</string>
+    <string name="dormitory_review">기숙사 후기  👀</string>
+    <string name="uam">우암마을</string>
+    <string name="yeji">예지관</string>
+    <string name="gukje">국제학사</string>
+    <string name="jinwon">진원관</string>
+    <string name="go_to_review">보러가기</string>
+    <string name="symbol_direction">&gt;</string>
+    <string name="shut_down">뒤로가기를 한 번 더 누르면 앱이 종료됩니다</string>
+
+    <!-- profile -->
+    <string name="anonymous">익명</string>
+    <string name="title_profile">내정보</string>
+    <string name="my_review">내 리뷰 관리</string>
+    <string name="log_out">로그아웃</string>
+    <string name="log_out_box">정말 로그아웃 하시겠습니까?</string>
+    <string name="delete_account">회원탈퇴</string>
+    <string name="delete_account_box">정말 회원탈퇴 하시겠습니까?</string>
+    <string name="delete_complete">회원탈퇴가 완료되었습니다</string>
+    <string name="go_to_login">로그인 하러 가기</string>
+    <string name="yes">확인</string>
+    <string name="no">취소</string>
 
     <!-- Navigation -->
     <string name="home_fragment_label">홈</string>
     <string name="dash_fragment_label">지도</string>
     <string name="profile_fragment_label">프로필</string>
 
+    <!-- Bottom_nav_menu.xml -->
+    <string name="title_home">홈</string>
+    <string name="title_dashboard">지도</string>
+    <string name="title_notifications">알림</string>
+
+    <!-- Copyright -->
+    <string name="copyRight">ⓒ 2024 moRoom All right reserverd \n 서비스 내 콘텐츠 저작권은 moRoom에게 있으며 \n 모든 콘텐츠의 무단 복제, 수집배포 등의 행위를 엄격히 금합니다.</string>
+
     <!-- AppVersion -->
-    <string name="app_version">moRoom V1.0.3</string>
+    <string name="app_version">moRoom V1.0.4</string>
 
 </resources>

@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".WriteActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="3dp"
-        android:text="주소입력"
+        android:layout_marginTop="10dp"
+        android:text="@string/enter_address_1"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 
     <EditText
@@ -22,20 +22,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:paddingLeft="10dp"
-        android:hint="주소를 입력해주세요"
+        android:background="@drawable/border_et_dashboard"
+        android:hint="@string/enter_address_2"
         android:importantForAutofill="no"
         android:minHeight="48dp"
-        tools:ignore="TextFields"
-        android:background="@drawable/border_et_dashboard" />
+        android:paddingLeft="10dp"
+        tools:ignore="TextFields" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:background="@drawable/border_et_dashboard">
+        android:background="@drawable/border_et_dashboard"
+        android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/spinner1"
@@ -76,29 +76,29 @@
         android:id="@+id/checkListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/border_et_dashboard"/>
+        android:layout_weight="1"
+        android:background="@drawable/border_et_dashboard" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/goodThing"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/goodMultiLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:background="@drawable/border_et_dashboard"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/say_goodThing"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:minHeight="48dp"
-        android:background="@drawable/border_et_dashboard"/>
+        android:minHeight="48dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -113,20 +113,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:background="@drawable/border_et_dashboard"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/say_badThing"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:minHeight="48dp"
-        android:background="@drawable/border_et_dashboard"/>
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/writeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginVertical="16dp"
         android:text="작성 완료"
 
         />
