@@ -35,202 +35,50 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity {
-
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private ActivityResultBinding binding;
     private RecyclerView.Adapter adapter;
     private final ArrayList<Contents> arrayList = new ArrayList<>();
-    public String searchedAddress;
-    private EditText searchView;
-    private RecyclerView recyclerView;
-    private LinearLayout linearFooterMessage, linearNavIcon;
-    private FloatingActionButton fab;
-    private ImageView stripBannerImage, blurView;
-    private TextView addressTitle, pleaseMessage1, pleaseMessage2, pleaseMessage3;
-    private Button moveToWrite;
-    private ImageButton imgBack, imgHome, imgDash, imgProfile;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.moroom.android.databinding.ActivityResultBinding binding = ActivityResultBinding.inflate(getLayoutInflater());
+        binding = ActivityResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupViews(getIntentData());
+        setupListeners();
+    }
 
-        searchView = binding.etAddress;
-        addressTitle = binding.tvAddressTitle;
-
-        recyclerView = binding.searchedRecyclerView;
-        recyclerView.setHasFixedSize(true); // 아이템이 추가, 삭제, 변경되면 사이즈가 변경될 수 있는 뷰이므로 사이즈 고정해서 불필요한 리소스 아낌
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        imgBack = binding.imgBack;
-        imgHome = binding.imgHome;
-        imgDash = binding.imgDash;
-        imgProfile = binding.imgProfile;
-
-        fab = binding.fab;
-        stripBannerImage = binding.stripBannerImage;
-        linearFooterMessage = binding.linearFooterMessage;
-        linearNavIcon = binding.linearNavIcon;
-
-
-        blurView = binding.blurView;
-        pleaseMessage1 = binding.pleaseMessage1;
-        pleaseMessage2 = binding.pleaseMessage2;
-        pleaseMessage3 = binding.pleaseMessage3;
-        moveToWrite = binding.moveToWrite;
-
-
-        imgBack.setOnClickListener(view -> {
-            // 뒤로 가기
-            onBackPressed();
-        });
-
-        imgHome.setOnClickListener(view -> {
-            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-            intent.putExtra("selectedFragment", "home"); // 선택한 프래그먼트를 전달
-            startActivity(intent);
-            finish();
-        });
-
-        imgDash.setOnClickListener(view -> {
-            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-            intent.putExtra("selectedFragment", "dashboard"); // 선택한 프래그먼트를 전달
-            startActivity(intent);
-            finish();
-        });
-
-        imgProfile.setOnClickListener(view -> {
-            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-            intent.putExtra("selectedFragment", "profile"); // 선택한 프래그먼트를 전달
-            startActivity(intent);
-            finish();
-        });
-
-
-
-        searchView.setFocusable(false);
-        searchView.setOnClickListener(view1 -> {
-            // 주소 검색 화면으로 이동
-            Intent intent = new Intent(ResultActivity.this, SearchActivity.class);
-            getSearchResult.launch(intent);
-        });
-
-        fab.setOnClickListener(view -> {
-            Intent intent;
-            if (user != null) {
-                intent = new Intent(ResultActivity.this, WriteActivity.class);
-            } else {
-                intent = new Intent(ResultActivity.this, MoveToLogin.class);
-            }
-            startActivity(intent);
-
-        });
-
-        stripBannerImage.setOnClickListener(view -> {
-            // 후기 작성 화면으로 이동
-            Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
-            startActivity(intent);
-        });
-
-        moveToWrite.setOnClickListener(view -> {
-            // 후기 작성 화면으로 이동
-            Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
-            startActivity(intent);
-        });
-
-        // 사용자가 검색한 주소명 받아오기
+    private String getIntentData() {
         Intent intent = getIntent();
-        searchedAddress = intent.getStringExtra("searchedAddress");
-
-        // 유저가 작성한 리뷰가 존재하는지 확인 후 그에 따라 리뷰작성 화면을 보여주거나 디비에 있는 리뷰를 보여줌
-        // CheckReviewExistence();
-        ShowReview();
+        String address = intent.getStringExtra("searchedAddress");
+        return address;
     }
 
-
-    private void CheckReviewExistence() {
-        // 현재 유저가 작성한 리뷰가 있는지 없는지 확인
-
-        String uid = user.getUid();
-
-        DatabaseReference userRef = database.getReference("UserAccount").child(uid);
-
-        userRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("에러 발생", "Error getting data", task.getException());
-                } else {
-                    DataSnapshot dataSnapshot = task.getResult();
-                    if (dataSnapshot.exists()) {
-                        Boolean reviewValue = dataSnapshot.child("review").getValue(Boolean.class);
-
-                        Contents contents = new Contents();
-
-                        // 사용자가 작성한 리뷰가 있는 경우 Blur값을 false로
-                        if (Boolean.TRUE.equals(reviewValue)) {
-                            contents.setBlur(false);
-                            ShowReview();
-                        }
-
-                        // 사용자가 작성한 리뷰가 없는 경우 Blur값을 true로
-                        else {
-                            contents.setBlur(true);
-                            addressTitle.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.GONE);
-                            fab.setVisibility(View.GONE);
-                            blurView.setVisibility(View.VISIBLE);
-                            pleaseMessage1.setVisibility(View.VISIBLE);
-                            pleaseMessage2.setVisibility(View.VISIBLE);
-                            moveToWrite.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-            }
-        });
-
+    private void setupViews(String address) {
+        setupRecyclerView();
+        adapter = new ContentsAdapter(arrayList, this);
+        binding.searchedRecyclerView.setAdapter(adapter);
+        setReviews(address);
     }
 
+    private void setupRecyclerView() {
+        binding.searchedRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.searchedRecyclerView.setLayoutManager(layoutManager);
+    }
 
-    private void ShowReview() {
-        // 디비에 있는 리뷰를 보여줌
+    private void setReviews(String searchedAddress) {
+        binding.tvAddressTitle.setText(searchedAddress);
 
-        addressTitle.setText(searchedAddress);
-
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference("Address").child(searchedAddress);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
-                if (snapshot.exists()) {
-                    // 해당 주소의 후기가 있을 때
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        if (dataSnapshot.getKey().equals("latitude") || dataSnapshot.getKey().equals("longitude")) {
-                            // 필요없는 "latitude", "longitude" 값은 건너뜀
-                            continue;
-                        }
-
-                        Contents contents = dataSnapshot.getValue(Contents.class);
-                        arrayList.add(contents);
-
-
-                        // DB에 데이터 잘 받아 오는지 로그로 출력
-                        // Log.d("ResultActivity", "DB data : " + dataSnapshot.getValue());
-                    }
-                    adapter.notifyDataSetChanged();
-
-                } else {
-                    // 해당 주소의 후기가 없을 때 후기 작성 권유 텍스트 보여줌
-                    pleaseMessage3.setVisibility(View.VISIBLE);
-
-                    // 하단의 BannerImage, footerMessage 숨김
-                    stripBannerImage.setVisibility(View.GONE);
-                    linearFooterMessage.setVisibility(View.GONE);
-                }
+                if (snapshot.exists()) loadReviewsFromSnapshot(snapshot);
+                else showEmptyReviewMessage();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("ResultActivity", String.valueOf(error.toException()));
@@ -238,7 +86,71 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         adapter = new ContentsAdapter(arrayList, this);
-        recyclerView.setAdapter(adapter);
+        binding.searchedRecyclerView.setAdapter(adapter);
+    }
+
+    private void loadReviewsFromSnapshot(DataSnapshot snapshot) {
+        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+            if (dataSnapshot.getKey().equals("latitude") || dataSnapshot.getKey().equals("longitude")) {
+                // 필요없는 "latitude", "longitude" 값은 건너뜀
+                continue;
+            }
+            Contents contents = dataSnapshot.getValue(Contents.class);
+            arrayList.add(contents);
+            // Log.d("ResultActivity", "DB data : " + dataSnapshot.getValue());
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showEmptyReviewMessage() {
+        // 후기 작성 권유 텍스트 보여줌
+        binding.pleaseMessage3.setVisibility(View.VISIBLE);
+
+        // 하단의 BannerImage, footerMessage 숨김
+        binding.stripBannerImage.setVisibility(View.GONE);
+        binding.linearFooterMessage.setVisibility(View.GONE);
+    }
+
+    private void setupListeners() {
+        binding.imgBack.setOnClickListener(view -> onBackPressed());
+        binding.imgHome.setOnClickListener(view -> navigateToMainActivity(R.id.navigation_home));
+        binding.imgDash.setOnClickListener(view -> navigateToMainActivity(R.id.navigation_dashboard));
+        binding.imgProfile.setOnClickListener(view -> navigateToMainActivity(R.id.navigation_profile));
+
+        binding.etSearch.setFocusable(false);
+        binding.etSearch.setOnClickListener(view -> {
+            Intent intent = new Intent(ResultActivity.this, SearchActivity.class);
+            getSearchResult.launch(intent);
+        });
+
+        binding.fab.setOnClickListener(view -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Intent intent;
+            if (user != null) {
+                intent = new Intent(ResultActivity.this, WriteActivity.class);
+            } else {
+                intent = new Intent(ResultActivity.this, MoveToLogin.class);
+            }
+            startActivity(intent);
+        });
+
+        binding.stripBannerImage.setOnClickListener(view -> {
+            // 후기 작성 화면으로 이동
+            Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
+            startActivity(intent);
+        });
+
+        binding.moveToWrite.setOnClickListener(view -> {
+            // 후기 작성 화면으로 이동
+            Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void navigateToMainActivity(int destination) {
+        Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+        intent.putExtra("nav_destination", destination);
+        startActivity(intent);
     }
 
     private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
@@ -257,6 +169,4 @@ public class ResultActivity extends AppCompatActivity {
                 }
             }
     );
-
-
 }

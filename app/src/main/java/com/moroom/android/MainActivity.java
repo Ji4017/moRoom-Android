@@ -13,22 +13,23 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+    private BottomNavigationView navView;
     private NavController navController;
     private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupBottomNavigationView();
+        navigateToDestination();
     }
 
     private void setupBottomNavigationView() {
         // BottomNavigationView Binding
-        BottomNavigationView navView = binding.navView;
+        navView = binding.navView;
 
         // NavController 설정
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
@@ -36,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
         // NavController와 BottomNavigationView 연결
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    private void navigateToDestination() {
+        int destination = getIntent().getIntExtra("nav_destination", -1);
+        if(destination != -1) {
+            navView.setSelectedItemId(destination);
+        }
     }
 
     @Override

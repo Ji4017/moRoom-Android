@@ -41,7 +41,7 @@
                         android:src="@drawable/baseline_arrow_back_ios_new_24" />
 
                     <EditText
-                        android:id="@+id/et_address"
+                        android:id="@+id/et_search"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
