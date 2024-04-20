@@ -56,8 +56,6 @@ public class ResultActivity extends AppCompatActivity {
 
     private void setupViews(String address) {
         setupRecyclerView();
-        adapter = new ContentsAdapter(arrayList, this);
-        binding.searchedRecyclerView.setAdapter(adapter);
         setReviews(address);
     }
 
@@ -79,14 +77,14 @@ public class ResultActivity extends AppCompatActivity {
                 if (snapshot.exists()) loadReviewsFromSnapshot(snapshot);
                 else showEmptyReviewMessage();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("ResultActivity", String.valueOf(error.toException()));
             }
         });
 
-        adapter = new ContentsAdapter(arrayList, this);
-        binding.searchedRecyclerView.setAdapter(adapter);
+        setupAdapter();
     }
 
     private void loadReviewsFromSnapshot(DataSnapshot snapshot) {
@@ -109,6 +107,11 @@ public class ResultActivity extends AppCompatActivity {
         // 하단의 BannerImage, footerMessage 숨김
         binding.stripBannerImage.setVisibility(View.GONE);
         binding.linearFooterMessage.setVisibility(View.GONE);
+    }
+
+    private void setupAdapter() {
+        adapter = new ContentsAdapter(arrayList, this);
+        binding.searchedRecyclerView.setAdapter(adapter);
     }
 
     private void setupListeners() {
