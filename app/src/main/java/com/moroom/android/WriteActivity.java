@@ -14,16 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckedTextView;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moroom.android.databinding.ActivityWriteBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,27 +26,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class WriteActivity extends AppCompatActivity {
-
     private ActivityWriteBinding binding;
-    private RecyclerView checkListRecyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<CheckedTextViewData> arrayList;
-    private DatabaseReference databaseReference;
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final FirebaseAuth auth = FirebaseAuth.getInstance();
-    final FirebaseUser firebaseUser = auth.getCurrentUser();
-    public EditText etAddress;
-    private EditText etGoodThingMultiLine;
-    private EditText etBadThingMultiLine;
-    private CheckedTextView checkedTextView;
-    private String selectedFloor, selectedYear, untillTheYear , selectedRentType;
-
-    private ArrayList<String> checkedTextList;  // 체크된 텍스트를 저장할 리스트
-    private SaveReviewWithLatLng saveReviewWithLatLng = new SaveReviewWithLatLng();
-
+    private String address;
+    private String selectedFloor, selectedYear, selectedRentType;
+    private ArrayList<CheckedTextViewData> arrayList = new ArrayList<>(); // CheckedTextViewData 객체 담을 배열 리스트
+    private ArrayList<String> checkedTextList = new ArrayList<>();  // 체크된 항목을 저장할 리스트
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,141 +42,156 @@ public class WriteActivity extends AppCompatActivity {
         binding = ActivityWriteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        etAddress = binding.etAddress;
-        Spinner floorSpinner = binding.spinner1;
-        Spinner yearSpinner = binding.spinner2;
-        Spinner rentTypeSpinner = binding.spinner3;
-        TextView betweenTextView = binding.spinnerTextView;
-        etGoodThingMultiLine = binding.goodMultiLine;
-        etBadThingMultiLine = binding.badMultiLine;
-        Button writeButton = binding.writeButton;
-        untillTheYear = betweenTextView.getText().toString();
-        checkedTextView = findViewById(R.id.checkedTextView);
+        setupViews();
+        setupListeners();
 
-        checkedTextList = new ArrayList<>();  // 체크된 텍스트를 저장할 리스트 초기화
+    }
 
-        etAddress.setFocusable(false);
-//        detailAddress.setFocusable(false);
-        etAddress.setOnClickListener(new View.OnClickListener() {
+    private void setupViews() {
+        setupRecyclerView();
+        setCheckList();
+        setDefaultSpinnerOptions();
+    }
+
+    private void setupSpinnerItemSelectedListener(Spinner spinner, Consumer<String> selectionConsumer) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected = adapterView.getItemAtPosition(i).toString();
+                // selected 값을 Consumer를 통해 처리
+                selectionConsumer.accept(selected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+    }
+
+    private void setupSpinnerListeners() {
+        setupSpinnerItemSelectedListener(binding.spinnerFloor, selected -> selectedFloor = selected);
+        setupSpinnerItemSelectedListener(binding.spinnerYear, selected -> selectedYear = selected);
+        setupSpinnerItemSelectedListener(binding.spinnerRentType, selected -> selectedRentType = selected);
+    }
+
+    private void setDefaultSpinnerOptions() {
+        ArrayAdapter<CharSequence> floorAdapter = ArrayAdapter.createFromResource(this, R.array.floor_array, android.R.layout.simple_spinner_item);
+        binding.spinnerFloor.setAdapter(floorAdapter);
+        binding.spinnerFloor.setSelection(1);
+
+        ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(this, R.array.year_array, android.R.layout.simple_spinner_item);
+        binding.spinnerYear.setAdapter(yearAdapter);
+        binding.spinnerYear.setSelection(yearAdapter.getCount() - 1);
+    }
+
+    private void setupRecyclerView() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.checkListRecyclerView.setHasFixedSize(true);
+        binding.checkListRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void setupListeners() {
+        setupSpinnerListeners();
+
+        binding.etAddress.setFocusable(false);
+        binding.etAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WriteActivity.this, SearchActivity.class);
                 getSearchResult.launch(intent);
             }
         });
-        ArrayAdapter<CharSequence> floorAdapter = ArrayAdapter.createFromResource(this, R.array.floor_array, android.R.layout.simple_spinner_item);
-        floorSpinner.setAdapter(floorAdapter);
-        floorSpinner.setSelection(1);
 
-        ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(this, R.array.year_array, android.R.layout.simple_spinner_item);
-        yearSpinner.setAdapter(yearAdapter);
-        yearSpinner.setSelection(yearAdapter.getCount() - 1);
-
-
-        writeButton.setOnClickListener(new View.OnClickListener() {
+        binding.btWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String address = etAddress.getText().toString();
-                String title = selectedFloor + " " + selectedYear + untillTheYear + " " + selectedRentType;
-                String goodThingMultiLine = etGoodThingMultiLine.getText().toString();
-                String badThingMultiLine = etBadThingMultiLine.getText().toString();
-
-                if (!etAddress.getText().toString().isEmpty()){
-                    saveReviewWithLatLng.getLatLngFromAddress(address, WriteActivity.this);
-                    saveReviewWithLatLng.saveReviewToDB(address, title, checkedTextList, goodThingMultiLine, badThingMultiLine );
-                    Toast.makeText(WriteActivity.this, getString(R.string.completed), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(WriteActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-                else{
-                    Toast.makeText(WriteActivity.this, getString(R.string.enter_address_2), Toast.LENGTH_LONG).show();
+                if (validateFields()){
+                    saveReview();
+                    goToMainActivity();
                 }
             }
         });
+    }
 
+    private boolean validateFields() {
+        if (address == null) {
+            Toast.makeText(WriteActivity.this, getString(R.string.please_enter_address), Toast.LENGTH_LONG).show();
+            return false;
+        }
 
-        checkListRecyclerView = findViewById(R.id.checkListRecyclerView); // 아이디 연결
-        checkListRecyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-        layoutManager = new LinearLayoutManager(this);
-        checkListRecyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<>(); // CheckedTextViewData 객체를 담을 어레이 리스트 (어댑터쪽으로)
+        String pros = binding.etPros.getText().toString();
+        if (pros.isEmpty()) {
+            Toast.makeText(WriteActivity.this, getString(R.string.please_enter_pros), Toast.LENGTH_LONG).show();
+            return false;
+        }
 
+        String badThing = binding.etCons.getText().toString();
+        if (badThing.isEmpty()) {
+            Toast.makeText(WriteActivity.this, getString(R.string.please_enter_cons), Toast.LENGTH_LONG).show();
+            return false;
+        }
 
-        // DB에 만들어놓은 리스트데이터 recyclerView에다가 가져오는 작업
-        databaseReference = database.getReference("CheckedTextViewList"); // DB 테이블 연결
+        return true;
+    }
+
+    private void saveReview() {
+        String yearSuffix = binding.tvYearSuffix.getText().toString();
+        String title = selectedFloor + " " + selectedYear + yearSuffix + " " + selectedRentType;
+        String goodThingMultiLine = binding.etPros.getText().toString();
+        String badThingMultiLine = binding.etCons.getText().toString();
+
+        SaveReviewWithLatLng saveReviewWithLatLng = new SaveReviewWithLatLng();
+        saveReviewWithLatLng.getLatLngFromAddress(address, WriteActivity.this);
+        saveReviewWithLatLng.saveReviewToDB(address, title, checkedTextList, goodThingMultiLine, badThingMultiLine);
+        Toast.makeText(WriteActivity.this, getString(R.string.completed), Toast.LENGTH_LONG).show();
+    }
+
+    private void goToMainActivity() {
+        Intent intent = new Intent(WriteActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setCheckList() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference("CheckedTextViewList");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    CheckedTextViewData checkedTextViewData = dataSnapshot.getValue(CheckedTextViewData.class); // 만들어뒀던 CheckedTextViewData 객체에 데이터 담음.
-                    arrayList.add(checkedTextViewData); // 담은 데이터들을 배열 리스트에 넣고 리사이클러뷰로 보낼 준비
-                     // Log.d("WriteActivity", "DB data : " + dataSnapshot.getValue());
-                    // Firebase DB에 있는 데이터 잘 받아 왔는지 로그로 출력
+                    CheckedTextViewData checkedTextViewData = dataSnapshot.getValue(CheckedTextViewData.class); // CheckedTextViewData 객체에 데이터 담음
+                    arrayList.add(checkedTextViewData); // 담은 데이터를 리스트에 넣고 리사이클러뷰로 보낼 준비
+                    // Log.d("WriteActivity", "DB data : " + dataSnapshot.getValue());
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로 고침
-
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 디비를 가져오던중 에러 발생 시
-                // Log.e("WriteActivity", String.valueOf(databaseError.toException()));
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("WriteActivity", String.valueOf(error.toException()));
             }
         });
 
+        setupAdapter();
+    }
+
+    private void setupAdapter() {
         adapter = new CheckedTextViewAdapter(arrayList, this, this);
-        checkListRecyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
-
-
-        // 사용자가 선택한 Spinner 값 텍스트 추출
-        floorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedFloor = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
-        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedYear = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
-        rentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedRentType = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-
+        binding.checkListRecyclerView.setAdapter(adapter);
     }
 
     private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달된다.
+                // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달
                 if (result.getResultCode() == RESULT_OK){
                     if (result.getData() != null){
                         String data = result.getData().getStringExtra("data");
-                        etAddress.setText(data);
+                        address = data;
+                        binding.etAddress.setText(data);
                     }
                 }
             }
     );
-
 
     // 체크된 텍스트를 리스트에 추가
     public void addTextToList(String text) {
@@ -204,7 +202,4 @@ public class WriteActivity extends AppCompatActivity {
     public void removeTextFromList(String text) {
         checkedTextList.remove(text);
     }
-
-
-
 }

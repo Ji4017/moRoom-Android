@@ -31,8 +31,10 @@
 
     <!-- Write -->
     <string name="enter_address_1">주소입력</string>
-    <string name="enter_address_2">주소를 입력해주세요</string>
-    <string name="untill_year">년도까지 거주</string>
+    <string name="please_enter_address">주소를 입력해주세요</string>
+    <string name="please_enter_pros">좋은 점을 입력해주세요</string>
+    <string name="please_enter_cons">나쁜 점을 입력해주세요</string>
+    <string name="until_year">년도까지 거주</string>
     <string name="goodThing">좋은점</string>
     <string name="badThing">나쁜점</string>
     <string name="say_goodThing">좋은 점을 말해주세요!</string>
