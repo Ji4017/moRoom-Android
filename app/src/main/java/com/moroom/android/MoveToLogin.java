@@ -18,9 +18,7 @@ public class MoveToLogin extends AppCompatActivity {
         binding = ActivityMoveToLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        final Button moveToLogin = binding.moveToLogin;
-
-        moveToLogin.setOnClickListener(view -> {
+        binding.moveToLogin.setOnClickListener(view -> {
             Intent intent = new Intent(MoveToLogin.this, LoginActivity.class);
             startActivity(intent);
             finish();
