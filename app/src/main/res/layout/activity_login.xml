@@ -18,7 +18,7 @@
         android:src="@drawable/logo" />
 
     <EditText
-        android:id="@+id/id"
+        android:id="@+id/et_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -31,7 +31,7 @@
         android:selectAllOnFocus="true" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -44,7 +44,7 @@
         android:selectAllOnFocus="true" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/bt_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -54,7 +54,7 @@
         android:text="@string/action_login" />
 
     <TextView
-        android:id="@+id/sign_up"
+        android:id="@+id/tv_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:gravity="center"
