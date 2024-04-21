@@ -38,10 +38,10 @@ public class MyReviewActivity extends AppCompatActivity {
 
 //        View blankView = findViewById(R.id.blank_view);
 //        TextView tvDelete = findViewById(R.id.tv_delete);
-        RecyclerView recyclerView = binding.myReviewRecyclerView;
-        recyclerView.setHasFixedSize(true);
+
+        binding.myReviewRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.myReviewRecyclerView.setLayoutManager(layoutManager);
 
 //        blankView.setVisibility(View.VISIBLE);
 //        tvDelete.setVisibility(View.VISIBLE);
