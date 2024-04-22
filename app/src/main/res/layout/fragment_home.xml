@@ -24,12 +24,12 @@
                 android:contentDescription="mainImage">
 
                 <ImageView
-                    android:id="@+id/mainImage"
+                    android:id="@+id/img_home"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="24dp"
                     android:background="@android:color/transparent"
-                    android:contentDescription="mainIamge"
+                    android:contentDescription="homeImage"
                     android:src="@drawable/logo" />
             </RelativeLayout>
 
@@ -52,7 +52,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/et_address"
+                    android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/et_1"
