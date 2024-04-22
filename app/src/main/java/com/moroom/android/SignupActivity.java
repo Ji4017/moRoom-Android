@@ -25,53 +25,45 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 public class SignupActivity extends AppCompatActivity {
-    EditText idEditText;
-    EditText passwordEditText;
-    EditText emailAddressText;
-    Button emailSendButton;
-    Button signUpButton;
+    private ActivitySignUpBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ActivitySignUpBinding binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        idEditText = binding.setId;
-        passwordEditText = binding.setPassword;
-        emailAddressText = binding.emailAddress;
-        emailSendButton = binding.sendEmail;
-        signUpButton = binding.register;
-
-        emailSendButton.setOnClickListener(view -> sendEmail());
-
-        signUpButton.setOnClickListener(view -> {
-            if (isValidSignUpForm()) {
-                createUser(idEditText.getText().toString(), passwordEditText.getText().toString());
-            }
-        });
-
+        setUpListener();
         handleDeepLink();
         initializeEmailField();
         validateEmail();
     }
 
+    private void setUpListener() {
+        binding.btSendEmail.setOnClickListener(view -> sendEmail());
+
+        binding.btSignUp.setOnClickListener(view -> {
+            if (isValidSignUpForm()) {
+                createUser(binding.etId.getText().toString(), binding.etPassword.getText().toString());
+            }
+        });
+    }
+
     private void initializeEmailField() {
-        emailAddressText.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.etEmailAddress.setOnFocusChangeListener((v, hasFocus) -> {
             // 인증용 이메일 필드 초기 셋팅
             if (hasFocus) {
-                emailAddressText.setText("@" + getString(R.string.domain));
-                emailAddressText.post(() -> {
+                binding.etEmailAddress.setText("@" + getString(R.string.domain));
+                binding.etEmailAddress.post(() -> {
                     // 커서 맨 앞으로 이동
-                    emailAddressText.setSelection(0);
+                    binding.etEmailAddress.setSelection(0);
                 });
             }
         });
     }
 
     private void validateEmail() {
-        emailAddressText.addTextChangedListener(new TextWatcher() {
+        binding.etEmailAddress.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -80,11 +72,11 @@ public class SignupActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String email = s.toString().trim();
                 if (!isValidEmailDomain(email)) {
-                    emailSendButton.setEnabled(false);
-                    emailAddressText.setError(getString(R.string.only_cju_email));
+                    binding.btSendEmail.setEnabled(false);
+                    binding.etEmailAddress.setError(getString(R.string.only_cju_email));
                 } else {
-                    emailAddressText.setError(null);
-                    emailSendButton.setEnabled(true);
+                    binding.etEmailAddress.setError(null);
+                    binding.btSendEmail.setEnabled(true);
                 }
             }
 
@@ -95,19 +87,19 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean isValidSignUpForm() {
-        boolean isIdValid = isValidId(idEditText.getText().toString());
-        boolean isPasswordValid = isValidPassword(passwordEditText.getText().toString());
+        boolean isIdValid = isValidId(binding.etId.getText().toString());
+        boolean isPasswordValid = isValidPassword(binding.etPassword.getText().toString());
 
         if (!isIdValid) {
-            idEditText.setError(getString(R.string.invalid_email));
+            binding.etId.setError(getString(R.string.invalid_email));
         } else {
-            idEditText.setError(null);
+            binding.etId.setError(null);
         }
 
         if (!isPasswordValid) {
-            passwordEditText.setError(getString(R.string.invalid_password));
+            binding.etPassword.setError(getString(R.string.invalid_password));
         } else {
-            passwordEditText.setError(null);
+            binding.etPassword.setError(null);
         }
 
         return (isIdValid && isPasswordValid);
@@ -127,7 +119,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void sendEmail() {
-        String email = emailAddressText.getText().toString();
+        String email = binding.etEmailAddress.getText().toString();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         ActionCodeSettings actionCodeSettings = buildActionCodeSettings();
@@ -219,10 +211,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void showSignUpForm() {
-        emailAddressText.setVisibility(View.GONE);
-        emailSendButton.setVisibility(View.GONE);
-        idEditText.setVisibility(View.VISIBLE);
-        passwordEditText.setVisibility(View.VISIBLE);
-        signUpButton.setVisibility(View.VISIBLE);
+        binding.etEmailAddress.setVisibility(View.GONE);
+        binding.btSendEmail.setVisibility(View.GONE);
+        binding.etId.setVisibility(View.VISIBLE);
+        binding.etPassword.setVisibility(View.VISIBLE);
+        binding.btSignUp.setVisibility(View.VISIBLE);
     }
 }
