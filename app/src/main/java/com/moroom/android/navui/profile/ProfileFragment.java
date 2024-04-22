@@ -23,72 +23,61 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileFragment extends Fragment {
-
     private FragmentProfileBinding binding;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private TextView tvUserEmail;
-    private TextView tvMyReview;
-    private TextView tvLogout;
-    private TextView tvDeleteAccount;
-    private TextView tvMoRoomVersion;
-
-    private LinearLayout linearTop;
-    private LinearLayout linearSeparation1;
-    private LinearLayout linearSeparation2;
-    private LinearLayout linearSeparation3;
-    private LinearLayout linearSeparation4;
-
-    private Button moveToLogin;
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View view = binding.getRoot();
 
-        tvUserEmail = binding.tvUserEmail;
-        tvMyReview = binding.tvMyReview;
-        tvLogout = binding.tvLogout;
-        tvDeleteAccount = binding.tvDeleteAccount;
-        tvMoRoomVersion = binding.tvMoRoomVersion;
+        setupView();
+        setupListener();
 
-        linearTop = binding.linearTop;
-        linearSeparation1 = binding.linearSeparation1;
-        linearSeparation2 = binding.linearSeparation2;
-        linearSeparation3 = binding.linearSeparation3;
-        linearSeparation4 = binding.linearSeparation4;
+        return view;
+    }
 
-        moveToLogin = binding.moveToLogin;
+    private void setupView() {
+        if (user != null) showUserProfile();
+        else goToLogin();
+    }
 
-        if (user != null) {
-            // 로그인 된 유저의 `프로필`을 보여줌
-            tvUserEmail.setText(user.getEmail());
+    private void showUserProfile() {
+        // 로그인 된 유저의 `프로필`을 보여줌
+        binding.tvUserEmail.setText(user.getEmail());
+    }
 
-        } else {
-            // 로그인 하러 가기 `버튼`을 보여줌
-            goToLogin();
-        }
+    private void goToLogin() {
+        binding.moveToLogin.setVisibility(View.VISIBLE);
 
-        tvMyReview.setOnClickListener(view -> {
+        binding.tvUserEmail.setVisibility(View.GONE);
+        binding.tvMyReview.setVisibility(View.GONE);
+        binding.tvLogout.setVisibility(View.GONE);
+        binding.tvDeleteAccount.setVisibility(View.GONE);
+        binding.tvMoRoomVersion.setVisibility(View.GONE);
+        binding.linearTop.setVisibility(View.GONE);
+        binding.linearSeparation1.setVisibility(View.GONE);
+        binding.linearSeparation2.setVisibility(View.GONE);
+        binding.linearSeparation3.setVisibility(View.GONE);
+        binding.linearSeparation4.setVisibility(View.GONE);
+    }
+
+    private void setupListener() {
+        binding.tvMyReview.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), MyReviewActivity.class);
             startActivity(intent);
         });
 
-        tvLogout.setOnClickListener(view -> showLogoutDialog());
+        binding.tvLogout.setOnClickListener(v -> showLogoutDialog());
 
-        tvDeleteAccount.setOnClickListener(view -> showDeleteDialog());
+        binding.tvDeleteAccount.setOnClickListener(v -> showDeleteDialog());
 
-        moveToLogin.setOnClickListener(view -> {
+        binding.moveToLogin.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
             getActivity().finish();
         });
-
-        return root;
     }
 
     private void showLogoutDialog() {
@@ -129,23 +118,8 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-        // delete realTimeDatabase data
         database.getReference("UserAccount").child(user.getUid()).removeValue();
-    }
-
-    private void goToLogin() {
-        moveToLogin.setVisibility(View.VISIBLE);
-
-        tvUserEmail.setVisibility(View.GONE);
-        tvMyReview.setVisibility(View.GONE);
-        tvLogout.setVisibility(View.GONE);
-        tvDeleteAccount.setVisibility(View.GONE);
-        tvMoRoomVersion.setVisibility(View.GONE);
-        linearTop.setVisibility(View.GONE);
-        linearSeparation1.setVisibility(View.GONE);
-        linearSeparation2.setVisibility(View.GONE);
-        linearSeparation3.setVisibility(View.GONE);
-        linearSeparation4.setVisibility(View.GONE);
+        database.getReference("Address").child(user.getUid()).getParent().removeValue();
     }
 
     @Override
