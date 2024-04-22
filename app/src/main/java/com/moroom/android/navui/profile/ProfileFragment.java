@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -94,7 +93,7 @@ public class ProfileFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getString(R.string.delete_account));
         builder.setMessage(getString(R.string.delete_account_box));
-        builder.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> deleteAccount());
+        builder.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> deleteUserData());
         builder.setNegativeButton(getString(R.string.no), null);
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -107,8 +106,7 @@ public class ProfileFragment extends Fragment {
         getActivity().finish();
     }
 
-    private void deleteAccount() {
-        // delete Authentication data
+    private void deleteUserData() {
         user.delete()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -118,8 +116,8 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.getReference("UserAccount").child(user.getUid()).removeValue();
-        database.getReference("Address").child(user.getUid()).getParent().removeValue();
     }
 
     @Override
