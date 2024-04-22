@@ -86,15 +86,17 @@ public class ContentsAdapter extends RecyclerView.Adapter<ContentsAdapter.Conten
 
         // selectedList 값 처리
         HashMap<String, String> selectedList = arrayList.get(position).getSelectedList();
-        StringBuilder selectedListText = new StringBuilder();
-
-        // 리스트의 각 데이터를 줄바꿈 해서 보여주기 위해 selectedListText에 값을 담아 보여줌
-        for (String key : selectedList.keySet()) {
-            String value = selectedList.get(key);
-            selectedListText.append(value).append("\n");
+        if(selectedList != null) {
+            // 리스트의 각 데이터를 줄바꿈 해서 보여주기 위해 selectedListText에 값을 담아 보여줌
+            StringBuilder selectedListText = new StringBuilder();
+            for (String key : selectedList.keySet()) {
+                String value = selectedList.get(key);
+                selectedListText.append(value).append("\n");
+            }
+            holder.tv_selectedList.setText(selectedListText.toString());
+        } else {
+            holder.tv_selectedList.setText("");
         }
-
-        holder.tv_selectedList.setText(selectedListText.toString());
 
         // isBlur 값에 따라 리뷰를 블러 처리
         Contents contents = new Contents();
