@@ -43,35 +43,38 @@ public class SaveReviewWithLatLng {
                 double longitude = addressList.get(0).getLongitude();
 
                 // 위도와 경도를 Firebase에 저장하는 메서드 호출
-                saveAddressWithLatLngIfNotExist(address, latitude, longitude);
+                saveLatLngToDB(address, latitude, longitude);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // 이미 해당 주소에 대한 위도와 경도 데이터가 있는지 확인하고 저장하는 메서드
-    public void saveAddressWithLatLngIfNotExist(String address, double latitude, double longitude) {
-
-        DatabaseReference databaseRef = database.getReference();
-
-        // 해당 주소를 검색하여 이미 데이터가 있는지 확인
-        Query query = databaseRef.orderByChild("Address").equalTo(address);
+    public void saveLatLngToDB(String address, double latitude, double longitude) {
+        // 위도 경도 DB에 저장
+        
+        DatabaseReference addressRef = database.getReference("Address");
+        Query query = addressRef.orderByKey().equalTo(address);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
-                    DatabaseReference addressRef = databaseRef.child("Address").child(address);
-
-                    addressRef.child("latitude").setValue(latitude);
-                    addressRef.child("longitude").setValue(longitude);
-                    Log.d("Firebase", "Data saved for address: " + address);
+                Log.d("Firebase", "dataSnapshot : " + dataSnapshot);
+                for (DataSnapshot addressSnapshot : dataSnapshot.getChildren()) {
+                    if (addressSnapshot.hasChild("latitude") && addressSnapshot.hasChild("longitude")) {
+                        Log.d("Firebase", "Address already has latitude and longitude.");
+                        return;
+                    }
                 }
+                // 위도와 경도가 저장되어 있지 않은 경우 저장
+                DatabaseReference newAddressRef = addressRef.child(address);
+                newAddressRef.child("latitude").setValue(latitude);
+                newAddressRef.child("longitude").setValue(longitude);
+                Log.d("Firebase", "latitude, longitude saved for: " + address);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Firebase", "Error checking existing data: " + databaseError.getMessage());
+                Log.e("Firebase", "latitude, longitude DatabaseError: " + databaseError.getMessage());
             }
         });
     }
