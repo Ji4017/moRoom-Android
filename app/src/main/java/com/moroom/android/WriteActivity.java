@@ -124,8 +124,8 @@ public class WriteActivity extends AppCompatActivity {
             return false;
         }
 
-        String badThing = binding.etCons.getText().toString();
-        if (badThing.isEmpty()) {
+        String cons = binding.etCons.getText().toString();
+        if (cons.isEmpty()) {
             Toast.makeText(WriteActivity.this, getString(R.string.please_enter_cons), Toast.LENGTH_LONG).show();
             return false;
         }
@@ -136,12 +136,12 @@ public class WriteActivity extends AppCompatActivity {
     private void saveReview() {
         String yearSuffix = binding.tvYearSuffix.getText().toString();
         String title = selectedFloor + " " + selectedYear + yearSuffix + " " + selectedRentType;
-        String goodThingMultiLine = binding.etPros.getText().toString();
-        String badThingMultiLine = binding.etCons.getText().toString();
+        String pros = binding.etPros.getText().toString();
+        String cons = binding.etCons.getText().toString();
 
         SaveReviewWithLatLng saveReviewWithLatLng = new SaveReviewWithLatLng();
         saveReviewWithLatLng.getLatLngFromAddress(address, WriteActivity.this);
-        saveReviewWithLatLng.saveReviewToDB(address, title, checkedTextList, goodThingMultiLine, badThingMultiLine);
+        saveReviewWithLatLng.saveReviewToDB(address, title, checkedTextList, pros, cons);
         Toast.makeText(WriteActivity.this, getString(R.string.completed), Toast.LENGTH_LONG).show();
     }
 
