@@ -2,7 +2,7 @@
 # moRoom (모두의 원룸)
 <b>대학가 원룸 거주 후기 어플</br>
 
-<p align="left">
+<p>
 <img width="50%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/917a27b5-9811-4173-ae97-d919208eabe3">
 </p>
 
@@ -12,6 +12,7 @@
 - <b> <a href="#3"> 🔗 Project Characteristic </a> </b>
 - <b> <a href="#4"> 🔗 Technology </a> </b>
 - <b> <a href="#5"> 🔗 Result </a> </b>
+- <b> <a href="#6"> 🔗 PlayStoreLink </a> </b>
 
 <hr>
 
@@ -49,7 +50,7 @@
     <b>Project Characteristic</b>
 </h2>
 
-- 게시글 작성자를 랜덤한 값인 UID로 처리해 익명으로 후기 작성,
+- 게시글 작성자를 랜덤한 값인 UID로 처리해 익명으로 후기 작성
 - 액티비티에서 다른 액티비티의 Fragment로 이동
 - 동적링크를 이용한 이메일 인증 및 회원가입
 - 지도의 Marker를 이용한 해당 주소의 후기로 이동
@@ -64,7 +65,7 @@
 </h2>
 
 ### TechStack
-`Java`, `DataBinding`, `ViewModel`, `Navigation`, `RecyclerView`, `Daum Postcode API`, `Kakao Maps API`,  
+`Java` `Navigation` `RecyclerView` `Daum Postcode API` `Kakao Maps API`  
 `Firebase` (Authentication, DynamicLinks, RealtimeDatabase, Hosting)
 
 <hr>
@@ -75,43 +76,49 @@
 
 <h3 align="left">홈 화면</h3>
 
-<p align="left">
+<p>
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/ad886007-ce32-4730-bf1b-4bff4eaffdf7">
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/5e92bb7d-0015-4fb9-9283-7a10a3afedeb">
 </p>
 <br>
 
 <h3 align="left">지도</h3>
-<p align="left">
+<p>
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/1f711475-a281-4339-bbb4-30fa292d2181">
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/62a6d37b-4a5e-46cf-b5cd-a9259588f992">
 </p>
 <br>
 
 <h3 align="left">검색</h3>
-<p align="left">
+<p>
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/d503bb86-e7be-49db-92f3-80620f6b87e2">
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/cdf1215b-bc91-4696-8151-3f4a0e929ebc">
 </p>
 <br>
 
 <h3 align="left">후기 작성</h3>
-<p align="left">
+<p>
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/14c2dd5b-3fa1-48a3-94bf-e7349cf4bbae">
 </p>
 <br>
 
 <h3 align="left">로그인</h3>
-<p align="left">
+<p>
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/d1a99bd1-4110-4c3d-bbb6-70a96200ca70">
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/f9aab642-6a01-42c8-be63-6e64ce3d6994">
 </p>
 <br>
 
 <h3 align="left">회원가입</h3>
-<p align="left">
+<p>
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/3ec00b17-ca62-43ee-84c3-589f0a331dad">
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/49b3b3e0-96a3-4cda-b1fa-63e36b1b3d40">
 <img width="25%" src="https://github.com/Ji4017/moRoom-Android/assets/90889656/f5e3ec93-b736-4903-ad51-7f46e82b1a34">
 </p>
 
+<hr>
+
+<h2 id="6">
+    <b>PlayStoreLink</b>
+</h2>
+<a href="https://play.google.com/store/apps/details?id=com.moroom.android&hl=ko-KR" target="_blank">플레이스토어</a>
