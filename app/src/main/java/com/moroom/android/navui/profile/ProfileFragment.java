@@ -6,16 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.moroom.android.LoginActivity;
-import com.moroom.android.MyReviewActivity;
 import com.moroom.android.R;
 import com.moroom.android.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +47,6 @@ public class ProfileFragment extends Fragment {
         binding.moveToLogin.setVisibility(View.VISIBLE);
 
         binding.tvUserEmail.setVisibility(View.GONE);
-        binding.tvMyReview.setVisibility(View.GONE);
         binding.tvLogout.setVisibility(View.GONE);
         binding.tvDeleteAccount.setVisibility(View.GONE);
         binding.tvMoRoomVersion.setVisibility(View.GONE);
@@ -63,11 +58,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupListener() {
-        binding.tvMyReview.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MyReviewActivity.class);
-            startActivity(intent);
-        });
-
         binding.tvLogout.setOnClickListener(v -> showLogoutDialog());
 
         binding.tvDeleteAccount.setOnClickListener(v -> showDeleteDialog());
