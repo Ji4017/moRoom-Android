@@ -17,6 +17,9 @@ out/
 #  Uncomment the following line in case you need and you don't have the release build type files in your app
 # release/
 
+# App name
+.name
+
 # Gradle files
 .gradle/
 build/
@@ -86,3 +89,4 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+.idea/deploymentTargetSelector.xml
