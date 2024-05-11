@@ -24,12 +24,9 @@ import com.moroom.android.SearchActivity
 import com.moroom.android.WriteActivity
 import com.moroom.android.databinding.FragmentHomeBinding
 
-
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var adapter: RecyclerView.Adapter<ContentsAdapter.ContentsViewHolder>? = null
-    private val bestReviewList = ArrayList<Contents?>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +40,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViews()
         setupListener()
     }
@@ -51,7 +47,7 @@ class HomeFragment : Fragment() {
     private fun setupViews() {
         setupHomeImg()
         setupRecyclerView()
-        setupMainReviews()
+        setupBestReviews()
     }
 
     private fun setupHomeImg() {
@@ -84,24 +80,26 @@ class HomeFragment : Fragment() {
         binding.linearJinWon.setOnClickListener { navigateToDormitory("충북 청주시 청원구 수암로66번길 48-2 (우암동, 한진 신세대 아파트)") }
     }
 
-    private fun setupMainReviews() {
-        bestReviewList.clear()
+    private fun setupBestReviews() {
+        val bestReviewList = ArrayList<Contents>()
         val database: DatabaseReference = Firebase.database.reference
-        database.child("Address").child("reviewForMain").get()
-            .addOnSuccessListener {
-                for (data in it.children) {
-                    val contents = data.getValue(Contents::class.java)
-                    bestReviewList.add(contents)
+        database.child("Address").child("bestReviews").get()
+            .addOnSuccessListener { snapshot ->
+                for (data in snapshot.children) {
+                    Log.d("dataSnapshot", data.toString())
+                    val content = data.getValue(Contents::class.java)
+                    content?.let { bestReviewList.add(it) }
                 }
-                setupAdapter()
+                setupAdapter(bestReviewList)
             }
             .addOnFailureListener {
                 Log.e(javaClass.simpleName, it.toString())
             }
     }
 
-    private fun setupAdapter() {
-        adapter = ContentsAdapter(bestReviewList, activity)
+    private fun setupAdapter(bestReviewList: ArrayList<Contents>) {
+        val adapter: RecyclerView.Adapter<ContentsAdapter.ContentsViewHolder> =
+            ContentsAdapter(bestReviewList, activity)
         binding.homeRecyclerView.adapter = adapter
     }
 
