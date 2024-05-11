@@ -8,12 +8,6 @@ public class Contents {
     private String badThing;
     private HashMap<String, String> selectedList;
 
-
-    // 리뷰 작성 여부에 따라 리뷰글을 블러처리 하기 위한 필드
-    private String idToken;
-    private boolean isBlur;
-
-
     public Contents(){}
 
     public String getTitle() {
@@ -45,20 +39,4 @@ public class Contents {
     }
 
     public void setSelectedList(HashMap<String, String> selectedList) { this.selectedList = selectedList; }
-
-    public String getIdToken() {
-        return idToken;
-    }
-
-    public void setIdToken(String idToken) {
-        this.idToken = idToken;
-    }
-
-    public boolean isBlur() {
-        return isBlur;
-    }
-
-    public void setBlur(boolean blur) {
-        isBlur = blur;
-    }
 }
