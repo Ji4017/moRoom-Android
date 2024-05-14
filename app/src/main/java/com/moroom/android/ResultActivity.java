@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class ResultActivity extends AppCompatActivity {
     private ActivityResultBinding binding;
     private RecyclerView.Adapter adapter;
-    private final ArrayList<Contents> arrayList = new ArrayList<>();
+    private final ArrayList<Review> arrayList = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,8 +93,8 @@ public class ResultActivity extends AppCompatActivity {
                 // 필요없는 "latitude", "longitude" 값은 건너뜀
                 continue;
             }
-            Contents contents = dataSnapshot.getValue(Contents.class);
-            arrayList.add(contents);
+            Review review = dataSnapshot.getValue(Review.class);
+            arrayList.add(review);
             // Log.d("ResultActivity", "DB data : " + dataSnapshot.getValue());
         }
         adapter.notifyDataSetChanged();
@@ -110,7 +110,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void setupAdapter() {
-        adapter = new ContentsAdapter(arrayList);
+        adapter = new ReviewAdapter(arrayList);
         binding.searchedRecyclerView.setAdapter(adapter);
     }
 

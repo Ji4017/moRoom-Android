@@ -16,8 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.moroom.android.Contents
-import com.moroom.android.ContentsAdapter
+import com.moroom.android.Review
+import com.moroom.android.ReviewAdapter
 import com.moroom.android.MoveToLogin
 import com.moroom.android.ResultActivity
 import com.moroom.android.SearchActivity
@@ -81,13 +81,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupBestReviews() {
-        val bestReviewList = ArrayList<Contents>()
+        val bestReviewList = ArrayList<Review>()
         val database: DatabaseReference = Firebase.database.reference
         database.child("Address").child("bestReviews").get()
             .addOnSuccessListener { snapshot ->
                 for (data in snapshot.children) {
                     Log.d("dataSnapshot", data.toString())
-                    val content = data.getValue(Contents::class.java)
+                    val content = data.getValue(Review::class.java)
                     content?.let { bestReviewList.add(it) }
                 }
                 setupAdapter(bestReviewList)
@@ -97,9 +97,9 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun setupAdapter(bestReviewList: ArrayList<Contents>) {
-        val adapter: RecyclerView.Adapter<ContentsAdapter.ContentsViewHolder> =
-            ContentsAdapter(bestReviewList)
+    private fun setupAdapter(bestReviewList: ArrayList<Review>) {
+        val adapter: RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> =
+            ReviewAdapter(bestReviewList)
         binding.homeRecyclerView.adapter = adapter
     }
 

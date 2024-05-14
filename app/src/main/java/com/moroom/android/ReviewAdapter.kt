@@ -5,23 +5,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moroom.android.databinding.ListItemBinding
 
-class ContentsAdapter(private val arrayList: ArrayList<Contents>) :
-    RecyclerView.Adapter<ContentsAdapter.ContentsViewHolder>() {
+class ReviewAdapter(private val arrayList: ArrayList<Review>) :
+    RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentsViewHolder {
-        return ContentsViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
+        return ReviewViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: ContentsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         val item = arrayList[position]
         holder.bind(item)
     }
 
     override fun getItemCount(): Int = arrayList.size
 
-    class ContentsViewHolder private constructor(val binding: ListItemBinding) :
+    class ReviewViewHolder private constructor(val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Contents) {
+        fun bind(item: Review) {
             binding.tvTitle.text = item.title
             binding.tvGoodThing.text = item.goodThing
             binding.tvBadThing.text = item.badThing
@@ -35,10 +35,10 @@ class ContentsAdapter(private val arrayList: ArrayList<Contents>) :
         }
 
         companion object {
-            fun from(parent: ViewGroup): ContentsViewHolder {
+            fun from(parent: ViewGroup): ReviewViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemBinding.inflate(layoutInflater, parent, false)
-                return ContentsViewHolder(binding)
+                return ReviewViewHolder(binding)
             }
         }
     }

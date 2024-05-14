@@ -2,13 +2,13 @@ package com.moroom.android;
 
 import java.util.HashMap;
 
-public class Contents {
+public class Review {
     private String title;
     private String goodThing;
     private String badThing;
     private HashMap<String, String> selectedList;
 
-    public Contents(){}
+    public Review(){}
 
     public String getTitle() {
         return title;
