@@ -110,7 +110,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void setupAdapter() {
-        adapter = new ContentsAdapter(arrayList, this);
+        adapter = new ContentsAdapter(arrayList);
         binding.searchedRecyclerView.setAdapter(adapter);
     }
 

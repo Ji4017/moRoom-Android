@@ -99,7 +99,7 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapter(bestReviewList: ArrayList<Contents>) {
         val adapter: RecyclerView.Adapter<ContentsAdapter.ContentsViewHolder> =
-            ContentsAdapter(bestReviewList, activity)
+            ContentsAdapter(bestReviewList)
         binding.homeRecyclerView.adapter = adapter
     }
 
