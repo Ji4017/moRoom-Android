@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moroom.android.databinding.ListItemBinding
 
-class ReviewAdapter(private val arrayList: ArrayList<Review>) :
+class ReviewAdapter(private val reviewList: ArrayList<Review>) :
     RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
@@ -13,11 +13,11 @@ class ReviewAdapter(private val arrayList: ArrayList<Review>) :
     }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-        val item = arrayList[position]
+        val item = reviewList[position]
         holder.bind(item)
     }
 
-    override fun getItemCount(): Int = arrayList.size
+    override fun getItemCount(): Int = reviewList.size
 
     class ReviewViewHolder private constructor(val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
