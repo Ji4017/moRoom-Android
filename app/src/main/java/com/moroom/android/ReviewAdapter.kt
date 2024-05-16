@@ -13,8 +13,7 @@ class ReviewAdapter(private val reviewList: ArrayList<Review>) :
     }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-        val item = reviewList[position]
-        holder.bind(item)
+        holder.bind(reviewList[position])
     }
 
     override fun getItemCount(): Int = reviewList.size
@@ -22,16 +21,7 @@ class ReviewAdapter(private val reviewList: ArrayList<Review>) :
     class ReviewViewHolder private constructor(val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Review) {
-            binding.tvTitle.text = item.title
-            binding.tvGoodThing.text = item.goodThing
-            binding.tvBadThing.text = item.badThing
-
-            item.selectedList?.let { selectedList ->
-                val selectedList = selectedList.values.joinToString(separator = "\n")
-                binding.tvSelectedList.text = selectedList
-            } ?: run {
-                binding.tvSelectedList.text = ""
-            }
+            binding.item = item
         }
 
         companion object {
