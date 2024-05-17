@@ -8,7 +8,8 @@ public class Review {
     private String badThing;
     private HashMap<String, String> selectedList;
 
-    public Review(){}
+    public Review() {
+    }
 
     public String getTitle() {
         return title;
@@ -39,4 +40,17 @@ public class Review {
     }
 
     public void setSelectedList(HashMap<String, String> selectedList) { this.selectedList = selectedList; }
+
+    public String selectedListToString() {
+        if (selectedList == null || selectedList.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String key : selectedList.keySet()) {
+            String value = selectedList.get(key);
+            sb.append(value).append("\n");
+        }
+        return sb.toString();
+    }
 }
