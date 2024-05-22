@@ -1,353 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.amar.library.ui.StickyScrollView
-        android:id="@+id/scrollView"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.moroom.android.BestReviewViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:stickyHeader="@+id/linear_stickyTop">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <com.amar.library.ui.StickyScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:stickyHeader="@+id/linear_stickyTop">
 
             <RelativeLayout
-                android:id="@+id/imageContainer"
-                android:layout_width="352dp"
-                android:layout_height="198dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:contentDescription="mainImage">
-
-                <ImageView
-                    android:id="@+id/img_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="24dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="homeImage"
-                    android:src="@drawable/logo" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/et_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageContainer"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/what_kind_of_house"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/linear_stickyTop"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_1"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/et_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/et_1"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/border_et_home"
-                    android:hint="@string/search_address"
-                    android:importantForAutofill="no"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    tools:ignore="TextFields" />
+                <RelativeLayout
+                    android:id="@+id/imageContainer"
+                    android:layout_width="352dp"
+                    android:layout_height="198dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="mainImage">
 
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_tag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linear_stickyTop"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/house_type"
-                android:textColor="#4C73FF" />
-
-
-            <TextView
-                android:id="@+id/tv_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_tag"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/best_review"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/tv_test"
-                android:layout_marginHorizontal="30dp"
-                android:nestedScrollingEnabled="false" />
-
-
-            <LinearLayout
-                android:id="@+id/linear_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/homeRecyclerView"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginVertical="40dp"
-                android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/img_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="24dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="homeImage"
+                        android:src="@drawable/logo" />
+                </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/et_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:text="@string/dormitory_review"
+                    android:layout_below="@id/imageContainer"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/what_kind_of_house"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:id="@+id/linear_uam"
+                    android:id="@+id/linear_stickyTop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/border_recycler_item"
-                    android:clickable="true"
-                    android:elevation="8dp"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:layout_below="@+id/et_1"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/dormitory" />
-
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/et_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/uam"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/symbol_direction"
-                                android:textAlignment="textEnd"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/go_to_review" />
-                    </LinearLayout>
+                        android:layout_below="@+id/et_1"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_et_home"
+                        android:hint="@string/search_address"
+                        android:importantForAutofill="no"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        tools:ignore="TextFields" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_stickyTop"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/house_type"
+                    android:textColor="#4C73FF" />
+
+
+                <TextView
+                    android:id="@+id/tv_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_tag"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/best_review"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/homeRecyclerView"
+                    bestReviewItems="@{viewModel.bestReviews}"
+                    progressBar="@{progressBar}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tv_test"
+                    android:layout_marginHorizontal="30dp"
+                    android:nestedScrollingEnabled="false" />
 
                 <LinearLayout
-                    android:id="@+id/linear_yeJi"
+                    android:id="@+id/linear_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/border_recycler_item"
-                    android:clickable="true"
-                    android:elevation="8dp"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:layout_below="@id/homeRecyclerView"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginVertical="40dp"
+                    android:orientation="vertical">
 
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/dormitory" />
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/dormitory_review"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
+                        android:id="@+id/linear_uam"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/border_recycler_item"
+                        android:clickable="true"
+                        android:elevation="8dp"
+                        android:focusable="true"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/dormitory" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/uam"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/symbol_direction"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/yeji"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/symbol_direction"
-                                android:textAlignment="textEnd"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:text="@string/go_to_review" />
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/go_to_review" />
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_gukJe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/border_recycler_item"
-                    android:clickable="true"
-                    android:elevation="8dp"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/dormitory" />
-
                     <LinearLayout
+                        android:id="@+id/linear_yeJi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/border_recycler_item"
+                        android:clickable="true"
+                        android:elevation="8dp"
+                        android:focusable="true"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/dormitory" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/yeji"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/symbol_direction"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/gukje"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/symbol_direction"
-                                android:textAlignment="textEnd"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:text="@string/go_to_review" />
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/go_to_review" />
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_jinWon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/border_recycler_item"
-                    android:clickable="true"
-                    android:elevation="8dp"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/dormitory" />
-
                     <LinearLayout
+                        android:id="@+id/linear_gukJe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/border_recycler_item"
+                        android:clickable="true"
+                        android:elevation="8dp"
+                        android:focusable="true"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/dormitory" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gukje"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/symbol_direction"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/jinwon"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/symbol_direction"
-                                android:textAlignment="textEnd"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:text="@string/go_to_review" />
                         </LinearLayout>
 
-                        <TextView
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear_jinWon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_recycler_item"
+                        android:clickable="true"
+                        android:elevation="8dp"
+                        android:focusable="true"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/go_to_review" />
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/dormitory" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/jinwon"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/symbol_direction"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/go_to_review" />
+                        </LinearLayout>
+
                     </LinearLayout>
+
 
                 </LinearLayout>
 
-
-            </LinearLayout>
-
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-    </com.amar.library.ui.StickyScrollView>
+        </com.amar.library.ui.StickyScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/sky"
-        android:contentDescription="후기 작성"
-        android:src="@drawable/fab_baseline"
-        app:borderWidth="0dp"
-        app:tint="@color/white" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/sky"
+            android:contentDescription="후기 작성"
+            android:src="@drawable/fab_baseline"
+            app:borderWidth="0dp"
+            app:tint="@color/white" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
