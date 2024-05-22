@@ -40,7 +40,7 @@
 </h2>
 
 - 학교 이메일 인증을 받은 유저만 회원가입 및 후기작성 가능
-- 후기 작성시 층수 정보를 입력해 디테일한 후기 제공 가능
+- 후기 작성시 층수 정보를 입력함으로 디테일한 후기 제공
 - 수기대신 사용자 경험을 고려한 리스트 체크방식의 편리한 후기작성
 - 후기를 작성하지 않은 유저에게는 후기열람 제한으로 후기작성 유도
 
@@ -51,12 +51,11 @@
 </h2>
 
 - 게시글 작성자를 랜덤한 값인 UID로 처리해 익명으로 후기 작성
-- 액티비티에서 다른 액티비티의 Fragment로 이동
 - 동적링크를 이용한 이메일 인증 및 회원가입
 - 지도의 Marker를 이용한 해당 주소의 후기로 이동
 - Android Location Permission Handling
-- 동적UI (MVC + Firebase + RecyclerView)
-- Sticky Header를 적용한 주소 검색창
+- 동적UI (Firebase + RecyclerView + ViewModel + LiveData + DataBinding + BindingAdapter)
+- Open Source - Sticky Header를 적용한 주소 검색창
 
 <hr>
 
@@ -65,8 +64,11 @@
 </h2>
 
 ### TechStack
-`Java` `Navigation` `RecyclerView` `Daum Postcode API` `Kakao Maps API`  
+`Java` `Kotlin` `ViewModel` `LiveData` `DataBinding` `Navigation` `Daum Postcode API` `Kakao Maps API` `Figma`  
 `Firebase` (Authentication, DynamicLinks, RealtimeDatabase, Hosting)
+
+### Architecture
+`MVVM`
 
 <hr>
 
