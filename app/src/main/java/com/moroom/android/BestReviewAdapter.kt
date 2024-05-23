@@ -3,6 +3,7 @@ package com.moroom.android
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.moroom.android.data.model.Review
 import com.moroom.android.databinding.ListItemBinding
 
 class BestReviewAdapter(private val reviewList: ArrayList<Review>) :

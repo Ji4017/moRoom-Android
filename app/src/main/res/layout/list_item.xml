@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="com.moroom.android.Review" />
+            type="com.moroom.android.data.model.Review" />
     </data>
 
     <LinearLayout

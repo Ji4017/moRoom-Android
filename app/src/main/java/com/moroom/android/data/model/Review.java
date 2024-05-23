@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.data.model;
 
 import java.util.HashMap;
 

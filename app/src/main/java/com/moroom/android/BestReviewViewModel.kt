@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.moroom.android.data.model.Review
 
 class BestReviewViewModel : ViewModel() {
     private val _bestReviews = MutableLiveData<ArrayList<Review>>()

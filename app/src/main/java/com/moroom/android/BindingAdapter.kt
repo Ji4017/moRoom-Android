@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.moroom.android.data.model.Review
 
 object ReviewBindingAdapter {
     @JvmStatic
