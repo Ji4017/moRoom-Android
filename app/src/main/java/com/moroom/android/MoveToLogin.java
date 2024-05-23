@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 import com.moroom.android.databinding.ActivityMoveToLoginBinding;
+import com.moroom.android.ui.LoginActivity;
 
 public class MoveToLogin extends AppCompatActivity {
 

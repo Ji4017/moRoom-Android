@@ -24,22 +24,22 @@
             android:value="3fdb36caf78f7b1ad6b427f89b09c1cc" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".MoveToLogin"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".ui.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".ResultActivity"
+            android:name=".ui.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".WriteActivity"
+            android:name=".ui.WriteActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.SignupActivity"
             android:exported="true">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />

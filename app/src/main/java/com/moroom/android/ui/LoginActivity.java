@@ -1,6 +1,4 @@
-package com.moroom.android;
-
-import static android.content.ContentValues.TAG;
+package com.moroom.android.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.moroom.android.R;
 import com.moroom.android.databinding.ActivityLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;
 

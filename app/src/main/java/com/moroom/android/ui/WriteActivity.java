@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.ui;
 
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.moroom.android.R;
+import com.moroom.android.SaveReviewWithLatLng;
 import com.moroom.android.data.model.CheckedTextViewData;
 import com.moroom.android.databinding.ActivityWriteBinding;
 

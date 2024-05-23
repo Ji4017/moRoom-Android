@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.moroom.android.LoginActivity;
+import com.moroom.android.ui.LoginActivity;
 import com.moroom.android.R;
 import com.moroom.android.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.moroom.android.R;
 
 public class SearchActivity extends AppCompatActivity {
 

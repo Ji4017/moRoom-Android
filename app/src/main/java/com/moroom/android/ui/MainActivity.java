@@ -1,8 +1,9 @@
-package com.moroom.android;
+package com.moroom.android.ui;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.moroom.android.R;
 import com.moroom.android.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

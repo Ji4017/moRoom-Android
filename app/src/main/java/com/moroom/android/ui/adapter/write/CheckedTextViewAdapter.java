@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moroom.android.data.model.CheckedTextViewData;
 import com.moroom.android.R;
-import com.moroom.android.WriteActivity;
+import com.moroom.android.ui.WriteActivity;
 
 import java.util.ArrayList;
 

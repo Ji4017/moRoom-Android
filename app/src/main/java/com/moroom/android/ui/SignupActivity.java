@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.ui;
 
 import static android.content.ContentValues.TAG;
 
@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.moroom.android.R;
 import com.moroom.android.data.model.UserAccount;
 import com.moroom.android.databinding.ActivitySignUpBinding;
 import com.google.firebase.auth.ActionCodeSettings;

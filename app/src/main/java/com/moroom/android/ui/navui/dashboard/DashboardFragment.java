@@ -25,9 +25,9 @@ import androidx.fragment.app.Fragment;
 
 import com.moroom.android.MoveToLogin;
 import com.moroom.android.R;
-import com.moroom.android.ResultActivity;
-import com.moroom.android.SearchActivity;
-import com.moroom.android.WriteActivity;
+import com.moroom.android.ui.ResultActivity;
+import com.moroom.android.ui.SearchActivity;
+import com.moroom.android.ui.WriteActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
