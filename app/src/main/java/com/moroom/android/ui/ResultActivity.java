@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moroom.android.MoveToLogin;
+import com.moroom.android.ui.login.MoveToLogin;
 import com.moroom.android.R;
 import com.moroom.android.data.model.Review;
 import com.moroom.android.databinding.ActivityResultBinding;

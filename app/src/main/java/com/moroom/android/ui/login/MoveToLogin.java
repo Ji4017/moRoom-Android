@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.moroom.android.databinding.ActivityMoveToLoginBinding;
-import com.moroom.android.ui.LoginActivity;
 
 public class MoveToLogin extends AppCompatActivity {
 

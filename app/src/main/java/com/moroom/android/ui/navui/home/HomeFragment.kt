@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.google.firebase.auth.FirebaseAuth
 
-import com.moroom.android.MoveToLogin
+import com.moroom.android.ui.login.MoveToLogin
 import com.moroom.android.R
 import com.moroom.android.ui.ResultActivity
 import com.moroom.android.ui.SearchActivity

@@ -24,10 +24,10 @@
             android:value="3fdb36caf78f7b1ad6b427f89b09c1cc" />
 
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".MoveToLogin"
+            android:name=".ui.login.MoveToLogin"
             android:exported="false" />
         <activity
             android:name=".ui.SearchActivity"

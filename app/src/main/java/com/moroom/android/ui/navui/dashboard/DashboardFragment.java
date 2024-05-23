@@ -23,7 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.moroom.android.MoveToLogin;
+import com.moroom.android.ui.login.MoveToLogin;
 import com.moroom.android.R;
 import com.moroom.android.ui.ResultActivity;
 import com.moroom.android.ui.SearchActivity;
