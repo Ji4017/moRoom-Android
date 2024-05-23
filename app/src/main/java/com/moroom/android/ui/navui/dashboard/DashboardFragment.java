@@ -1,4 +1,4 @@
-package com.moroom.android.navui.dashboard;
+package com.moroom.android.ui.navui.dashboard;
 
 import static android.app.Activity.RESULT_OK;
 
