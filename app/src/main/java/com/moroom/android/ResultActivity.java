@@ -110,7 +110,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void setupAdapter() {
-        adapter = new ReviewAdapter(arrayList);
+        adapter = new BestReviewAdapter(arrayList);
         binding.searchedRecyclerView.setAdapter(adapter);
     }
 
