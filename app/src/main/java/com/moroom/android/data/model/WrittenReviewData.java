@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.data.model;
 
 
 public class WrittenReviewData {
