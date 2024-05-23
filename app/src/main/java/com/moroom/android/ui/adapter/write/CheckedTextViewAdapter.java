@@ -9,7 +9,7 @@ import android.widget.CheckedTextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moroom.android.CheckedTextViewData;
+import com.moroom.android.data.model.CheckedTextViewData;
 import com.moroom.android.R;
 import com.moroom.android.WriteActivity;
 

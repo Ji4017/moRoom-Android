@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.moroom.android.data.model.CheckedTextViewData;
 import com.moroom.android.databinding.ActivityWriteBinding;
 
 import com.google.firebase.database.DataSnapshot;
