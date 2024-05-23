@@ -1,4 +1,4 @@
-package com.moroom.android
+package com.moroom.android.ui.adapter.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

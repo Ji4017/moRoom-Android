@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.ui.adapter.write;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,10 @@ import android.widget.CheckedTextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.moroom.android.CheckedTextViewData;
+import com.moroom.android.R;
+import com.moroom.android.WriteActivity;
 
 import java.util.ArrayList;
 

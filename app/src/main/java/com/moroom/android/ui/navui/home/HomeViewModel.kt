@@ -1,4 +1,4 @@
-package com.moroom.android
+package com.moroom.android.ui.navui.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,7 +9,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.moroom.android.data.model.Review
 
-class BestReviewViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
     private val _bestReviews = MutableLiveData<ArrayList<Review>>()
 
     val bestReviews: LiveData<ArrayList<Review>>
