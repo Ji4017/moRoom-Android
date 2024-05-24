@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.data.firebase;
 
 import android.content.Context;
 import android.location.Address;

@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.moroom.android.R;
-import com.moroom.android.SaveReviewWithLatLng;
+import com.moroom.android.data.firebase.SaveReviewWithLatLng;
 import com.moroom.android.data.model.CheckedTextViewData;
 import com.moroom.android.databinding.ActivityWriteBinding;
 
