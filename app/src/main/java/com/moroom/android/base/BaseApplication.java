@@ -1,4 +1,4 @@
-package com.moroom.android;
+package com.moroom.android.base;
 
 import android.app.Application;
 import androidx.appcompat.app.AppCompatDelegate;

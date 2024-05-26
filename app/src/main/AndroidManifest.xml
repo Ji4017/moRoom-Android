@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Moroom"
         android:usesCleartextTraffic="true"
-        android:name=".BaseApplication"
+        android:name=".base.BaseApplication"
         tools:targetApi="33">
 
         <meta-data
