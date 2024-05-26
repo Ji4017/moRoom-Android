@@ -1,4 +1,4 @@
-package com.moroom.android.ui;
+package com.moroom.android.ui.signup;
 
 import static android.content.ContentValues.TAG;
 
@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.moroom.android.ui.main.MainActivity;
 
 public class SignupActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;

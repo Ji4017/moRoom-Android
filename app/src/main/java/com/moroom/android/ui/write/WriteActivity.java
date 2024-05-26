@@ -1,4 +1,4 @@
-package com.moroom.android.ui;
+package com.moroom.android.ui.write;
 
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.moroom.android.ui.adapter.write.CheckedTextViewAdapter;
+import com.moroom.android.ui.main.MainActivity;
+import com.moroom.android.ui.search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;

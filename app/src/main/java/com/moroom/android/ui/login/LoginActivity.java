@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.moroom.android.R;
 import com.moroom.android.databinding.ActivityLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.moroom.android.ui.MainActivity;
-import com.moroom.android.ui.SignupActivity;
+import com.moroom.android.ui.main.MainActivity;
+import com.moroom.android.ui.signup.SignupActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;

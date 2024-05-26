@@ -1,4 +1,4 @@
-package com.moroom.android.ui;
+package com.moroom.android.ui.search;
 
 import androidx.appcompat.app.AppCompatActivity;
 

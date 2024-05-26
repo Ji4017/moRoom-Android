@@ -1,4 +1,4 @@
-package com.moroom.android.ui;
+package com.moroom.android.ui.result;
 
 
 import android.content.Intent;
@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.moroom.android.ui.search.SearchActivity;
+import com.moroom.android.ui.write.WriteActivity;
 import com.moroom.android.ui.login.MoveToLogin;
 import com.moroom.android.R;
 import com.moroom.android.data.model.Review;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.moroom.android.ui.adapter.home.BestReviewAdapter;
+import com.moroom.android.ui.main.MainActivity;
 
 import java.util.ArrayList;
 
