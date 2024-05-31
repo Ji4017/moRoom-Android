@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.moroom.android.ui.adapter.home.BestReviewAdapter;
-import com.moroom.android.ui.main.MainActivity;
+import com.moroom.android.ui.navui.MainActivity;
 
 import java.util.ArrayList;
 
