@@ -47,7 +47,6 @@ class HomeFragment : Fragment() {
 
     private fun setupViews() {
         setupRecyclerView()
-        setupHomeImg()
     }
 
     private fun setupRecyclerView() {
@@ -55,12 +54,7 @@ class HomeFragment : Fragment() {
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    private fun setupHomeImg() {
-        binding.imgHome.clipToOutline = true
-    }
-
     private fun setupListener() {
-        binding.etSearch.isFocusable = false
         binding.etSearch.setOnClickListener {
             val intent = Intent(activity, SearchActivity::class.java)
             getSearchResult.launch(intent)
