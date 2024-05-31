@@ -82,7 +82,6 @@ class HomeFragment : Fragment() {
     private val getSearchResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
-        // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달됨.
         if (result.resultCode == Activity.RESULT_OK) {
             if (result.data != null) {
                 val data = result.data!!.getStringExtra("data")

@@ -88,21 +88,16 @@ public class ResultActivity extends AppCompatActivity {
     private void loadReviewsFromSnapshot(DataSnapshot snapshot) {
         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
             if (dataSnapshot.getKey().equals("latitude") || dataSnapshot.getKey().equals("longitude")) {
-                // 필요없는 "latitude", "longitude" 값은 건너뜀
                 continue;
             }
             Review review = dataSnapshot.getValue(Review.class);
             arrayList.add(review);
-            // Log.d("ResultActivity", "DB data : " + dataSnapshot.getValue());
         }
         adapter.notifyDataSetChanged();
     }
 
     private void showEmptyReviewMessage() {
-        // 후기 작성 권유 텍스트 보여줌
         binding.pleaseMessage3.setVisibility(View.VISIBLE);
-
-        // 하단의 BannerImage, footerMessage 숨김
         binding.stripBannerImage.setVisibility(View.GONE);
         binding.linearFooterMessage.setVisibility(View.GONE);
     }
@@ -136,13 +131,11 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         binding.stripBannerImage.setOnClickListener(view -> {
-            // 후기 작성 화면으로 이동
             Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
             startActivity(intent);
         });
 
         binding.moveToWrite.setOnClickListener(view -> {
-            // 후기 작성 화면으로 이동
             Intent intent = new Intent(ResultActivity.this, WriteActivity.class);
             startActivity(intent);
         });
@@ -157,7 +150,6 @@ public class ResultActivity extends AppCompatActivity {
     private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달됨.
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
                         String data = result.getData().getStringExtra("data");
