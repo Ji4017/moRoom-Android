@@ -67,6 +67,12 @@
     <string name="yes">확인</string>
     <string name="no">취소</string>
 
+    <!-- Dormitory -->
+    <string name="UAM">"충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 우암마을"</string>
+    <string name="YEJI">"충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 예지관"</string>
+    <string name="GUKJE">"충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 국제학사"</string>
+    <string name="JINWON">"충북 청주시 청원구 수암로66번길 48-2 (우암동, 한진 신세대 아파트)"</string>
+
     <!-- Navigation -->
     <string name="home_fragment_label">홈</string>
     <string name="dash_fragment_label">지도</string>

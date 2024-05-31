@@ -67,10 +67,10 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.linearUam.setOnClickListener { navigateToDormitory("충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 우암마을") }
-        binding.linearYeJi.setOnClickListener { navigateToDormitory("충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 예지관") }
-        binding.linearGukJe.setOnClickListener { navigateToDormitory("충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 국제학사") }
-        binding.linearJinWon.setOnClickListener { navigateToDormitory("충북 청주시 청원구 수암로66번길 48-2 (우암동, 한진 신세대 아파트)") }
+        binding.linearUam.setOnClickListener { navigateToDormitory(getString(R.string.UAM)) }
+        binding.linearYeJi.setOnClickListener { navigateToDormitory(getString(R.string.YEJI)) }
+        binding.linearGukJe.setOnClickListener { navigateToDormitory(getString(R.string.GUKJE)) }
+        binding.linearJinWon.setOnClickListener { navigateToDormitory(getString(R.string.JINWON)) }
     }
 
     private fun navigateToDormitory(address: String) {
