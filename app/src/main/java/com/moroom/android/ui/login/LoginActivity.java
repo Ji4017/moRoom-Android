@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (isValidEmailFormat(email)) {
                     binding.etId.setError(null);
-                    checkSignUpButtonVisibility();
+                    updateLoginButtonState();
                 } else {
                     binding.etId.setError(getString(R.string.invalid_email));
                     binding.btLogin.setEnabled(false);
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = charSequence.toString().trim();
                 if (password.length() >= 6) {
                     binding.etPassword.setError(null);
-                    checkSignUpButtonVisibility();
+                    updateLoginButtonState();
                 } else {
                     binding.etPassword.setError(getString(R.string.invalid_password));
                     binding.btLogin.setEnabled(false);
@@ -100,12 +100,9 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void checkSignUpButtonVisibility() {
+    private void updateLoginButtonState() {
         String username = binding.etId.getText().toString().trim();
         String password = binding.etPassword.getText().toString().trim();
-
-        // ID와 Password에 모두 값이 있고 유효한 이메일 형식인 경우 버튼 활성화
-        // 그 외의 경우 버튼 비활성화
         binding.btLogin.setEnabled(!username.isEmpty() && !password.isEmpty() && isValidEmailFormat(username));
     }
 
