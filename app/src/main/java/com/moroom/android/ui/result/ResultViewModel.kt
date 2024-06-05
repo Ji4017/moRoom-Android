@@ -1,6 +1,5 @@
 package com.moroom.android.ui.result
 
-import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
