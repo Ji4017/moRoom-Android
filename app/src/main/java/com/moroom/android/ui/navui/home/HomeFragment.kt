@@ -47,7 +47,6 @@ class HomeFragment : Fragment() {
 
     private fun setupViews() {
         setupRecyclerView()
-        setupHomeImg()
     }
 
     private fun setupRecyclerView() {
@@ -55,12 +54,7 @@ class HomeFragment : Fragment() {
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    private fun setupHomeImg() {
-        binding.imgHome.clipToOutline = true
-    }
-
     private fun setupListener() {
-        binding.etSearch.isFocusable = false
         binding.etSearch.setOnClickListener {
             val intent = Intent(activity, SearchActivity::class.java)
             getSearchResult.launch(intent)
@@ -73,10 +67,10 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.linearUam.setOnClickListener { navigateToDormitory("충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 우암마을") }
-        binding.linearYeJi.setOnClickListener { navigateToDormitory("충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 예지관") }
-        binding.linearGukJe.setOnClickListener { navigateToDormitory("충북 청주시 청원구 안덕벌로19번길 116 (내덕동) 국제학사") }
-        binding.linearJinWon.setOnClickListener { navigateToDormitory("충북 청주시 청원구 수암로66번길 48-2 (우암동, 한진 신세대 아파트)") }
+        binding.linearUam.setOnClickListener { navigateToDormitory(getString(R.string.UAM)) }
+        binding.linearYeJi.setOnClickListener { navigateToDormitory(getString(R.string.YEJI)) }
+        binding.linearGukJe.setOnClickListener { navigateToDormitory(getString(R.string.GUKJE)) }
+        binding.linearJinWon.setOnClickListener { navigateToDormitory(getString(R.string.JINWON)) }
     }
 
     private fun navigateToDormitory(address: String) {
@@ -88,7 +82,6 @@ class HomeFragment : Fragment() {
     private val getSearchResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
-        // setResult에 의해 SearchActivity 로부터의 결과 값이 이곳으로 전달됨.
         if (result.resultCode == Activity.RESULT_OK) {
             if (result.data != null) {
                 val data = result.data!!.getStringExtra("data")
