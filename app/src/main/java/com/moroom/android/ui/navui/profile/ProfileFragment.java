@@ -17,6 +17,7 @@ import com.moroom.android.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.moroom.android.ui.navui.MainActivity;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
@@ -100,7 +101,7 @@ public class ProfileFragment extends Fragment {
         user.delete()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                         Toast.makeText(getActivity(), getString(R.string.delete_complete), Toast.LENGTH_SHORT).show();
                     }
