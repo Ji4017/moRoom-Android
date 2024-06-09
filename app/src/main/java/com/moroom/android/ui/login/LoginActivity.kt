@@ -26,48 +26,43 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setUpListener() {
-        binding.etId.addTextChangedListener { editable ->
-            loginViewModel.validateId(editable.toString().trim())
-        }
+        binding.etId.addTextChangedListener { loginViewModel.validateId(it.toString().trim()) }
 
-        binding.etPassword.addTextChangedListener { editable ->
-            loginViewModel.validatePassword(editable.toString().trim())
-        }
+        binding.etPassword.addTextChangedListener { loginViewModel.validatePassword(it.toString().trim()) }
 
         binding.btLogin.setOnClickListener {
             loginViewModel.login(
                 binding.etId.text.toString(), binding.etPassword.text.toString()
-            )
-        }
+            ) }
 
-        binding.tvSignUp.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
-        }
+        binding.tvSignUp.setOnClickListener { navigateToSignup() }
     }
 
     private fun setUpObserver() {
-        loginViewModel.idError.observe(this) { resourceId ->
-            binding.etId.error = resourceId?.let { getString(resourceId) }
-        }
+        loginViewModel.idError.observe(this) { binding.etId.error = it?.let { getString(it) } }
 
-        loginViewModel.passwordError.observe(this) { resourceId ->
-            binding.etPassword.error = resourceId?.let { getString(resourceId) }
-        }
+        loginViewModel.passwordError.observe(this) { binding.etPassword.error = it?.let { getString(it) } }
 
-        loginViewModel.isFormValid.observe(this) {
-            binding.btLogin.isEnabled = it
-        }
+        loginViewModel.isFormValid.observe(this) {binding.btLogin.isEnabled = it }
 
         loginViewModel.loginResult.observe(this) { loginResult: Boolean ->
             if (loginResult) {
                 Toast.makeText(this, R.string.welcome, Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                navigateToMain()
             } else {
                 Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun navigateToSignup() {
+        val intent = Intent(this, SignupActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
