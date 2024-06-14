@@ -1,4 +1,4 @@
-package com.moroom.android.ui.navui.dashboard;
+package com.moroom.android.ui.navui.map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -46,7 +46,7 @@ import net.daum.mf.map.api.MapView;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class DashboardFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
+public class MapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
     private static final double CHUNGJU_UNIV_LATITUDE = 36.6522355;
     private static final double CHUNGJU_UNIV_LONGITUDE = 127.4946216;
     private MapView mapView;
@@ -61,7 +61,7 @@ public class DashboardFragment extends Fragment implements MapView.CurrentLocati
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
         EditText searchView = view.findViewById(R.id.et_address);
         FloatingActionButton fab = view.findViewById(R.id.fab);
 

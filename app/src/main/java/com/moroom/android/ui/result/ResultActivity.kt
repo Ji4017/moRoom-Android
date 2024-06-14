@@ -73,7 +73,7 @@ class ResultActivity : AppCompatActivity() {
         binding.apply {
             imgBack.setOnClickListener { onBackPressed() }
             imgHome.setOnClickListener { navigateToMainActivity(R.id.navigation_home) }
-            imgDash.setOnClickListener { navigateToMainActivity(R.id.navigation_dashboard) }
+            imgMap.setOnClickListener { navigateToMainActivity(R.id.navigation_map) }
             imgProfile.setOnClickListener { navigateToMainActivity(R.id.navigation_profile) }
             etSearch.setOnClickListener { startSearchActivity() }
             fab.setOnClickListener { startWriteActivity() }
