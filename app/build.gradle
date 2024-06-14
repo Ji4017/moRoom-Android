@@ -66,7 +66,7 @@ dependencies {
     def lifecycle_version = "2.6.1"
 
     // kotlin
-    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:1.13.1'
 
     // Android
     implementation 'androidx.appcompat:appcompat:1.6.1'
