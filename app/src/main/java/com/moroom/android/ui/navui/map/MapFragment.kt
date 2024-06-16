@@ -3,7 +3,6 @@ package com.moroom.android.ui.navui.map
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.moroom.android.R
 import com.moroom.android.databinding.FragmentMapBinding
 import com.moroom.android.ui.login.MoveToLogin
@@ -32,9 +27,11 @@ import net.daum.mf.map.api.MapView
 import net.daum.mf.map.api.MapView.CurrentLocationEventListener
 import net.daum.mf.map.api.MapView.POIItemEventListener
 
-class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEventListener, POIItemEventListener {
+class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEventListener,
+    POIItemEventListener {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: MapViewModel by viewModels()
 
     private var mapView: MapView? = null
     private var mapViewContainer: ViewGroup? = null
@@ -53,13 +50,13 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
         super.onViewCreated(view, savedInstanceState)
         showMapView()
         setUpListener()
+        observeLocationData()
     }
 
     private fun showMapView() {
         initializeMapView()
         configureMapView()
         setMapCenterAndZoom()
-        loadLocationDataFromFirebase()
     }
 
     private fun initializeMapView() {
@@ -75,36 +72,20 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
     }
 
     private fun setMapCenterAndZoom() {
-        val chungjuUniversityPoint = MapPoint.mapPointWithGeoCoord(CHUNGJU_UNIVERSITY_LATITUDE, CHUNGJU_UNIVERSITY_LONGITUDE)
-        mapView!!.setMapCenterPoint(chungjuUniversityPoint, true)
+        val point = MapPoint.mapPointWithGeoCoord(CHUNGJU_UNIVERSITY_LATITUDE, CHUNGJU_UNIVERSITY_LONGITUDE)
+        mapView!!.setMapCenterPoint(point, true)
         mapView!!.setZoomLevel(2, true)
     }
 
-    private fun loadLocationDataFromFirebase() {
-        var latitude: Double?
-        var longitude: Double?
-        var address: String?
-
-        val databaseRef = FirebaseDatabase.getInstance().getReference("Address")
-        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (addressSnapshot in dataSnapshot.children) {
-                    address = addressSnapshot.key
-                    latitude = addressSnapshot.child("latitude").getValue(Double::class.java)
-                    longitude = addressSnapshot.child("longitude").getValue(Double::class.java)
-                    if (latitude != null && longitude != null && address != null) {
-                        addMarkerToMap(latitude!!, longitude!!, address!!)
-                    }
-                }
+    private fun observeLocationData() {
+        viewModel.locationData.observe(viewLifecycleOwner) { locations ->
+            locations.forEach { location ->
+                addMarkerToMap(location.address, location.latitude, location.longitude)
             }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.e(this::class.java.simpleName, databaseError.message)
-            }
-        })
+        }
     }
 
-    private fun addMarkerToMap(latitude: Double, longitude: Double, address: String) {
+    private fun addMarkerToMap(address: String, latitude: Double, longitude: Double) {
         val marker = MapPOIItem()
         marker.itemName = address
         marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude)
@@ -113,26 +94,6 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
         marker.isCustomImageAutoscale = false
         marker.setCustomImageAnchor(0.5f, 1.0f)
         mapView!!.addPOIItem(marker)
-    }
-
-    internal inner class CustomCalloutBalloonAdapter : CalloutBalloonAdapter {
-        private val mCalloutBalloon: View = layoutInflater.inflate(R.layout.custom_callout_ballon, mapViewContainer, false)
-
-        override fun getCalloutBalloon(poiItem: MapPOIItem): View {
-            // 마커 클릭 시 나오는 말풍선
-            // Log.d("getCalloutBallon", "마커 클릭");
-
-            // 각 마커의 주소 가져오기
-            val address = poiItem.itemName
-            (mCalloutBalloon.findViewById<View>(R.id.balloon_address) as TextView).text = address
-            return mCalloutBalloon
-        }
-
-        override fun getPressedCalloutBalloon(poiItem: MapPOIItem): View {
-            // 말풍선 클릭 시
-            // Log.d("getPressedCalloutBallon", "말풍선 클릭");
-            return mCalloutBalloon
-        }
     }
 
     private fun setUpListener() {
@@ -162,6 +123,26 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
                 intent.putExtra("searchedAddress", data)
                 startActivity(intent)
             }
+        }
+    }
+
+    internal inner class CustomCalloutBalloonAdapter : CalloutBalloonAdapter {
+        private val mCalloutBalloon: View =
+            layoutInflater.inflate(R.layout.custom_callout_ballon, mapViewContainer, false)
+
+        override fun getCalloutBalloon(poiItem: MapPOIItem): View {
+            // 마커 클릭 시 나오는 말풍선
+
+            // 각 마커의 주소 가져오기
+            val address = poiItem.itemName
+            (mCalloutBalloon.findViewById<View>(R.id.balloon_address) as TextView).text = address
+
+            return mCalloutBalloon
+        }
+
+        override fun getPressedCalloutBalloon(poiItem: MapPOIItem): View {
+            // 말풍선 클릭 시
+            return mCalloutBalloon
         }
     }
 
@@ -228,7 +209,6 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
         calloutBalloonButtonType: CalloutBalloonButtonType
     ) {
         // 말풍선 클릭 시
-        // Log.d("onCalloutBalloonOfPOIItemTouched", "POIItem 터치 됨");
         val intent = Intent(requireContext(), ResultActivity::class.java)
         intent.putExtra("searchedAddress", mapPOIItem.itemName)
         startActivity(intent)
@@ -241,7 +221,6 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
     ) {
         // 마커의 속성 중 isDraggable = true 일 때 마커를 이동 시켰을 경우
     }
-
 
     companion object {
         private const val CHUNGJU_UNIVERSITY_LATITUDE = 36.6522355
