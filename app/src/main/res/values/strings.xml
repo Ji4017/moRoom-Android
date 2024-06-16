@@ -79,12 +79,12 @@
 
     <!-- Navigation -->
     <string name="home_fragment_label">홈</string>
-    <string name="dash_fragment_label">지도</string>
+    <string name="map_fragment_label">지도</string>
     <string name="profile_fragment_label">프로필</string>
 
     <!-- Bottom_nav_menu.xml -->
     <string name="title_home">홈</string>
-    <string name="title_dashboard">지도</string>
+    <string name="title_map">지도</string>
     <string name="title_notifications">알림</string>
 
     <!-- Copyright -->

@@ -72,12 +72,12 @@
                             android:src="@drawable/ic_home_black_24dp" />
 
                         <ImageButton
-                            android:id="@+id/img_dash"
+                            android:id="@+id/img_map"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
-                            android:contentDescription="imageDash"
+                            android:contentDescription="imageMap"
                             android:src="@drawable/baseline_location_on_test_24" />
 
                         <ImageButton
