@@ -18,10 +18,6 @@
         android:name=".base.BaseApplication"
         tools:targetApi="33">
 
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="${KAKAO_SDK_APPKEY}" />
-
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true" />

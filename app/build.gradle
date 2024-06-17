@@ -7,6 +7,7 @@ plugins {
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def kakao_sdk_appKey = properties.getProperty('kakao_sdk_appKey')
 
 android {
     namespace 'com.moroom.android'
@@ -21,7 +22,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        manifestPlaceholders = [KAKAO_SDK_APPKEY : properties.getProperty("kakao_sdk_appKey")]
+        buildConfigField "String", "KAKAO_SDK_APPKEY", "\"${kakao_sdk_appKey}\""
     }
 
     signingConfigs {
@@ -41,8 +42,6 @@ android {
             signingConfig signingConfigs.release
         }
     }
-
-
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -97,11 +96,17 @@ dependencies {
     // StickyScrollView
     implementation 'com.github.amarjain07:StickyScrollView:1.0.3'
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.11.0'
+
     // DaumMap
     implementation files('libs/libDaumMapAndroid.jar')
 
-    // Gson
-    implementation 'com.google.code.gson:gson:2.11.0'
+    // Kakao Essential common SDK
+    implementation 'com.kakao.sdk:v2-common:+'
+
+    // Kakao Maps SDK
+    implementation 'com.kakao.maps.open:android:2.9.5'
 
 
     constraints {
