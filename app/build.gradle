@@ -99,12 +99,6 @@ dependencies {
     // Gson
     implementation 'com.google.code.gson:gson:2.11.0'
 
-    // DaumMap
-    // implementation files('libs/libDaumMapAndroid.jar')
-
-    // Kakao Essential common SDK
-//    implementation 'com.kakao.sdk:v2-common:+'
-
     // Kakao Maps
     implementation 'com.kakao.maps.open:android:2.9.5'
 
