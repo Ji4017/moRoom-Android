@@ -33,8 +33,8 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
     private val binding get() = _binding!!
     private val viewModel: MapViewModel by viewModels()
 
-    private var mapView: MapView? = null
-    private var mapViewContainer: ViewGroup? = null
+    private lateinit var mapView: MapView
+    private lateinit var mapViewContainer: ViewGroup
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,15 +66,15 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
     }
 
     private fun configureMapView() {
-        mapView!!.setMapViewEventListener(this)
-        mapView!!.setCalloutBalloonAdapter(CustomCalloutBalloonAdapter())
-        mapView!!.setPOIItemEventListener(this)
+        mapView.setMapViewEventListener(this)
+        mapView.setCalloutBalloonAdapter(CustomCalloutBalloonAdapter())
+        mapView.setPOIItemEventListener(this)
     }
 
     private fun setMapCenterAndZoom() {
         val point = MapPoint.mapPointWithGeoCoord(CHUNGJU_UNIVERSITY_LATITUDE, CHUNGJU_UNIVERSITY_LONGITUDE)
-        mapView!!.setMapCenterPoint(point, true)
-        mapView!!.setZoomLevel(2, true)
+        mapView.setMapCenterPoint(point, true)
+        mapView.setZoomLevel(2, true)
     }
 
     private fun observeLocationData() {
@@ -93,7 +93,7 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
         marker.customImageResourceId = R.drawable.red_pin
         marker.isCustomImageAutoscale = false
         marker.setCustomImageAnchor(0.5f, 1.0f)
-        mapView!!.addPOIItem(marker)
+        mapView.addPOIItem(marker)
     }
 
     private fun setUpListener() {
@@ -149,9 +149,7 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
     override fun onDestroyView() {
         super.onDestroyView()
         // Remove the MapView from the container to prevent memory leaks
-        if (mapViewContainer != null) {
-            mapViewContainer!!.removeView(mapView)
-        }
+        mapViewContainer.removeView(mapView)
     }
 
 
