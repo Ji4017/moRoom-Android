@@ -1,11 +1,10 @@
-package com.moroom.android.ui.main;
+package com.moroom.android.ui.nav;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.moroom.android.R;
 import com.moroom.android.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

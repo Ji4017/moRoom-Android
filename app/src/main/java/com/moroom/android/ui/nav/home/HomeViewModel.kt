@@ -1,4 +1,4 @@
-package com.moroom.android.ui.navui.home
+package com.moroom.android.ui.nav.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData

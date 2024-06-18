@@ -5,6 +5,10 @@ plugins {
     id 'kotlin-kapt'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def kakao_sdk_appKey = properties.getProperty('kakao_sdk_appKey')
+
 android {
     namespace 'com.moroom.android'
     compileSdk 34
@@ -13,16 +17,29 @@ android {
         applicationId "com.moroom.android"
         minSdk 24
         targetSdk 33
-        versionCode 6
-        versionName "1.0.5"
+        versionCode 7
+        versionName "1.0.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "KAKAO_SDK_APPKEY", "\"${kakao_sdk_appKey}\""
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(properties['storeFile'])
+            storePassword properties['storePassword']
+            keyAlias properties['keyAlias']
+            keyPassword properties['keyPassword']
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -36,6 +53,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig true
         viewBinding true
         dataBinding true
     }
@@ -47,7 +65,7 @@ dependencies {
     def lifecycle_version = "2.6.1"
 
     // kotlin
-    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:1.13.1'
 
     // Android
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -78,8 +96,11 @@ dependencies {
     // StickyScrollView
     implementation 'com.github.amarjain07:StickyScrollView:1.0.3'
 
-    // DaumMap
-    implementation files('libs/libDaumMapAndroid.jar')
+    // Gson
+    implementation 'com.google.code.gson:gson:2.11.0'
+
+    // Kakao Maps
+    implementation 'com.kakao.maps.open:android:2.9.5'
 
 
     constraints {

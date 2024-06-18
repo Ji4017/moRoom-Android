@@ -1,0 +1,104 @@
+package com.moroom.android.ui.signup
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.view.View.OnFocusChangeListener
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import com.moroom.android.R
+import com.moroom.android.databinding.ActivitySignUpBinding
+import com.moroom.android.ui.nav.MainActivity
+
+class SignupActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySignUpBinding
+    private val viewModel: SignupViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        handleDeepLink()
+        setUpListener()
+        setUpObserver()
+    }
+
+    private fun handleDeepLink() = viewModel.handleDeepLink(intent)
+
+    private fun setUpListener() {
+        binding.apply {
+            etEmailAddress.onFocusChangeListener = OnFocusChangeListener { _: View, hasFocus: Boolean -> if (hasFocus) setUpDomain() }
+
+            etEmailAddress.addTextChangedListener { viewModel.validateEmailDomain(applicationContext, it.toString().trim()) }
+
+            etId.addTextChangedListener { viewModel.validateId(it.toString().trim()) }
+
+            etPassword.addTextChangedListener { viewModel.validatePassword(it.toString().trim()) }
+
+            btSendEmail.setOnClickListener { viewModel.sendEmail(etEmailAddress.text.toString().trim()) }
+
+            btSignUp.setOnClickListener {
+                viewModel.createUserInAuthentication(
+                    applicationContext,
+                    etId.text.toString().trim(),
+                    etPassword.text.toString().trim()
+                )
+            }
+        }
+    }
+
+    private fun setUpObserver() {
+        viewModel.domainError.observe(this) {
+            binding.btSendEmail.isEnabled = (it == null)
+            binding.etEmailAddress.error = it?.let { getString(it) }
+        }
+
+        viewModel.idError.observe(this) { binding.etId.error = it?.let { getString(it) } }
+
+        viewModel.passwordError.observe(this) { binding.etPassword.error = it?.let { getString(it) } }
+
+        viewModel.isFormValid.observe(this) { binding.btSignUp.isEnabled = it }
+
+        viewModel.emailSendResult.observe(this) { showSendResultToast(it) }
+
+        viewModel.dynamicLinkEvent.observe(this) { isSuccess -> if (isSuccess) showSignUpForm() }
+
+        viewModel.signupMessage.observe(this) { signupMessage ->
+            if (signupMessage == getString(R.string.welcome)) {
+                Toast.makeText(this, signupMessage, Toast.LENGTH_SHORT).show()
+                navigateToMain()
+            } else {
+                Toast.makeText(this, signupMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setUpDomain() {
+        binding.etEmailAddress.setText("@" + getString(R.string.domain))
+        binding.etEmailAddress.post { binding.etEmailAddress.setSelection(0) }
+    }
+
+    private fun showSendResultToast(emailSendResult: Boolean) {
+        if (emailSendResult) Toast.makeText(this, getString(R.string.sending_success), Toast.LENGTH_SHORT).show()
+        else Toast.makeText(this, getString(R.string.sending_failure), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showSignUpForm() {
+        binding.apply {
+            etEmailAddress.visibility = View.GONE
+            btSendEmail.visibility = View.GONE
+            etId.visibility = View.VISIBLE
+            etPassword.visibility = View.VISIBLE
+            btSignUp.visibility = View.VISIBLE
+        }
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+}
