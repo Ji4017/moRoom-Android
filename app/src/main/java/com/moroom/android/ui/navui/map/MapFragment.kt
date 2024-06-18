@@ -6,35 +6,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
+import com.kakao.vectormap.KakaoMap
+import com.kakao.vectormap.KakaoMapReadyCallback
+import com.kakao.vectormap.LatLng
+import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.MapLogger
+import com.kakao.vectormap.camera.CameraAnimation
+import com.kakao.vectormap.camera.CameraUpdateFactory
+import com.kakao.vectormap.label.Label
+import com.kakao.vectormap.label.LabelLayer
+import com.kakao.vectormap.label.LabelOptions
+import com.kakao.vectormap.label.LabelStyle
 import com.moroom.android.R
 import com.moroom.android.databinding.FragmentMapBinding
 import com.moroom.android.ui.login.MoveToLogin
 import com.moroom.android.ui.result.ResultActivity
 import com.moroom.android.ui.search.SearchActivity
 import com.moroom.android.ui.write.WriteActivity
-import net.daum.mf.map.api.CalloutBalloonAdapter
-import net.daum.mf.map.api.MapPOIItem
-import net.daum.mf.map.api.MapPOIItem.CalloutBalloonButtonType
-import net.daum.mf.map.api.MapPoint
-import net.daum.mf.map.api.MapView
-import net.daum.mf.map.api.MapView.CurrentLocationEventListener
-import net.daum.mf.map.api.MapView.POIItemEventListener
 
-class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEventListener,
-    POIItemEventListener {
+
+class MapFragment : Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MapViewModel by viewModels()
 
-    private lateinit var mapView: MapView
-    private lateinit var mapViewContainer: ViewGroup
+    private lateinit var labelLayer: LabelLayer
+    private lateinit var kakaoMap: KakaoMap
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,52 +51,117 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showMapView()
+        setUpMapView()
         setUpListener()
-        observeLocationData()
     }
 
-    private fun showMapView() {
-        initializeMapView()
-        configureMapView()
-        setMapCenterAndZoom()
+    private fun setUpMapView() {
+        binding.mapView.start(lifeCycleCallback, readyCallback)
     }
 
-    private fun initializeMapView() {
-        mapView = MapView(requireContext())
-        mapViewContainer = binding.mapView
-        (mapViewContainer as RelativeLayout).addView(mapView)
+    private val lifeCycleCallback: MapLifeCycleCallback = object : MapLifeCycleCallback() {
+        override fun onMapDestroy() {
+        }
+
+        override fun onMapError(error: Exception) {
+            MapLogger.e(error.message)
+        }
     }
 
-    private fun configureMapView() {
-        mapView.setMapViewEventListener(this)
-        mapView.setCalloutBalloonAdapter(CustomCalloutBalloonAdapter())
-        mapView.setPOIItemEventListener(this)
+    private val readyCallback: KakaoMapReadyCallback = object : KakaoMapReadyCallback() {
+        override fun onMapReady(map: KakaoMap) {
+            kakaoMap = map
+            labelLayer = kakaoMap.labelManager!!.layer!!
+            createLabelsFromLocationData()
+            setOnLabelClickListener(kakaoMap)
+        }
+
+        override fun getPosition(): LatLng {
+            return LatLng.from(CHUNGJU_UNIVERSITY_LATITUDE, CHUNGJU_UNIVERSITY_LONGITUDE)
+        }
+
+        override fun isVisible(): Boolean {
+            return true
+        }
     }
 
-    private fun setMapCenterAndZoom() {
-        val point = MapPoint.mapPointWithGeoCoord(CHUNGJU_UNIVERSITY_LATITUDE, CHUNGJU_UNIVERSITY_LONGITUDE)
-        mapView.setMapCenterPoint(point, true)
-        mapView.setZoomLevel(2, true)
-    }
-
-    private fun observeLocationData() {
-        viewModel.locationData.observe(viewLifecycleOwner) { locations ->
-            locations.forEach { location ->
-                addMarkerToMap(location.address, location.latitude, location.longitude)
+    private fun setOnLabelClickListener(kakaoMap: KakaoMap) {
+        kakaoMap.setOnLabelClickListener { _, _, label ->
+            when {
+                label.labelId.contains("original") -> onCenterLabelClicked(label)
+                label.labelId.contains("callout") -> onBalloonLabelClicked(label)
             }
         }
     }
 
-    private fun addMarkerToMap(address: String, latitude: Double, longitude: Double) {
-        val marker = MapPOIItem()
-        marker.itemName = address
-        marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude)
-        marker.markerType = MapPOIItem.MarkerType.CustomImage
-        marker.customImageResourceId = R.drawable.red_pin
-        marker.isCustomImageAutoscale = false
-        marker.setCustomImageAnchor(0.5f, 1.0f)
-        mapView.addPOIItem(marker)
+    private fun createLabelsFromLocationData() {
+        viewModel.locationData.observe(viewLifecycleOwner) { locationData ->
+            locationData.forEachIndexed { index, it ->
+                createLabels(index, it.address, it.latitude, it.longitude)
+            }
+        }
+    }
+
+    private fun createLabels(labelId: Int, address: String, latitude: Double, longitude: Double) {
+        // Original 라벨 추가
+        val label = labelLayer.addLabel(
+            LabelOptions.from("original$labelId", LatLng.from(latitude, longitude))
+                .setStyles(LabelStyle.from(R.drawable.red_pin).setAnchorPoint(0.5f, 0.5f))
+        )
+        label.scaleTo(2.5f, 2.5f)
+
+        // CalloutBalloon 라벨 추가
+        val balloonLabel: Label =
+            createCalloutBalloonLabel("callout$labelId", address, latitude, longitude)
+        label.addShareTransform(balloonLabel)
+    }
+
+    private fun createCalloutBalloonLabel(
+        labelId: String,
+        address: String,
+        latitude: Double,
+        longitude: Double
+    ): Label {
+        val viewGroup = LayoutInflater.from(requireContext())
+            .inflate(R.layout.custom_callout_ballon, null) as ViewGroup
+
+        val tv = viewGroup.findViewById<View>(R.id.tv_address) as TextView
+        tv.text = address
+
+        val bitmap = ViewToBitmap.createBitmap(viewGroup)
+
+        val calloutLabel = labelLayer.addLabel(
+            LabelOptions.from(labelId, LatLng.from(latitude, longitude))
+                .setStyles(LabelStyle.from(bitmap))
+                .setVisible(false)
+        )
+        calloutLabel.changePixelOffset(0f, -90f)
+        calloutLabel.tag = address
+
+        return calloutLabel
+    }
+
+    private fun onCenterLabelClicked(label: Label) {
+        val calloutBalloonLabelId = "callout" + label.labelId.substringAfter("original")
+        val calloutBalloonLabel = labelLayer.getLabel(calloutBalloonLabelId)
+        calloutBalloonLabel?.let {
+            if (it.isShow) {
+                it.hide()
+            } else {
+                it.show()
+                val cameraUpdate = CameraUpdateFactory.newCenterPosition(label.position)
+                kakaoMap.moveCamera(cameraUpdate, CameraAnimation.from(200))
+            }
+        }
+    }
+
+    private fun onBalloonLabelClicked(label: Label) {
+        val address = label.tag as? String
+        if (!address.isNullOrEmpty()) {
+            val intent = Intent(requireContext(), ResultActivity::class.java)
+            intent.putExtra("searchedAddress", address)
+            startActivity(intent)
+        }
     }
 
     private fun setUpListener() {
@@ -126,98 +194,21 @@ class MapFragment : Fragment(), CurrentLocationEventListener, MapView.MapViewEve
         }
     }
 
-    internal inner class CustomCalloutBalloonAdapter : CalloutBalloonAdapter {
-        private val mCalloutBalloon: View =
-            layoutInflater.inflate(R.layout.custom_callout_ballon, mapViewContainer, false)
+    override fun onResume() {
+        super.onResume()
+        binding.mapView.resume()
+    }
 
-        override fun getCalloutBalloon(poiItem: MapPOIItem): View {
-            // 마커 클릭 시 나오는 말풍선
-
-            // 각 마커의 주소 가져오기
-            val address = poiItem.itemName
-            (mCalloutBalloon.findViewById<View>(R.id.balloon_address) as TextView).text = address
-
-            return mCalloutBalloon
-        }
-
-        override fun getPressedCalloutBalloon(poiItem: MapPOIItem): View {
-            // 말풍선 클릭 시
-            return mCalloutBalloon
-        }
+    override fun onPause() {
+        super.onPause()
+        binding.mapView.pause()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Remove the MapView from the container to prevent memory leaks
-        mapViewContainer.removeView(mapView)
-    }
+        binding.mapView.removeAllViews()
+        _binding = null
 
-
-    // Implement other necessary methods for MapView.CurrentLocationEventListener and MapView.MapViewEventListener
-
-    override fun onMapViewInitialized(mapView: MapView) {
-    }
-
-    override fun onCurrentLocationUpdate(mapView: MapView, mapPoint: MapPoint, v: Float) {
-    }
-
-    override fun onCurrentLocationDeviceHeadingUpdate(mapView: MapView, v: Float) {
-    }
-
-    override fun onCurrentLocationUpdateFailed(mapView: MapView) {
-    }
-
-    override fun onCurrentLocationUpdateCancelled(mapView: MapView) {
-    }
-
-    override fun onMapViewCenterPointMoved(mapView: MapView, mapPoint: MapPoint) {
-    }
-
-    override fun onMapViewZoomLevelChanged(mapView: MapView, i: Int) {
-    }
-
-    override fun onMapViewSingleTapped(mapView: MapView, mapPoint: MapPoint) {
-    }
-
-    override fun onMapViewDoubleTapped(mapView: MapView, mapPoint: MapPoint) {
-    }
-
-    override fun onMapViewLongPressed(mapView: MapView, mapPoint: MapPoint) {
-    }
-
-    override fun onMapViewDragStarted(mapView: MapView, mapPoint: MapPoint) {
-    }
-
-    override fun onMapViewDragEnded(mapView: MapView, mapPoint: MapPoint) {
-    }
-
-    override fun onMapViewMoveFinished(mapView: MapView, mapPoint: MapPoint) {
-    }
-
-    override fun onPOIItemSelected(mapView: MapView, mapPOIItem: MapPOIItem) {
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onCalloutBalloonOfPOIItemTouched(mapView: MapView, mapPOIItem: MapPOIItem) {
-    }
-
-    override fun onCalloutBalloonOfPOIItemTouched(
-        mapView: MapView,
-        mapPOIItem: MapPOIItem,
-        calloutBalloonButtonType: CalloutBalloonButtonType
-    ) {
-        // 말풍선 클릭 시
-        val intent = Intent(requireContext(), ResultActivity::class.java)
-        intent.putExtra("searchedAddress", mapPOIItem.itemName)
-        startActivity(intent)
-    }
-
-    override fun onDraggablePOIItemMoved(
-        mapView: MapView,
-        mapPOIItem: MapPOIItem,
-        mapPoint: MapPoint
-    ) {
-        // 마커의 속성 중 isDraggable = true 일 때 마커를 이동 시켰을 경우
     }
 
     companion object {
