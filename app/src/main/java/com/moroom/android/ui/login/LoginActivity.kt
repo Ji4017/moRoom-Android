@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.moroom.android.R
 import com.moroom.android.databinding.ActivityLoginBinding
-import com.moroom.android.ui.navui.MainActivity
+import com.moroom.android.ui.nav.MainActivity
 import com.moroom.android.ui.signup.SignupActivity
 
 

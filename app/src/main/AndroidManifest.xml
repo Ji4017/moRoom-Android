@@ -34,7 +34,7 @@
             android:name=".ui.write.WriteActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.navui.MainActivity"
+            android:name=".ui.nav.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

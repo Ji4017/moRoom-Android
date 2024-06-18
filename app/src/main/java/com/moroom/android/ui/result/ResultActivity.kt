@@ -15,7 +15,7 @@ import com.moroom.android.R
 import com.moroom.android.databinding.ActivityResultBinding
 import com.moroom.android.ui.adapter.result.SearchResultsAdapter
 import com.moroom.android.ui.login.MoveToLogin
-import com.moroom.android.ui.navui.MainActivity
+import com.moroom.android.ui.nav.MainActivity
 import com.moroom.android.ui.search.SearchActivity
 import com.moroom.android.ui.write.WriteActivity
 

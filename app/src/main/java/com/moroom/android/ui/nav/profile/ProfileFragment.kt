@@ -1,4 +1,4 @@
-package com.moroom.android.ui.navui.profile
+package com.moroom.android.ui.nav.profile
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.moroom.android.R
 import com.moroom.android.databinding.FragmentProfileBinding
 import com.moroom.android.ui.login.LoginActivity
-import com.moroom.android.ui.navui.MainActivity
+import com.moroom.android.ui.nav.MainActivity
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null

@@ -1,4 +1,4 @@
-package com.moroom.android.ui.navui;
+package com.moroom.android.ui.nav;
 
 import android.os.Bundle;
 import android.widget.Toast;

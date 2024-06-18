@@ -1,4 +1,4 @@
-package com.moroom.android.ui.navui.map;
+package com.moroom.android.ui.nav.map;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

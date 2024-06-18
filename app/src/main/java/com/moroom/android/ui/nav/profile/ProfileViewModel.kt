@@ -1,4 +1,4 @@
-package com.moroom.android.ui.navui.profile
+package com.moroom.android.ui.nav.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

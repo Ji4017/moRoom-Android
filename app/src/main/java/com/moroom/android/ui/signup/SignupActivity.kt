@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.moroom.android.R
 import com.moroom.android.databinding.ActivitySignUpBinding
-import com.moroom.android.ui.navui.MainActivity
+import com.moroom.android.ui.nav.MainActivity
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
