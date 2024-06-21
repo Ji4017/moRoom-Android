@@ -88,7 +88,7 @@ class MapFragment : Fragment() {
     private fun setOnLabelClickListener(kakaoMap: KakaoMap) {
         kakaoMap.setOnLabelClickListener { _, _, label ->
             when {
-                label.labelId.contains("original") -> onCenterLabelClicked(label)
+                label.labelId.contains("parent") -> onParentLabelClicked(label)
                 label.labelId.contains("callout") -> onBalloonLabelClicked(label)
             }
         }
@@ -103,9 +103,9 @@ class MapFragment : Fragment() {
     }
 
     private fun createLabels(labelId: Int, address: String, latitude: Double, longitude: Double) {
-        // Original 라벨 추가
+        // Parent 라벨 추가
         val label = labelLayer.addLabel(
-            LabelOptions.from("original$labelId", LatLng.from(latitude, longitude))
+            LabelOptions.from("parent$labelId", LatLng.from(latitude, longitude))
                 .setStyles(LabelStyle.from(R.drawable.red_pin).setAnchorPoint(0.5f, 0.5f))
         )
         label.scaleTo(2.5f, 2.5f)
@@ -141,8 +141,8 @@ class MapFragment : Fragment() {
         return calloutLabel
     }
 
-    private fun onCenterLabelClicked(label: Label) {
-        val calloutBalloonLabelId = "callout" + label.labelId.substringAfter("original")
+    private fun onParentLabelClicked(label: Label) {
+        val calloutBalloonLabelId = "callout" + label.labelId.substringAfter("parent")
         val calloutBalloonLabel = labelLayer.getLabel(calloutBalloonLabelId)
         calloutBalloonLabel?.let {
             if (it.isShow) {
