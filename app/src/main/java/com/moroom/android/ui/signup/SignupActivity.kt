@@ -43,7 +43,7 @@ class SignupActivity : AppCompatActivity() {
             btSignUp.setOnClickListener {
                 viewModel.createUserInAuthentication(
                     applicationContext,
-                    etId.text.toString().trim(),
+                    etId.text.toString().trim().lowercase(),
                     etPassword.text.toString().trim()
                 )
             }
