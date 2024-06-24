@@ -23,17 +23,17 @@ import com.moroom.android.R
 import com.moroom.android.data.model.UserAccount
 
 class SignupViewModel : ViewModel() {
-    private val _domainError = MutableLiveData<Int?>()
-    val domainError: LiveData<Int?>
-        get() = _domainError
+    private val _domainValid = MutableLiveData<Boolean>()
+    val domainValid: LiveData<Boolean>
+        get() = _domainValid
 
-    private val _idError = MutableLiveData<Int?>()
-    val idError: LiveData<Int?>
-        get() = _idError
+    private val _idValid = MutableLiveData<Boolean>()
+    val idValid: LiveData<Boolean>
+        get() = _idValid
 
-    private val _passwordError = MutableLiveData<Int?>()
-    val passwordError: LiveData<Int?>
-        get() = _passwordError
+    private val _passwordValid = MutableLiveData<Boolean>()
+    val passwordValid: LiveData<Boolean>
+        get() = _passwordValid
 
     private val _isFormValid = MutableLiveData<Boolean>(false)
     val isFormValid: LiveData<Boolean>
@@ -53,32 +53,21 @@ class SignupViewModel : ViewModel() {
 
     fun validateEmailDomain(context: Context, email: String) {
         val domain = email.substringAfter("@")
-        val isValidDomain = domain.equals(getString(context, R.string.domain), ignoreCase = true)
-        _domainError.value = if(isValidDomain) null else R.string.invalid_email
+        _domainValid.value = domain.equals(getString(context, R.string.domain), ignoreCase = true)
     }
 
     fun validateId(id: String) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(id).matches()) {
-            _idError.value = R.string.invalid_email
-        } else {
-            _idError.value = null
-        }
-
+        _idValid.value = Patterns.EMAIL_ADDRESS.matcher(id).matches()
         updateFormState()
     }
 
     fun validatePassword(password: String) {
-        if (password.length < 6) {
-            _passwordError.value = R.string.invalid_password
-        } else {
-            _passwordError.value = null
-        }
-
+        _passwordValid.value = password.length >= 6
         updateFormState()
     }
 
     private fun updateFormState() {
-        _isFormValid.value = (_idError.value == null && _passwordError.value == null)
+        _isFormValid.value = (_idValid.value == true && _passwordValid.value == true)
     }
 
     fun sendEmail(email: String) {

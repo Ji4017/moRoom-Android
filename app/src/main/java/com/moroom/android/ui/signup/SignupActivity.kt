@@ -34,7 +34,7 @@ class SignupActivity : AppCompatActivity() {
 
             etEmailAddress.addTextChangedListener { viewModel.validateEmailDomain(applicationContext, it.toString().trim()) }
 
-            etId.addTextChangedListener { viewModel.validateId(it.toString().trim()) }
+            etId.addTextChangedListener { viewModel.validateId(it.toString().trim().lowercase()) }
 
             etPassword.addTextChangedListener { viewModel.validatePassword(it.toString().trim()) }
 
@@ -51,14 +51,22 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun setUpObserver() {
-        viewModel.domainError.observe(this) {
-            binding.btSendEmail.isEnabled = (it == null)
-            binding.etEmailAddress.error = it?.let { getString(it) }
+        viewModel.domainValid.observe(this) {isValid ->
+            if(isValid) binding.etEmailAddress.error = null
+            else binding.etEmailAddress.error = getString(R.string.only_cju_email)
+
+            binding.btSendEmail.isEnabled = isValid
         }
 
-        viewModel.idError.observe(this) { binding.etId.error = it?.let { getString(it) } }
+        viewModel.idValid.observe(this) {isValid ->
+            if(isValid) binding.etId.error = null
+            else binding.etId.error = getString(R.string.invalid_email)
+        }
 
-        viewModel.passwordError.observe(this) { binding.etPassword.error = it?.let { getString(it) } }
+        viewModel.passwordValid.observe(this) {isValid ->
+            if(isValid) binding.etPassword.error = null
+            else binding.etPassword.error = getString(R.string.invalid_password)
+        }
 
         viewModel.isFormValid.observe(this) { binding.btSignUp.isEnabled = it }
 
