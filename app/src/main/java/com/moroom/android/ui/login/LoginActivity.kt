@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setUpListener() {
-        binding.etId.addTextChangedListener { loginViewModel.validateId(it.toString().trim()) }
+        binding.etId.addTextChangedListener { loginViewModel.validateId(it.toString().trim().lowercase()) }
 
         binding.etPassword.addTextChangedListener { loginViewModel.validatePassword(it.toString().trim()) }
 
