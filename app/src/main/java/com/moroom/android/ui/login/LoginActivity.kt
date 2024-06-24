@@ -33,7 +33,8 @@ class LoginActivity : AppCompatActivity() {
         binding.btLogin.setOnClickListener {
             loginViewModel.login(
                 binding.etId.text.toString().trim().lowercase(), binding.etPassword.text.toString().trim()
-            ) }
+            )
+        }
 
         binding.tvSignUp.setOnClickListener { navigateToSignup() }
     }
