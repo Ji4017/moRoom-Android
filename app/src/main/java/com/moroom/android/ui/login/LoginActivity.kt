@@ -39,9 +39,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setUpObserver() {
-        loginViewModel.idError.observe(this) { binding.etId.error = it?.let { getString(it) } }
+        loginViewModel.idValid.observe(this) { isValid ->
+            if(isValid) binding.etId.error = null
+            else binding.etId.error = getString(R.string.invalid_email)
+        }
 
-        loginViewModel.passwordError.observe(this) { binding.etPassword.error = it?.let { getString(it) } }
+        loginViewModel.passwordValid.observe(this) { isValid ->
+            if(isValid) binding.etPassword.error = null
+            else binding.etPassword.error = getString(R.string.invalid_password)
+        }
 
         loginViewModel.isFormValid.observe(this) {binding.btLogin.isEnabled = it }
 

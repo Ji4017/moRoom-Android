@@ -6,16 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 import com.google.firebase.auth.FirebaseAuth
-import com.moroom.android.R
 
 class LoginViewModel : ViewModel() {
-    private val _idError = MutableLiveData<Int?>()
-    val idError: LiveData<Int?>
-        get() = _idError
+    private val _idValid = MutableLiveData<Boolean>()
+    val idValid: LiveData<Boolean>
+        get() = _idValid
 
-    private val _passwordError = MutableLiveData<Int?>()
-    val passwordError: LiveData<Int?>
-        get() = _passwordError
+    private val _passwordValid = MutableLiveData<Boolean>()
+    val passwordValid: LiveData<Boolean>
+        get() = _passwordValid
 
     private val _isFormValid = MutableLiveData<Boolean>(false)
     val isFormValid: LiveData<Boolean>
@@ -26,27 +25,17 @@ class LoginViewModel : ViewModel() {
         get() = _loginResult
 
     fun validateId(id: String) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(id).matches()) {
-            _idError.value = R.string.invalid_email
-        } else {
-            _idError.value = null
-        }
-
+        _idValid.value = Patterns.EMAIL_ADDRESS.matcher(id).matches()
         updateFormState()
     }
 
     fun validatePassword(password: String) {
-        if (password.length < 6) {
-            _passwordError.value = R.string.invalid_password
-        } else {
-            _passwordError.value = null
-        }
-
+        _passwordValid.value = password.length >= 6
         updateFormState()
     }
 
     private fun updateFormState() {
-        _isFormValid.value = (_idError.value == null && _passwordError.value == null)
+        _isFormValid.value = (_idValid.value == true && _passwordValid.value == true)
     }
 
     fun login(email: String, password: String) {
