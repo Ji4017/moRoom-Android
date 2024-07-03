@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.moroom.android.R;
 import com.moroom.android.data.firebase.SaveReviewWithLatLng;
-import com.moroom.android.data.model.CheckedTextViewData;
+import com.moroom.android.data.model.CheckItem;
 import com.moroom.android.databinding.ActivityWriteBinding;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.moroom.android.ui.adapter.write.CheckedTextViewAdapter;
+import com.moroom.android.ui.adapter.write.CheckItemAdapter;
 import com.moroom.android.ui.nav.MainActivity;
 import com.moroom.android.ui.search.SearchActivity;
 
@@ -39,7 +39,7 @@ public class WriteActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private String address;
     private String selectedFloor, selectedYear, selectedRentType;
-    private ArrayList<CheckedTextViewData> arrayList = new ArrayList<>(); // CheckedTextViewData 객체 담을 배열 리스트
+    private ArrayList<CheckItem> arrayList = new ArrayList<>(); // CheckItem 객체 담을 배열 리스트
     private ArrayList<String> checkedTextList = new ArrayList<>();  // 체크된 항목을 저장할 리스트
 
     @Override
@@ -159,15 +159,14 @@ public class WriteActivity extends AppCompatActivity {
 
     private void setCheckList() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference("CheckedTextViewList");
+        DatabaseReference databaseReference = database.getReference("CheckItem");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    CheckedTextViewData checkedTextViewData = dataSnapshot.getValue(CheckedTextViewData.class); // CheckedTextViewData 객체에 데이터 담음
-                    arrayList.add(checkedTextViewData); // 담은 데이터를 리스트에 넣고 리사이클러뷰로 보낼 준비
-                    // Log.d("WriteActivity", "DB data : " + dataSnapshot.getValue());
+                    CheckItem checkItem = dataSnapshot.getValue(CheckItem.class);
+                    arrayList.add(checkItem);
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로 고침
             }
@@ -181,7 +180,7 @@ public class WriteActivity extends AppCompatActivity {
     }
 
     private void setupAdapter() {
-        adapter = new CheckedTextViewAdapter(arrayList, this, this);
+        adapter = new CheckItemAdapter(arrayList, this, this);
         binding.checkListRecyclerView.setAdapter(adapter);
     }
 

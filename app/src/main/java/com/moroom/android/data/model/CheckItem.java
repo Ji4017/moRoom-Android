@@ -1,12 +1,12 @@
 package com.moroom.android.data.model;
 
-public class CheckedTextViewData {
+public class CheckItem {
 
     private String listText;
 
     private boolean isChecked;
 
-    public CheckedTextViewData(){}
+    public CheckItem(){}
 
     public String getListText() {
         return listText;

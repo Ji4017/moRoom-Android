@@ -9,20 +9,20 @@ import android.widget.CheckedTextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.moroom.android.data.model.CheckedTextViewData;
+import com.moroom.android.data.model.CheckItem;
 import com.moroom.android.R;
 import com.moroom.android.ui.write.WriteActivity;
 
 import java.util.ArrayList;
 
-public class CheckedTextViewAdapter extends RecyclerView.Adapter<CheckedTextViewAdapter.ChdContentsViewHolder> {
+public class CheckItemAdapter extends RecyclerView.Adapter<CheckItemAdapter.ChdContentsViewHolder> {
 
-    final ArrayList<CheckedTextViewData> arrayList;
+    final ArrayList<CheckItem> arrayList;
     final Context context;
     private WriteActivity writeActivity;
 
 
-    public CheckedTextViewAdapter(ArrayList<CheckedTextViewData> arrayList, Context context, WriteActivity writeActivity) {
+    public CheckItemAdapter(ArrayList<CheckItem> arrayList, Context context, WriteActivity writeActivity) {
         this.arrayList = arrayList;
         this.context = context;
         this.writeActivity = writeActivity;
@@ -38,9 +38,9 @@ public class CheckedTextViewAdapter extends RecyclerView.Adapter<CheckedTextView
 
     @Override
     public void onBindViewHolder(@NonNull ChdContentsViewHolder holder, int position) {
-        CheckedTextViewData data = arrayList.get(position);
-        holder.checkedTextView.setText(data.getListText());
-        holder.checkedTextView.setChecked(data.isChecked());
+        CheckItem checkItem = arrayList.get(position);
+        holder.checkedTextView.setText(checkItem.getListText());
+        holder.checkedTextView.setChecked(checkItem.isChecked());
 
         holder.checkedTextView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -48,10 +48,10 @@ public class CheckedTextViewAdapter extends RecyclerView.Adapter<CheckedTextView
                 boolean isChecked = !checkBox.isChecked();
 
                 // 체크 여부를 데이터 모델에 업데이트
-                data.setChecked(isChecked);
+                checkItem.setChecked(isChecked);
 
                 // 체크 여부에 따라 리스트에 텍스트를 추가하거나 제거
-                String text = data.getListText();
+                String text = checkItem.getListText();
                 if (isChecked) {
                     // 체크되었을 때 리스트에 추가
                     writeActivity.addTextToList(text);
