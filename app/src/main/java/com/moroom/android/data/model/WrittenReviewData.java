@@ -2,21 +2,47 @@ package com.moroom.android.data.model;
 
 
 public class WrittenReviewData {
-    private String idToken;
     private String address;
     private String title;
-    private String selectedListText;
-    private String goodThing;
-    private String badThing;
+    private String pros;
+    private String cons;
+    private String checkedItems;
+    private String idToken;
 
-    public WrittenReviewData(){}
-
-    public String getSelectedListText() {
-        return selectedListText;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSelectedListText(String selectedListText) {
-        this.selectedListText = selectedListText;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPros() {
+        return pros;
+    }
+
+    public void setPros(String pros) {
+        this.pros = pros;
+    }
+
+    public String getCons() {
+        return cons;
+    }
+
+    public void setCons(String cons) {
+        this.cons = cons;
+    }
+
+    public String getCheckedItems() {
+        return checkedItems;
+    }
+
+    public void setCheckedItems(String checkedItems) {
+        this.checkedItems = checkedItems;
     }
 
     public String getIdToken() {
@@ -27,35 +53,7 @@ public class WrittenReviewData {
         this.idToken = idToken;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getGoodThing() {
-        return goodThing;
-    }
-
-    public void setGoodThing(String goodThing) {
-        this.goodThing = goodThing;
-    }
-
-    public String getBadThing() {
-        return badThing;
-    }
-
-    public void setBadThing(String badThing) {
-        this.badThing = badThing;
     }
 }

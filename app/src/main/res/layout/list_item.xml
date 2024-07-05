@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="item"
             type="com.moroom.android.data.model.Review" />
@@ -63,25 +62,25 @@
                 android:id="@+id/tv_selectedList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{item.selectedListToString()}" />
-
+                android:text="@{item.checkedItems}" />
 
             <TextView
-                android:id="@+id/goodThing"
+                android:id="@+id/pros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/goodThing"
                 android:textColor="#4C73FF"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_goodThing"
+                android:id="@+id/tv_pros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{item.goodThing}" />
+                android:text="@{item.pros}" />
 
             <TextView
-                android:id="@+id/badThing"
+                android:id="@+id/cons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -90,10 +89,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_badThing"
+                android:id="@+id/tv_cons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{item.badThing}" />
+                android:text="@{item.cons}" />
 
         </LinearLayout>
     </LinearLayout>

@@ -27,9 +27,7 @@ public class SaveReviewWithLatLng {
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final FirebaseAuth auth = FirebaseAuth.getInstance();
-    final FirebaseUser firebaseUser = auth.getCurrentUser();
-//    private double latitue;
-//    private double latitue;
+    final String idToken = auth.getUid();
 
     // 주소를 이용하여 위도와 경도를 가져오는 메서드
     public void getLatLngFromAddress(String address, Context context) {
@@ -80,37 +78,27 @@ public class SaveReviewWithLatLng {
         });
     }
 
-
-    public void saveReviewToDB(String address, String title, ArrayList<String> checkedTextList ,String goodThingMultiLine, String badThingMultiLine){
-
+    public void saveReviewToDB(String address, String title, String checkedItems ,String pros, String cons){
         if (!address.isEmpty()){
-
             WrittenReviewData writtenReviewData = new WrittenReviewData();
-            writtenReviewData.setIdToken(firebaseUser.getUid());
+            writtenReviewData.setIdToken(idToken);
             writtenReviewData.setAddress(address);
             writtenReviewData.setTitle(title);
-            writtenReviewData.setGoodThing(goodThingMultiLine);
-            writtenReviewData.setBadThing(badThingMultiLine);
+            writtenReviewData.setPros(pros);
+            writtenReviewData.setCons(cons);
+            writtenReviewData.setCheckedItems(checkedItems);
 
             DatabaseReference databaseRef = database.getReference("Address").child(address).push();
             databaseRef.setValue(writtenReviewData);
-
-            // 사용자가 체크한 리스트의 텍스트값만 담겨진 리스트를 for each 문으로 DB에 저장
-            for (String checkedText : checkedTextList) {
-                writtenReviewData.setSelectedListText(checkedText);
-                databaseRef.child("selectedList").push().setValue(checkedText);
-            }
-
-            // 리뷰를 작성했으니 UserAccount의 review 노드의 값을 true로 바꿔줌
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("UserAccount");
-
-            Map<String, Object> update = new HashMap<>();
-            update.put(user.getUid() + "/review", true);
-
-            // 저장된 데이터 업데이트
-            usersRef.updateChildren(update);
-
         }
+    }
+
+    public void updateUserReviewStatus() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("UserAccount");
+
+        Map<String, Object> update = new HashMap<>();
+        update.put(idToken + "/review", true);
+
+        usersRef.updateChildren(update);
     }
 }

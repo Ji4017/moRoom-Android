@@ -3,13 +3,10 @@ package com.moroom.android.data.model;
 import java.util.HashMap;
 
 public class Review {
-    private String title;
-    private String goodThing;
-    private String badThing;
-    private HashMap<String, String> selectedList;
-
-    public Review() {
-    }
+    private String title = "";
+    private String pros = "";
+    private String cons = "";
+    private String checkedItems = "";
 
     public String getTitle() {
         return title;
@@ -19,38 +16,23 @@ public class Review {
         this.title = title;
     }
 
-    public String getGoodThing() {
-        return goodThing;
+    public String getPros() {
+        return pros;
     }
 
-    public void setGoodThing(String goodThing) {
-        this.goodThing = goodThing;
+    public void setPros(String pros) {
+        this.pros = pros;
     }
 
-    public String getBadThing() {
-        return badThing;
+    public String getCons() {
+        return cons;
     }
 
-    public void setBadThing(String badThing) {
-        this.badThing = badThing;
+    public void setCons(String cons) {
+        this.cons = cons;
     }
 
-    public HashMap<String, String> getSelectedList() {
-        return selectedList;
-    }
+    public String getCheckedItems() { return checkedItems; }
 
-    public void setSelectedList(HashMap<String, String> selectedList) { this.selectedList = selectedList; }
-
-    public String selectedListToString() {
-        if (selectedList == null || selectedList.isEmpty()) {
-            return "";
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (String key : selectedList.keySet()) {
-            String value = selectedList.get(key);
-            sb.append(value).append("\n");
-        }
-        return sb.toString();
-    }
+    public void setCheckedItems(String checkedItems) { this.checkedItems = checkedItems; }
 }

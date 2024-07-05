@@ -32,6 +32,7 @@ import com.moroom.android.ui.nav.MainActivity;
 import com.moroom.android.ui.search.SearchActivity;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 import java.util.function.Consumer;
 
 public class WriteActivity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class WriteActivity extends AppCompatActivity {
     private String address;
     private String selectedFloor, selectedYear, selectedRentType;
     private ArrayList<CheckItem> arrayList = new ArrayList<>(); // CheckItem 객체 담을 배열 리스트
-    private ArrayList<String> checkedTextList = new ArrayList<>();  // 체크된 항목을 저장할 리스트
+    private ArrayList<String> checkedItems = new ArrayList<>();  // 체크된 항목을 저장할 리스트
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,10 +146,24 @@ public class WriteActivity extends AppCompatActivity {
         String pros = binding.etPros.getText().toString();
         String cons = binding.etCons.getText().toString();
 
+        String temp_checkedItems = checkedItemsToString(checkedItems);
+
         SaveReviewWithLatLng saveReviewWithLatLng = new SaveReviewWithLatLng();
         saveReviewWithLatLng.getLatLngFromAddress(address, WriteActivity.this);
-        saveReviewWithLatLng.saveReviewToDB(address, title, checkedTextList, pros, cons);
+        saveReviewWithLatLng.saveReviewToDB(address, title, temp_checkedItems, pros, cons);
+        saveReviewWithLatLng.updateUserReviewStatus();
         Toast.makeText(WriteActivity.this, getString(R.string.completed), Toast.LENGTH_LONG).show();
+    }
+
+    private String checkedItemsToString(ArrayList<String> checkedItems) {
+        if (checkedItems != null && checkedItems.isEmpty()) return "";
+        else {
+            StringJoiner joiner = new StringJoiner("\n");
+            for (String item : checkedItems) {
+                joiner.add(item);
+            }
+            return joiner.toString();
+        }
     }
 
     private void goToMainActivity() {
@@ -200,11 +215,11 @@ public class WriteActivity extends AppCompatActivity {
 
     // 체크된 텍스트를 리스트에 추가
     public void addTextToList(String text) {
-        checkedTextList.add(text);
+        checkedItems.add(text);
     }
 
     // 체크 해제된 텍스트를 리스트에서 제거
     public void removeTextFromList(String text) {
-        checkedTextList.remove(text);
+        checkedItems.remove(text);
     }
 }
