@@ -3,6 +3,8 @@ plugins {
     id 'com.google.gms.google-services'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
 
 Properties properties = new Properties()
@@ -48,6 +50,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -56,13 +62,24 @@ android {
         buildConfig true
         viewBinding true
         dataBinding true
+        compose true
     }
 }
 
+composeCompiler {
+    enableStrongSkippingMode = true
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
+}
+
+kapt {
+    correctErrorTypes true
+}
 
 dependencies {
     def nav_version = "2.5.3"
     def lifecycle_version = "2.6.1"
+    def composeBom = platform('androidx.compose:compose-bom:2024.06.00')
 
     // kotlin
     implementation 'androidx.core:core-ktx:1.13.1'
@@ -84,6 +101,25 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    // Compose
+    implementation composeBom
+    androidTestImplementation composeBom
+    // Material Design 3
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.ui:ui'
+    // Android Studio Preview support
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    // viewModel in compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+    // [hilt]
+    implementation 'com.google.dagger:hilt-android:2.51.1'
+    kapt 'com.google.dagger:hilt-compiler:2.51.1'
+    // hilt compose
+    implementation 'androidx.hilt:hilt-work:1.2.0'
+    kapt 'androidx.hilt:hilt-compiler:1.2.0'
+
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:31.4.0')
     implementation 'com.google.firebase:firebase-analytics'
@@ -101,7 +137,6 @@ dependencies {
 
     // Kakao Maps
     implementation 'com.kakao.maps.open:android:2.9.5'
-
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {

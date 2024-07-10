@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.kakao.vectormap.KakaoMapSdk;
 import com.moroom.android.BuildConfig;
 
+import dagger.hilt.android.HiltAndroidApp;
+
+@HiltAndroidApp
 public class BaseApplication extends Application {
     @Override
     public void onCreate() {
