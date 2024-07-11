@@ -69,7 +69,7 @@ android {
 composeCompiler {
     enableStrongSkippingMode = true
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
-    stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
+    // stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
 }
 
 kapt {
@@ -80,8 +80,9 @@ dependencies {
     def nav_version = "2.5.3"
     def lifecycle_version = "2.6.1"
     def composeBom = platform('androidx.compose:compose-bom:2024.06.00')
+    def activityComposeVersion = "1.9.0"
 
-    // kotlin
+    // Kotlin
     implementation 'androidx.core:core-ktx:1.13.1'
 
     // Android
@@ -110,13 +111,15 @@ dependencies {
     // Android Studio Preview support
     implementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.compose.ui:ui-tooling'
-    // viewModel in compose
+    // ViewModel in compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    // Activity in compose
+    implementation "androidx.activity:activity-compose:$activityComposeVersion"
 
-    // [hilt]
+    // Hilt
     implementation 'com.google.dagger:hilt-android:2.51.1'
     kapt 'com.google.dagger:hilt-compiler:2.51.1'
-    // hilt compose
+    // Hilt compose
     implementation 'androidx.hilt:hilt-work:1.2.0'
     kapt 'androidx.hilt:hilt-compiler:1.2.0'
 
