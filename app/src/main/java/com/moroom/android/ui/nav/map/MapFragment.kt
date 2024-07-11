@@ -28,7 +28,7 @@ import com.moroom.android.databinding.FragmentMapBinding
 import com.moroom.android.ui.login.MoveToLogin
 import com.moroom.android.ui.result.ResultActivity
 import com.moroom.android.ui.search.SearchActivity
-import com.moroom.android.ui.write.WriteActivity
+import com.moroom.android.ui.write.presentation.view.WriteActivity
 
 
 class MapFragment : Fragment() {

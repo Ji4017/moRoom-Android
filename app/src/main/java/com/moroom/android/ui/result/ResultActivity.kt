@@ -17,7 +17,7 @@ import com.moroom.android.ui.adapter.result.SearchResultsAdapter
 import com.moroom.android.ui.login.MoveToLogin
 import com.moroom.android.ui.nav.MainActivity
 import com.moroom.android.ui.search.SearchActivity
-import com.moroom.android.ui.write.WriteActivity
+import com.moroom.android.ui.write.presentation.view.WriteActivity
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
