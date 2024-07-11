@@ -31,7 +31,7 @@
             android:name=".ui.result.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.write.WriteActivity"
+            android:name=".ui.write.presentation.view.WriteActivity"
             android:exported="false" />
         <activity
             android:name=".ui.nav.MainActivity"
