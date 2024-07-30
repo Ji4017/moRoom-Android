@@ -48,12 +48,11 @@
 </h2>
 
 ### Architecture
-Partially applying `Clean Architecture`  
+Partially applying `Clean Architecture` & `MVVM`  
 Applying `Layered Architecture` in Progress
 
 ### Design Pattern
-`MVVM`  
-`Repository`
+`Repository`  
 
 ### TechStack
 `Java`  
@@ -61,7 +60,7 @@ Applying `Layered Architecture` in Progress
 `Coroutine`  
 `Flow`  
 `Hilt`  
-`AAC ViewModel`  
+`ViewModel`  
 `LiveData`  
 `DataBinding`  
 `Navigation`  
