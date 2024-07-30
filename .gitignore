@@ -92,3 +92,4 @@ lint/tmp/
 .idea/deploymentTargetSelector.xml
 .idea/other.xml
 .kotlin/sessions/kotlin-compiler-1278947319264192435.salive
+.idea/inspectionProfiles/Project_Default.xml
