@@ -57,7 +57,7 @@ class WriteViewModel @Inject constructor(
             val result = try {
                 saveLatLngIfNeeded(writtenReview.address)
                 saveReviewUseCase.invoke(writtenReview)
-//                updateUserReviewStatusUseCase.invoke()
+                updateUserReviewStatusUseCase.invoke()
                 Result.success(Unit)
             } catch (e: Exception) {
                 Log.e("onWriteComplete", e.toString())
