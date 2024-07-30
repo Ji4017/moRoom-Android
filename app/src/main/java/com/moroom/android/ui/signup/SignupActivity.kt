@@ -32,7 +32,7 @@ class SignupActivity : AppCompatActivity() {
         binding.apply {
             etEmailAddress.onFocusChangeListener = OnFocusChangeListener { _: View, hasFocus: Boolean -> if (hasFocus) setUpDomain() }
 
-            etEmailAddress.addTextChangedListener { viewModel.validateEmailDomain(applicationContext, it.toString().trim()) }
+            etEmailAddress.addTextChangedListener { viewModel.validateEmailDomain(it.toString().trim()) }
 
             etId.addTextChangedListener { viewModel.validateId(it.toString().trim().lowercase()) }
 
@@ -40,12 +40,9 @@ class SignupActivity : AppCompatActivity() {
 
             btSendEmail.setOnClickListener { viewModel.sendEmail(etEmailAddress.text.toString().trim()) }
 
-            btSignUp.setOnClickListener {
-                viewModel.createUserInAuthentication(
-                    applicationContext,
-                    etId.text.toString().trim().lowercase(),
-                    etPassword.text.toString().trim()
-                )
+            btSignUp.setOnClickListener { viewModel.createUserInAuthentication(
+                etId.text.toString().trim().lowercase(),
+                etPassword.text.toString().trim())
             }
         }
     }
@@ -74,12 +71,15 @@ class SignupActivity : AppCompatActivity() {
 
         viewModel.dynamicLinkEvent.observe(this) { isSuccess -> if (isSuccess) showSignUpForm() }
 
-        viewModel.signupMessage.observe(this) { signupMessage ->
-            if (signupMessage == getString(R.string.welcome)) {
-                Toast.makeText(this, signupMessage, Toast.LENGTH_SHORT).show()
-                navigateToMain()
-            } else {
-                Toast.makeText(this, signupMessage, Toast.LENGTH_SHORT).show()
+        viewModel.signupResult.observe(this) { signupResult ->
+            when (signupResult) {
+                0 -> {
+                    Toast.makeText(this, getString(R.string.welcome), Toast.LENGTH_SHORT).show()
+                    navigateToMain()
+                }
+                1 -> Toast.makeText(this, getString(R.string.in_use_email), Toast.LENGTH_SHORT).show()
+                2 -> Toast.makeText(this, getString(R.string.signup_error), Toast.LENGTH_SHORT).show()
+                3 -> Toast.makeText(this, getString(R.string.singup_error_inquiry), Toast.LENGTH_SHORT).show()
             }
         }
     }

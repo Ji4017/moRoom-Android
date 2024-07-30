@@ -1,11 +1,9 @@
 package com.moroom.android.ui.signup
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.util.Patterns
-import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -47,13 +45,13 @@ class SignupViewModel : ViewModel() {
     val dynamicLinkEvent: LiveData<Boolean>
         get() = _dynamicLinkEvent
 
-    private val _signupMessage = MutableLiveData<String>()
-    val signupMessage: LiveData<String>
-        get() = _signupMessage
+    private val _signupResult = MutableLiveData<Int>()
+    val signupResult: LiveData<Int>
+        get() = _signupResult
 
-    fun validateEmailDomain(context: Context, email: String) {
+    fun validateEmailDomain(email: String) {
         val domain = email.substringAfter("@")
-        _domainValid.value = domain.equals(getString(context, R.string.domain), ignoreCase = true)
+        _domainValid.value = domain.equals("cju.ac.kr", ignoreCase = true)
     }
 
     fun validateId(id: String) {
@@ -85,23 +83,23 @@ class SignupViewModel : ViewModel() {
             }
     }
 
-    fun createUserInAuthentication(context: Context, email: String, password: String) {
+    fun createUserInAuthentication(email: String, password: String) {
         val auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task: Task<AuthResult?> ->
                 if (task.isSuccessful) {
-                    createUserInDB(context, email, password)
+                    createUserInDB(email, password)
                 } else {
                     if (task.exception is FirebaseAuthException) {
-                        _signupMessage.value = getString(context, R.string.in_use_email)
+                        _signupResult.value = 1
                     } else {
-                        _signupMessage.value = getString(context, R.string.signup_error)
+                        _signupResult.value = 2
                     }
                 }
             }
     }
 
-    private fun createUserInDB(context: Context, email: String, password: String) {
+    private fun createUserInDB(email: String, password: String) {
         val user = FirebaseAuth.getInstance().currentUser
         val databaseReference = FirebaseDatabase.getInstance().getReference("UserAccount")
         assert(user != null)
@@ -115,10 +113,10 @@ class SignupViewModel : ViewModel() {
         databaseReference.child(uid)
             .setValue(userAccount) { databaseError: DatabaseError?, _: DatabaseReference? ->
                 if (databaseError != null) {
-                    _signupMessage.value = databaseError.message + getString(context, R.string.singup_error_inquiry)
+                    _signupResult.value = 3
                     Log.d(TAG, "유저 정보 DB 저장 실패: " + databaseError.message)
                 } else {
-                    _signupMessage.value = getString(context, R.string.welcome)
+                    _signupResult.value = 0
                     Log.d(TAG, "유저 정보 DB 저장 성공")
                 }
             }
