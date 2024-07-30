@@ -52,8 +52,8 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.isFormValid.observe(this) {binding.btLogin.isEnabled = it }
 
-        loginViewModel.loginResult.observe(this) { loginResult: Boolean ->
-            if (loginResult) {
+        loginViewModel.loginResult.observe(this) { isLoggedIn: Boolean ->
+            if (isLoggedIn) {
                 Toast.makeText(this, R.string.welcome, Toast.LENGTH_SHORT).show()
                 navigateToMain()
             } else {
