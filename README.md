@@ -92,4 +92,9 @@ Applying `Layered Architecture` in Progress
 <h2 id="5">
     <b>PlayStoreLink</b>
 </h2>
-<a href="https://play.google.com/store/apps/details?id=com.moroom.android&hl=ko-KR" target="_blank">PlayStore</a>
+<a href="https://play.google.com/store/apps/details?id=com.moroom.android&hl=ko-KR" target="_blank">PlayStore</a>  
+
+###### 테스트 계정  
+###### ID : `test@test.com`
+###### Password : `123456`
+ 
