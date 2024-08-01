@@ -3,20 +3,20 @@ package com.moroom.android.ui.adapter.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.moroom.android.data.model.Review
-import com.moroom.android.databinding.ListItemBinding
+import com.moroom.android.data.local.BestReview
+import com.moroom.android.databinding.ListBestReviewItemBinding
 
-class BestReviewAdapter(private val reviewList: ArrayList<Review>) :
+class BestReviewAdapter(private val reviewList: List<BestReview>) :
     RecyclerView.Adapter<BestReviewAdapter.ReviewViewHolder>() {
 
-    class ReviewViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Review) {
+    class ReviewViewHolder(val binding: ListBestReviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: BestReview) {
             binding.item = item
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
-        val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ListBestReviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ReviewViewHolder(binding)
     }
 
