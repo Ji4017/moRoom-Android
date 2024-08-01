@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.moroom.android.data.model.Review
+import com.moroom.android.data.local.BestReview
 
 class HomeViewModel : ViewModel() {
-    private val _bestReviews = MutableLiveData<ArrayList<Review>>()
+    private val _bestReviews = MutableLiveData<List<BestReview>>()
 
-    val bestReviews: LiveData<ArrayList<Review>>
+    val bestReviews: LiveData<List<BestReview>>
         get() = _bestReviews
 
     init {
@@ -20,12 +20,12 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun loadBestReviews() {
-        val fetchedBestReviews = ArrayList<Review>()
+        val fetchedBestReviews = ArrayList<BestReview>()
         val database = Firebase.database.reference
         database.child("Address").child("bestReviews").get()
             .addOnSuccessListener { snapshot ->
                 for (data in snapshot.children) {
-                    val singleReview = data.getValue(Review::class.java)
+                    val singleReview = data.getValue(BestReview::class.java)
                     singleReview?.let { fetchedBestReviews.add(it) }
                 }
                 _bestReviews.value = fetchedBestReviews

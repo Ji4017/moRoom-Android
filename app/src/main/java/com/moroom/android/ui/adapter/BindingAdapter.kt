@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.moroom.android.data.model.Review
+import com.moroom.android.data.local.BestReview
 import com.moroom.android.ui.adapter.home.BestReviewAdapter
 
 object ReviewBindingAdapter {
@@ -12,7 +12,7 @@ object ReviewBindingAdapter {
     @BindingAdapter("bestReviewItems", "progressBar")
     fun setBestReviews(
         recyclerview: RecyclerView,
-        bestReviews: ArrayList<Review>?,
+        bestReviews: List<BestReview>?,
         progressBar: ProgressBar
     ) {
         bestReviews?.let {
