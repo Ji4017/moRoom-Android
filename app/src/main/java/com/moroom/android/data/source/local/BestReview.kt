@@ -1,4 +1,4 @@
-package com.moroom.android.data.local
+package com.moroom.android.data.source.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

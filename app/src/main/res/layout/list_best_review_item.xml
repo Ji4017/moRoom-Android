@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.moroom.android.data.local.BestReview" />
+            type="com.moroom.android.data.source.local.BestReview" />
     </data>
 
     <LinearLayout
