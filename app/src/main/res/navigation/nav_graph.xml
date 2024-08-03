@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.moroom.android.ui.nav.home.HomeFragment"
+        android:name="com.moroom.android.presentation.nav.home.HomeFragment"
         android:label="@string/home_fragment_label"
         tools:layout="@layout/fragment_home" >
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.moroom.android.ui.nav.map.MapFragment"
+        android:name="com.moroom.android.presentation.nav.map.MapFragment"
         android:label="@string/map_fragment_label"
         tools:layout="@layout/fragment_map" >
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.moroom.android.ui.nav.profile.ProfileFragment"
+        android:name="com.moroom.android.presentation.nav.profile.ProfileFragment"
         android:label="@string/profile_fragment_label"
         tools:layout="@layout/fragment_profile">
 
