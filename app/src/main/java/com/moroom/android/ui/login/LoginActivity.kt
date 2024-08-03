@@ -10,8 +10,9 @@ import com.moroom.android.R
 import com.moroom.android.databinding.ActivityLoginBinding
 import com.moroom.android.ui.nav.MainActivity
 import com.moroom.android.ui.signup.SignupActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()

@@ -4,10 +4,14 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewModel() {
     private val _idValid = MutableLiveData<Boolean>()
     val idValid: LiveData<Boolean>
         get() = _idValid
@@ -39,7 +43,6 @@ class LoginViewModel : ViewModel() {
     }
 
     fun login(email: String, password: String) {
-        val auth = FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { login ->
                 _loginResult.value = login.isSuccessful
