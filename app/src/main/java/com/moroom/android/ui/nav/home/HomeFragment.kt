@@ -21,7 +21,9 @@ import com.moroom.android.ui.result.ResultActivity
 import com.moroom.android.ui.search.SearchActivity
 import com.moroom.android.ui.write.presentation.view.WriteActivity
 import com.moroom.android.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
