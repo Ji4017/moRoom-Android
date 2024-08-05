@@ -1,4 +1,4 @@
-package com.moroom.android.data
+package com.moroom.android.data.repository
 
 import android.util.Log
 import com.google.firebase.database.FirebaseDatabase

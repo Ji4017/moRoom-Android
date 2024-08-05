@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 import com.moroom.android.data.source.local.BestReview
-import com.moroom.android.data.BestReviewRepository
+import com.moroom.android.data.repository.BestReviewRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
