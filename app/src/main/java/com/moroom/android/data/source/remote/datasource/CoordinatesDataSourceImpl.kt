@@ -1,8 +1,8 @@
-package com.moroom.android.presentation.write.data.remote
+package com.moroom.android.data.source.remote.datasource
 
 import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
-import com.moroom.android.presentation.write.data.model.Coordinates
+import com.moroom.android.data.source.remote.model.Coordinates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

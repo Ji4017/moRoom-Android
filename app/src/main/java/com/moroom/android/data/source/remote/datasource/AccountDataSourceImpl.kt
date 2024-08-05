@@ -1,4 +1,4 @@
-package com.moroom.android.presentation.write.data.remote
+package com.moroom.android.data.source.remote.datasource
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase

@@ -1,13 +1,13 @@
 package com.moroom.android.di
 
-import com.moroom.android.presentation.write.data.remote.AccountDataSource
-import com.moroom.android.presentation.write.data.remote.AccountDataSourceImpl
-import com.moroom.android.presentation.write.data.remote.CheckItemsDataSourceImpl
-import com.moroom.android.presentation.write.data.remote.CheckItemsDataSource
-import com.moroom.android.presentation.write.data.remote.CoordinatesDataSource
-import com.moroom.android.presentation.write.data.remote.CoordinatesDataSourceImpl
-import com.moroom.android.presentation.write.data.remote.ReviewDataSource
-import com.moroom.android.presentation.write.data.remote.ReviewDataSourceImpl
+import com.moroom.android.data.source.remote.datasource.AccountDataSource
+import com.moroom.android.data.source.remote.datasource.AccountDataSourceImpl
+import com.moroom.android.data.source.remote.datasource.CheckItemsDataSourceImpl
+import com.moroom.android.data.source.remote.datasource.CheckItemsDataSource
+import com.moroom.android.data.source.remote.datasource.CoordinatesDataSource
+import com.moroom.android.data.source.remote.datasource.CoordinatesDataSourceImpl
+import com.moroom.android.data.source.remote.datasource.ReviewDataSource
+import com.moroom.android.data.source.remote.datasource.ReviewDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

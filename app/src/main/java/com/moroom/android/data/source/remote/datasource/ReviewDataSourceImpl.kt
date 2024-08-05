@@ -1,7 +1,7 @@
-package com.moroom.android.presentation.write.data.remote
+package com.moroom.android.data.source.remote.datasource
 
 import com.google.firebase.database.FirebaseDatabase
-import com.moroom.android.presentation.write.data.model.ReviewModel
+import com.moroom.android.data.source.remote.model.Review
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -9,11 +9,11 @@ import javax.inject.Inject
 class ReviewDataSourceImpl @Inject constructor(
     private val database: FirebaseDatabase,
 ) : ReviewDataSource {
-    override suspend fun saveReviewToFirebase(reviewModel: ReviewModel): Unit =
+    override suspend fun saveReviewToFirebase(review: Review): Unit =
         withContext(Dispatchers.IO) {
             database.getReference("Address")
-                .child(reviewModel.address)
+                .child(review.address)
                 .push()
-                .setValue(reviewModel)
+                .setValue(review)
         }
 }

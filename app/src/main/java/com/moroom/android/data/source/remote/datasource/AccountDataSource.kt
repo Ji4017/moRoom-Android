@@ -1,4 +1,4 @@
-package com.moroom.android.presentation.write.data.remote
+package com.moroom.android.data.source.remote.datasource
 
 interface AccountDataSource {
     suspend fun updateUserReviewStatus()
