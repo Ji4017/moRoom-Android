@@ -1,6 +1,6 @@
-package com.moroom.android.presentation.write.domain.repository
+package com.moroom.android.domain.repository
 
-import com.moroom.android.presentation.write.data.model.Coordinates
+import com.moroom.android.data.source.remote.model.Coordinates
 
 
 interface CoordinatesRepository {
