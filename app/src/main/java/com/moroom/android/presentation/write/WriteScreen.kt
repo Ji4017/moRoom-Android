@@ -1,4 +1,4 @@
-package com.moroom.android.presentation.write.presentation.view.screen
+package com.moroom.android.presentation.write
 
 import android.app.Activity
 import android.content.Context
@@ -39,15 +39,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.moroom.android.R
 import com.moroom.android.presentation.nav.MainActivity
 import com.moroom.android.presentation.search.SearchActivity
-import com.moroom.android.presentation.write.data.model.CheckItem
-import com.moroom.android.presentation.write.domain.model.WrittenReview
-import com.moroom.android.presentation.write.presentation.controller.WriteViewModel
-import com.moroom.android.presentation.write.presentation.view.component.AddressInput
-import com.moroom.android.presentation.write.presentation.view.component.CheckItems
-import com.moroom.android.presentation.write.presentation.view.component.CompleteButton
-import com.moroom.android.presentation.write.presentation.view.component.DropdownMenu
-import com.moroom.android.presentation.write.presentation.view.component.OutLinedMultiLineTextField
-import com.moroom.android.presentation.write.theme.Sky
+import com.moroom.android.data.source.remote.model.CheckItem
+import com.moroom.android.domain.model.WrittenReview
+import com.moroom.android.ui.component.AddressInput
+import com.moroom.android.ui.component.CheckItems
+import com.moroom.android.ui.component.CompleteButton
+import com.moroom.android.ui.component.DropdownMenu
+import com.moroom.android.ui.component.OutLinedMultiLineTextField
+import com.moroom.android.ui.theme.Sky
 
 
 @Composable
