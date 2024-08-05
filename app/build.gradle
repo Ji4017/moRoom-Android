@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'org.jetbrains.kotlin.plugin.compose'
+    id 'com.google.firebase.crashlytics'
 }
 
 Properties properties = new Properties()
@@ -133,6 +134,7 @@ dependencies {
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:31.4.0')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation("com.google.firebase:firebase-crashlytics")
     implementation 'com.google.firebase:firebase-database'
     implementation("com.google.firebase:firebase-database-ktx")
     implementation 'com.google.firebase:firebase-dynamic-links'
