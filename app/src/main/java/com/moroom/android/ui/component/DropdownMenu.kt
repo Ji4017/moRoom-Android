@@ -1,4 +1,4 @@
-package com.moroom.android.presentation.write.presentation.view.component
+package com.moroom.android.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth

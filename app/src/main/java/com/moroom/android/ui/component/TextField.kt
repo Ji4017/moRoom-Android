@@ -1,4 +1,4 @@
-package com.moroom.android.presentation.write.presentation.view.component
+package com.moroom.android.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.moroom.android.R
-import com.moroom.android.presentation.write.theme.Sky
+import com.moroom.android.ui.theme.Sky
 
 @Composable
 fun AddressInput(

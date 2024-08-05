@@ -1,4 +1,4 @@
-package com.moroom.android.presentation.write.presentation.view.component
+package com.moroom.android.ui.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.moroom.android.presentation.write.data.model.CheckItem
-import com.moroom.android.presentation.write.theme.Sky
+import com.moroom.android.data.source.remote.model.CheckItem
+import com.moroom.android.ui.theme.Sky
 
 @Composable
 fun CheckItems(
