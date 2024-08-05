@@ -1,7 +1,7 @@
-package com.moroom.android.presentation.write.data.repository
+package com.moroom.android.data.repository
 
-import com.moroom.android.presentation.write.data.remote.AccountDataSource
-import com.moroom.android.presentation.write.domain.repository.AccountRepository
+import com.moroom.android.data.source.remote.datasource.AccountDataSource
+import com.moroom.android.domain.repository.AccountRepository
 import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(private val accountDataSource: AccountDataSource) :

@@ -1,9 +1,9 @@
-package com.moroom.android.presentation.write.data.repository
+package com.moroom.android.data.repository
 
-import com.moroom.android.presentation.write.data.model.mapper.DataMappers
-import com.moroom.android.presentation.write.data.remote.ReviewDataSource
-import com.moroom.android.presentation.write.domain.model.WrittenReview
-import com.moroom.android.presentation.write.domain.repository.ReviewRepository
+import com.moroom.android.data.source.remote.mapper.DataMappers
+import com.moroom.android.data.source.remote.datasource.ReviewDataSource
+import com.moroom.android.domain.model.WrittenReview
+import com.moroom.android.domain.repository.ReviewRepository
 import javax.inject.Inject
 
 class ReviewRepositoryImpl @Inject constructor(

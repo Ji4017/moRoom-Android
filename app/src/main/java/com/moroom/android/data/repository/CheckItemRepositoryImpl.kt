@@ -1,8 +1,8 @@
-package com.moroom.android.presentation.write.data.repository
+package com.moroom.android.data.repository
 
-import com.moroom.android.presentation.write.data.remote.CheckItemsDataSource
-import com.moroom.android.presentation.write.data.model.CheckItem
-import com.moroom.android.presentation.write.domain.repository.CheckItemRepository
+import com.moroom.android.data.source.remote.datasource.CheckItemsDataSource
+import com.moroom.android.data.source.remote.model.CheckItem
+import com.moroom.android.domain.repository.CheckItemRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

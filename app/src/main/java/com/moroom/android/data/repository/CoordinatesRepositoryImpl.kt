@@ -1,13 +1,13 @@
-package com.moroom.android.presentation.write.data.repository
+package com.moroom.android.data.repository
 
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import android.util.Log
-import com.moroom.android.presentation.write.data.model.Coordinates
-import com.moroom.android.presentation.write.data.remote.CoordinatesDataSource
-import com.moroom.android.presentation.write.domain.repository.CoordinatesRepository
+import com.moroom.android.data.source.remote.model.Coordinates
+import com.moroom.android.data.source.remote.datasource.CoordinatesDataSource
+import com.moroom.android.domain.repository.CoordinatesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
 import javax.inject.Inject
