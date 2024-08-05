@@ -1,6 +1,6 @@
-package com.moroom.android.presentation.write.domain.usecase
+package com.moroom.android.domain.usecase.write
 
-import com.moroom.android.presentation.write.domain.repository.AccountRepository
+import com.moroom.android.domain.repository.AccountRepository
 import javax.inject.Inject
 
 class UpdateUserReviewStatusUseCase @Inject constructor(private val accountRepository: AccountRepository) {

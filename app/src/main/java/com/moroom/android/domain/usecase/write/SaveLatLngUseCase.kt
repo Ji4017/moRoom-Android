@@ -1,7 +1,7 @@
-package com.moroom.android.presentation.write.domain.usecase
+package com.moroom.android.domain.usecase.write
 
-import com.moroom.android.presentation.write.data.model.Coordinates
-import com.moroom.android.presentation.write.domain.repository.CoordinatesRepository
+import com.moroom.android.data.source.remote.model.Coordinates
+import com.moroom.android.domain.repository.CoordinatesRepository
 import javax.inject.Inject
 
 class SaveLatLngUseCase @Inject constructor(private val coordinatesRepository: CoordinatesRepository) {
