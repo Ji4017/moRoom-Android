@@ -1,4 +1,4 @@
-package com.moroom.android.presentation.write.theme
+package com.moroom.android.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
