@@ -1,6 +1,6 @@
-package com.moroom.android.presentation.write.domain.model
+package com.moroom.android.domain.model
 
-import com.moroom.android.presentation.write.data.model.CheckItem
+import com.moroom.android.data.source.remote.model.CheckItem
 
 
 data class WrittenReview(

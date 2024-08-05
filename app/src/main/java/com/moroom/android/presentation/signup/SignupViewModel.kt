@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData
-import com.moroom.android.data.model.UserAccount
+import com.moroom.android.data.source.remote.model.UserAccount
 
 class SignupViewModel : ViewModel() {
     private val _domainValid = MutableLiveData<Boolean>()

@@ -8,11 +8,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.moroom.android.data.model.LocationData
+import com.moroom.android.data.source.remote.model.Coordinates
 
 class MapViewModel : ViewModel() {
-    private val _locationData = MutableLiveData<ArrayList<LocationData>>()
-    val locationData: LiveData<ArrayList<LocationData>> = _locationData
+    private val _coordinates = MutableLiveData<ArrayList<Coordinates>>()
+    val coordinates: LiveData<ArrayList<Coordinates>> = _coordinates
 
     init {
         loadLocationDataFromFirebase()
@@ -22,16 +22,16 @@ class MapViewModel : ViewModel() {
         val databaseRef = FirebaseDatabase.getInstance().getReference("Address")
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val locations = ArrayList<LocationData>()
+                val coordinates = ArrayList<Coordinates>()
                 for (addressSnapshot in dataSnapshot.children) {
                     val address = addressSnapshot.key
                     val latitude = addressSnapshot.child("latitude").getValue(Double::class.java)
                     val longitude = addressSnapshot.child("longitude").getValue(Double::class.java)
                     if (latitude != null && longitude != null && address != null) {
-                        locations.add(LocationData(address, latitude, longitude))
+                        coordinates.add(Coordinates(address, latitude, longitude))
                     }
                 }
-                _locationData.value = locations
+                _coordinates.value = coordinates
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

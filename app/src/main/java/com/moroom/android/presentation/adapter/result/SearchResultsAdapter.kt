@@ -3,7 +3,7 @@ package com.moroom.android.presentation.adapter.result
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.moroom.android.data.model.Review
+import com.moroom.android.data.source.remote.model.Review
 import com.moroom.android.databinding.ListItemBinding
 
 class SearchResultsAdapter(private val reviewList: ArrayList<Review>) :

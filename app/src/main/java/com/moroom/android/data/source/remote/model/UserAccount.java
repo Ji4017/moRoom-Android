@@ -1,4 +1,4 @@
-package com.moroom.android.data.model;
+package com.moroom.android.data.source.remote.model;
 
 public class UserAccount {
     private String idToken;

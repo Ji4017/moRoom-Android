@@ -28,7 +28,7 @@ import com.moroom.android.databinding.FragmentMapBinding
 import com.moroom.android.presentation.login.MoveToLogin
 import com.moroom.android.presentation.result.ResultActivity
 import com.moroom.android.presentation.search.SearchActivity
-import com.moroom.android.presentation.write.presentation.view.WriteActivity
+import com.moroom.android.presentation.write.WriteActivity
 
 
 class MapFragment : Fragment() {
@@ -95,7 +95,7 @@ class MapFragment : Fragment() {
     }
 
     private fun createLabelsFromLocationData() {
-        viewModel.locationData.observe(viewLifecycleOwner) { locationData ->
+        viewModel.coordinates.observe(viewLifecycleOwner) { locationData ->
             locationData.forEachIndexed { index, it ->
                 createLabels(index, it.address, it.latitude, it.longitude)
             }

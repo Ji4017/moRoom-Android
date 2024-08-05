@@ -19,7 +19,7 @@ import com.moroom.android.presentation.login.MoveToLogin
 import com.moroom.android.R
 import com.moroom.android.presentation.result.ResultActivity
 import com.moroom.android.presentation.search.SearchActivity
-import com.moroom.android.presentation.write.presentation.view.WriteActivity
+import com.moroom.android.presentation.write.WriteActivity
 import com.moroom.android.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 

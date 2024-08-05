@@ -1,15 +1,15 @@
-package com.moroom.android.presentation.write.data.model.mapper
+package com.moroom.android.data.source.remote.mapper
 
 import com.google.firebase.auth.FirebaseAuth
-import com.moroom.android.presentation.write.data.model.ReviewModel
-import com.moroom.android.presentation.write.domain.model.WrittenReview
+import com.moroom.android.data.source.remote.model.Review
+import com.moroom.android.domain.model.WrittenReview
 import javax.inject.Inject
 
 class DataMappers @Inject constructor(
     private val auth: FirebaseAuth
 ) {
-    fun mapToDataModel(writtenReview: WrittenReview): ReviewModel {
-        return ReviewModel(
+    fun mapToDataModel(writtenReview: WrittenReview): Review {
+        return Review(
             address = writtenReview.address,
             title = writtenReview.floor + " " + writtenReview.year + "년도까지 거주 " + writtenReview.rentType,
             pros = writtenReview.pros,
