@@ -48,8 +48,8 @@
 </h2>
 
 ### Architecture
-Partially applying `Clean Architecture` & `MVVM`  
-Applying `Layered Architecture` in Progress
+`Clean Architecture` & `MVVM` 리팩토링 중  
+`Layered Architecture` 일부 적용용
 
 ### Design Pattern
 `Repository`  
@@ -65,7 +65,7 @@ Applying `Layered Architecture` in Progress
 `DataBinding`  
 `Navigation`  
 `Jetpack Compose`  
-`Firebase (Authentication, DynamicLinks, RealtimeDatabase, Hosting)`  
+`Firebase (Crashlytics, Authentication, DynamicLinks, RealtimeDatabase, Hosting)`  
 `Figma`
 
 ### External Library
