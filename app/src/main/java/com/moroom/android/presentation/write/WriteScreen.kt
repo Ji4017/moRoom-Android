@@ -215,7 +215,7 @@ fun ProsConsSection(
     )
     OutLinedMultiLineTextField(
         value = pros,
-        placeholder = stringResource(id = R.string.goodThing),
+        placeholder = stringResource(id = R.string.say_goodThing),
         onValueChanged = onProsChange
     )
 
