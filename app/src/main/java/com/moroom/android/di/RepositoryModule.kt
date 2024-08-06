@@ -1,13 +1,13 @@
 package com.moroom.android.di
 
-import com.moroom.android.ui.write.data.repository.AccountRepositoryImpl
-import com.moroom.android.ui.write.data.repository.ReviewRepositoryImpl
-import com.moroom.android.ui.write.data.repository.CheckItemRepositoryImpl
-import com.moroom.android.ui.write.data.repository.CoordinatesRepositoryImpl
-import com.moroom.android.ui.write.domain.repository.AccountRepository
-import com.moroom.android.ui.write.domain.repository.CheckItemRepository
-import com.moroom.android.ui.write.domain.repository.CoordinatesRepository
-import com.moroom.android.ui.write.domain.repository.ReviewRepository
+import com.moroom.android.data.repository.AccountRepositoryImpl
+import com.moroom.android.data.repository.ReviewRepositoryImpl
+import com.moroom.android.data.repository.CheckItemRepositoryImpl
+import com.moroom.android.data.repository.CoordinatesRepositoryImpl
+import com.moroom.android.domain.repository.AccountRepository
+import com.moroom.android.domain.repository.CheckItemRepository
+import com.moroom.android.domain.repository.CoordinatesRepository
+import com.moroom.android.domain.repository.ReviewRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

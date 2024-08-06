@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.signup.SignupActivity">
+    tools:context=".presentation.signup.SignupActivity">
 
     <EditText
         android:id="@+id/et_emailAddress"
