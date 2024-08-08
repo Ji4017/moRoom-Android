@@ -11,7 +11,9 @@ import androidx.core.widget.addTextChangedListener
 import com.moroom.android.R
 import com.moroom.android.databinding.ActivitySignUpBinding
 import com.moroom.android.presentation.nav.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignupViewModel by viewModels()
@@ -40,7 +42,7 @@ class SignupActivity : AppCompatActivity() {
 
             btSendEmail.setOnClickListener { viewModel.sendEmail(etEmailAddress.text.toString().trim()) }
 
-            btSignUp.setOnClickListener { viewModel.createUserInAuthentication(
+            btSignUp.setOnClickListener { viewModel.createUser(
                 etId.text.toString().trim().lowercase(),
                 etPassword.text.toString().trim())
             }

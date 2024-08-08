@@ -5,8 +5,10 @@ import android.content.Intent
 import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.AuthResult
@@ -18,8 +20,23 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData
 import com.moroom.android.data.source.remote.model.UserAccount
+import com.moroom.android.domain.repository.AccountRepository
+import com.moroom.android.domain.repository.AuthRepository
+import com.moroom.android.domain.usecase.validation.ValidateEmailDomainUseCase
+import com.moroom.android.domain.usecase.validation.ValidateIdUseCase
+import com.moroom.android.domain.usecase.validation.ValidatePasswordUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignupViewModel : ViewModel() {
+@HiltViewModel
+class SignupViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
+    private val accountRepository: AccountRepository,
+    private val validateEmailDomainUseCase: ValidateEmailDomainUseCase,
+    private val validateIdUseCase: ValidateIdUseCase,
+    private val validatePasswordUseCase: ValidatePasswordUseCase
+) : ViewModel() {
     private val _domainValid = MutableLiveData<Boolean>()
     val domainValid: LiveData<Boolean>
         get() = _domainValid
@@ -32,7 +49,10 @@ class SignupViewModel : ViewModel() {
     val passwordValid: LiveData<Boolean>
         get() = _passwordValid
 
-    private val _isFormValid = MutableLiveData<Boolean>(false)
+    private val _isFormValid = MediatorLiveData<Boolean>(false).apply {
+        addSource(_idValid) { updateFormState() }
+        addSource(_passwordValid) { updateFormState() }
+    }
     val isFormValid: LiveData<Boolean>
         get() = _isFormValid
 
@@ -49,18 +69,15 @@ class SignupViewModel : ViewModel() {
         get() = _signupResult
 
     fun validateEmailDomain(email: String) {
-        val domain = email.substringAfter("@")
-        _domainValid.value = domain.equals("cju.ac.kr", ignoreCase = true)
+        _domainValid.value = validateEmailDomainUseCase(email)
     }
 
     fun validateId(id: String) {
-        _idValid.value = Patterns.EMAIL_ADDRESS.matcher(id).matches()
-        updateFormState()
+        _idValid.value = validateIdUseCase(id)
     }
 
     fun validatePassword(password: String) {
-        _passwordValid.value = password.length >= 6
-        updateFormState()
+        _passwordValid.value = validatePasswordUseCase(password)
     }
 
     private fun updateFormState() {
@@ -68,57 +85,18 @@ class SignupViewModel : ViewModel() {
     }
 
     fun sendEmail(email: String) {
-        val actionCodeSettings = buildActionCodeSettings()
-        val auth = FirebaseAuth.getInstance()
-        auth.sendSignInLinkToEmail(email, actionCodeSettings)
-            .addOnCompleteListener { task: Task<Void?> ->
-                if (task.isSuccessful) {
-                    _emailSendResult.value = true
-                    Log.d(TAG, "이메일 보내기 성공.")
-                } else {
-                    _emailSendResult.value = false
-                    Log.e(TAG, "이메일 보내기 실패", task.exception)
-                }
-            }
+        viewModelScope.launch { _emailSendResult.value = authRepository.sendEmail(email) }
     }
 
-    fun createUserInAuthentication(email: String, password: String) {
-        val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task: Task<AuthResult?> ->
-                if (task.isSuccessful) {
-                    createUserInDB(email, password)
-                } else {
-                    if (task.exception is FirebaseAuthException) {
-                        _signupResult.value = 1
-                    } else {
-                        _signupResult.value = 2
-                    }
-                }
+    fun createUser(email: String, password: String) {
+        viewModelScope.launch {
+            var resultCode = accountRepository.createUserInAuthentication(email, password)
+            if (resultCode == 0) {
+                resultCode = accountRepository.createUserInDB(email, password)
             }
-    }
 
-    private fun createUserInDB(email: String, password: String) {
-        val user = FirebaseAuth.getInstance().currentUser
-        val databaseReference = FirebaseDatabase.getInstance().getReference("UserAccount")
-        assert(user != null)
-        val uid = user!!.uid
-
-        val userAccount = UserAccount()
-        userAccount.email = email
-        userAccount.password = password
-        userAccount.idToken = uid
-        userAccount.isReview = false
-        databaseReference.child(uid)
-            .setValue(userAccount) { databaseError: DatabaseError?, _: DatabaseReference? ->
-                if (databaseError != null) {
-                    _signupResult.value = 3
-                    Log.d(TAG, "유저 정보 DB 저장 실패: " + databaseError.message)
-                } else {
-                    _signupResult.value = 0
-                    Log.d(TAG, "유저 정보 DB 저장 성공")
-                }
-            }
+            _signupResult.value = resultCode
+        }
     }
 
     fun handleDeepLink(intent: Intent) {
@@ -133,20 +111,8 @@ class SignupViewModel : ViewModel() {
                 }
             }
             .addOnFailureListener { exception: Exception? ->
-                Log.e(TAG,"getDynamicLink:onFailure", exception)
+                Log.e(TAG, "getDynamicLink:onFailure", exception)
                 _dynamicLinkEvent.value = false
             }
-    }
-
-    private fun buildActionCodeSettings(): ActionCodeSettings {
-        return ActionCodeSettings.newBuilder()
-            .setUrl("https://moroom.page.link/m1r2")
-            .setHandleCodeInApp(true)
-            .setAndroidPackageName(
-                "com.moroom.android", /* androidPackageName */
-                false,  /* installIfNotAvailable */
-                "12" /* minimumVersion */
-            )
-            .build()
     }
 }
