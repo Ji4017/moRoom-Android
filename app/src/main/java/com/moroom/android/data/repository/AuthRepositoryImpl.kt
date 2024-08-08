@@ -11,4 +11,8 @@ class AuthRepositoryImpl @Inject constructor(private val authDataSource: AuthDat
 
     override suspend fun signUp(email: String, password: String): Result<Unit> =
         authDataSource.signUp(email, password)
+
+    override suspend fun sendEmail(email: String): Boolean =
+        authDataSource.sendEmail(email)
+
 }
