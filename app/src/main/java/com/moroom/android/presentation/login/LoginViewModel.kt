@@ -34,8 +34,8 @@ class LoginViewModel @Inject constructor(
     val isFormValid: LiveData<Boolean>
         get() = _isFormValid
 
-    private val _loginResult = MutableLiveData<Boolean>()
-    val loginResult: LiveData<Boolean>
+    private val _loginResult = MutableLiveData<Result<Unit>>()
+    val loginResult: LiveData<Result<Unit>>
         get() = _loginResult
 
     fun validateId(email: String) {
@@ -51,6 +51,8 @@ class LoginViewModel @Inject constructor(
     }
 
     fun login(email: String, password: String) {
-        viewModelScope.launch { authRepository.login(email, password) }
+        viewModelScope.launch {
+            _loginResult.value = authRepository.login(email, password)
+        }
     }
 }
