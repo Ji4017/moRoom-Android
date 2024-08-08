@@ -1,16 +1,24 @@
 package com.moroom.android.presentation.login
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 
-import com.google.firebase.auth.FirebaseAuth
+import com.moroom.android.domain.repository.AuthRepository
+import com.moroom.android.domain.usecase.validation.ValidateIdUseCase
+import com.moroom.android.domain.usecase.validation.ValidatePasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
+    private val validateIdUseCase: ValidateIdUseCase,
+    private val validatePasswordUseCase: ValidatePasswordUseCase
+) : ViewModel() {
     private val _idValid = MutableLiveData<Boolean>()
     val idValid: LiveData<Boolean>
         get() = _idValid
@@ -19,7 +27,10 @@ class LoginViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewM
     val passwordValid: LiveData<Boolean>
         get() = _passwordValid
 
-    private val _isFormValid = MutableLiveData<Boolean>(false)
+    private val _isFormValid = MediatorLiveData<Boolean>(false).apply {
+        addSource(_idValid) { updateFormState() }
+        addSource(_passwordValid) { updateFormState() }
+    }
     val isFormValid: LiveData<Boolean>
         get() = _isFormValid
 
@@ -27,14 +38,12 @@ class LoginViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewM
     val loginResult: LiveData<Boolean>
         get() = _loginResult
 
-    fun validateId(id: String) {
-        _idValid.value = Patterns.EMAIL_ADDRESS.matcher(id).matches()
-        updateFormState()
+    fun validateId(email: String) {
+        _idValid.value = validateIdUseCase(email)
     }
 
     fun validatePassword(password: String) {
-        _passwordValid.value = password.length >= 6
-        updateFormState()
+        _passwordValid.value = validatePasswordUseCase(password)
     }
 
     private fun updateFormState() {
@@ -42,9 +51,6 @@ class LoginViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewM
     }
 
     fun login(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { login ->
-                _loginResult.value = login.isSuccessful
-            }
+        viewModelScope.launch { authRepository.login(email, password) }
     }
 }
