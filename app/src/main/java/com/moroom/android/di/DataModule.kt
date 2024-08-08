@@ -2,6 +2,8 @@ package com.moroom.android.di
 
 import com.moroom.android.data.source.remote.datasource.AccountDataSource
 import com.moroom.android.data.source.remote.datasource.AccountDataSourceImpl
+import com.moroom.android.data.source.remote.datasource.AuthDataSource
+import com.moroom.android.data.source.remote.datasource.AuthDataSourceImpl
 import com.moroom.android.data.source.remote.datasource.CheckItemsDataSourceImpl
 import com.moroom.android.data.source.remote.datasource.CheckItemsDataSource
 import com.moroom.android.data.source.remote.datasource.CoordinatesDataSource
@@ -13,23 +15,29 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 abstract class DataModule {
     @Binds
-    @ViewModelScoped
+    @Singleton
     abstract fun bindAccountDataSource(accountDataSourceImpl: AccountDataSourceImpl): AccountDataSource
 
     @Binds
-    @ViewModelScoped
+    @Singleton
     abstract fun bindCheckItemsDataSource(checkItemsDataSourceImpl: CheckItemsDataSourceImpl): CheckItemsDataSource
 
     @Binds
-    @ViewModelScoped
+    @Singleton
     abstract fun bindCoordinatesDataSource(coordinatesDataSourceImpl: CoordinatesDataSourceImpl): CoordinatesDataSource
 
     @Binds
-    @ViewModelScoped
+    @Singleton
     abstract fun bindReviewDataSource(reviewDataSourceImpl: ReviewDataSourceImpl): ReviewDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthDataSource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
 }
