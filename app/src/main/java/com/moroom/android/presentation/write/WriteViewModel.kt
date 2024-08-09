@@ -54,7 +54,7 @@ class WriteViewModel @Inject constructor(
 
     fun onWriteComplete(writtenReview: WrittenReview) {
         viewModelScope.launch {
-            val result = try {
+            _writeCompleteState.value = try {
                 saveLatLngIfNeeded(writtenReview.address)
                 saveReviewUseCase.invoke(writtenReview)
                 updateUserReviewStatusUseCase.invoke()
@@ -63,7 +63,6 @@ class WriteViewModel @Inject constructor(
                 Log.e("onWriteComplete", e.toString())
                 Result.failure(e)
             }
-            _writeCompleteState.value = result
         }
     }
 
