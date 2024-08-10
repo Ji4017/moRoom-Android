@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moroom.android.data.source.remote.model.Review
 import com.moroom.android.databinding.ListItemBinding
 
-class SearchResultsAdapter(private val reviewList: ArrayList<Review>) :
+class SearchResultsAdapter(private val reviewList: List<Review>) :
     RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
