@@ -31,6 +31,7 @@
     <string name="blur_1">잠깐!</string>
     <string name="blur_2">후기를 작성하고 마음껏 볼 수 있어요</string>
     <string name="action_writing">후기 작성하러 가기</string>
+    <string name="result_error_inquiry">오류가 발생했습니다\n고객센터로 문의해주세요</string>
 
     <!-- Write -->
     <string name="enter_address_1">주소입력</string>
