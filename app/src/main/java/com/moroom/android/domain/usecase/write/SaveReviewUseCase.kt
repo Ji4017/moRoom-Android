@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class SaveReviewUseCase @Inject constructor(private val reviewRepository: ReviewRepository) {
     suspend operator fun invoke(writtenReview: WrittenReview) {
-        reviewRepository.saveReviewToFireBase(writtenReview)
+        reviewRepository.saveReview(writtenReview)
     }
 }
