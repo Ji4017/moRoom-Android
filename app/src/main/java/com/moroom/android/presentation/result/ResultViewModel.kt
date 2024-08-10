@@ -1,50 +1,37 @@
 package com.moroom.android.presentation.result
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import androidx.lifecycle.viewModelScope
 import com.moroom.android.data.source.remote.model.Review
+import com.moroom.android.domain.usecase.review.FetchReviewsUseCase
+import com.moroom.android.domain.usecase.review.GetReviewsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ResultViewModel : ViewModel() {
-    private val _reviews = MutableLiveData<ArrayList<Review>>()
-    val review: LiveData<ArrayList<Review>>
-        get() = _reviews
+sealed class ReviewState {
+    data object Loading : ReviewState()
+    data class Success(val reviews: List<Review>) : ReviewState()
+    data object Empty : ReviewState()
+    data class Error(val message: String) : ReviewState()
+}
 
-    private val _reviewExists = MutableLiveData<Boolean>()
-    val reviewExists: LiveData<Boolean>
-        get() = _reviewExists
+@HiltViewModel
+class ResultViewModel @Inject constructor(
+    private val getReviewsUseCase: GetReviewsUseCase,
+    private val fetchReviewsUseCase: FetchReviewsUseCase
+) : ViewModel() {
 
-    fun loadReviews(searchedAddress: String) {
-        val database = FirebaseDatabase.getInstance()
-        val databaseReference = database.getReference("Address").child(searchedAddress)
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    _reviews.value = extractReviewsFromSnapshot(snapshot)
-                    _reviewExists.value = true
-                } else _reviewExists.value = false
-            }
+    val reviewsState: StateFlow<ReviewState> = getReviewsUseCase().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+        ReviewState.Loading
+    )
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(javaClass.simpleName, error.message)
-            }
-        })
-    }
-
-    private fun extractReviewsFromSnapshot(snapshot: DataSnapshot): ArrayList<Review> {
-        val reviews = ArrayList<Review>()
-        for (dataSnapshot in snapshot.children) {
-            if (dataSnapshot.key == "latitude" || dataSnapshot.key == "longitude") {
-                continue
-            }
-            val review = dataSnapshot.getValue(Review::class.java)
-            review?.let { reviews.add(it) }
-        }
-        return reviews
+    fun fetchReviews(address: String) {
+        viewModelScope.launch { fetchReviewsUseCase.invoke(address) }
     }
 }
