@@ -8,10 +8,9 @@
 
 # Contents
 - <b> <a href="#1"> 🔗 Motive </a> </b>
-- <b> <a href="#2"> 🔗 App Characteristic </a> </b>
-- <b> <a href="#3"> 🔗 Technology </a> </b>
-- <b> <a href="#4"> 🔗 Result </a> </b>
-- <b> <a href="#5"> 🔗 PlayStoreLink </a> </b>
+- <b> <a href="#2"> 🔗 Technology </a> </b>
+- <b> <a href="#3"> 🔗 Result </a> </b>
+- <b> <a href="#4"> 🔗 PlayStoreLink </a> </b>
 
 <hr>
 
@@ -35,21 +34,12 @@
 <hr>
 
 <h2 id="2">
-    <b>App Characteristic</b>
-</h2>
-
-- 게시글 작성자를 랜덤한 값인 UID로 처리해 익명성 보장
-- 후기 미작성 유저는 열람 제한으로 후기 작성 유도
-
-<hr>
-
-<h2 id="3">
     <b>Technology</b>
 </h2>
 
 ### Architecture
-`Clean Architecture` & `MVVM` 리팩토링 중  
-`Layered Architecture` 일부 적용용
+전체 - `Clean Architecture` & `MVVM`  
+일부 - `Layered Architecture`  
 
 ### Design Pattern
 `Repository`  
@@ -57,7 +47,7 @@
 ### TechStack
 `Java`  
 `Kotlin`  
-`Coroutine`  
+`Coroutines`  
 `Flow`  
 `Hilt`  
 `ViewModel`  
@@ -75,7 +65,7 @@
 
 <hr>
 
-<h2 id="4">
+<h2 id="3">
     <b>Result</b>
 </h2>
 
@@ -89,7 +79,7 @@
 
 <hr>
 
-<h2 id="5">
+<h2 id="4">
     <b>PlayStoreLink</b>
 </h2>
 <a href="https://play.google.com/store/apps/details?id=com.moroom.android&hl=ko-KR" target="_blank">PlayStore</a>  
