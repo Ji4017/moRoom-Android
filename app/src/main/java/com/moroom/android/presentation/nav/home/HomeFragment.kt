@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 import com.moroom.android.presentation.login.MoveToLogin
 import com.moroom.android.R
@@ -22,12 +23,15 @@ import com.moroom.android.presentation.search.SearchActivity
 import com.moroom.android.presentation.write.WriteActivity
 import com.moroom.android.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,9 +67,10 @@ class HomeFragment : Fragment() {
         }
 
         binding.fab.setOnClickListener {
-            val user = FirebaseAuth.getInstance().currentUser
-            val intent = if (user != null) Intent(activity, WriteActivity::class.java)
-            else Intent(activity, MoveToLogin::class.java)
+            val intent =
+                if (firebaseAuth.currentUser != null) Intent(activity, WriteActivity::class.java)
+                else Intent(activity, MoveToLogin::class.java)
+
             startActivity(intent)
         }
 
