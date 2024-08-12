@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+    private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
         @Override
         public void handleOnBackPressed() {
             if(navController.getCurrentDestination().getId() == R.id.navigation_home) {
