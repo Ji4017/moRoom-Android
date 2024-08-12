@@ -83,7 +83,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun setUpListeners() {
         binding.apply {
-            imgBack.setOnClickListener { onBackPressed() }
+            imgBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
             imgHome.setOnClickListener { navigateToMainActivity(R.id.navigation_home) }
             imgMap.setOnClickListener { navigateToMainActivity(R.id.navigation_map) }
             imgProfile.setOnClickListener { navigateToMainActivity(R.id.navigation_profile) }
