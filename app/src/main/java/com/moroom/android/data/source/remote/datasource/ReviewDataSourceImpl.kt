@@ -21,6 +21,7 @@ class ReviewDataSourceImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val crashlytics: FirebaseCrashlytics
 ) : ReviewDataSource {
+
     private val _reviewsState = MutableStateFlow<ReviewState>(ReviewState.Loading)
     override val reviewsState: StateFlow<ReviewState> = _reviewsState.asStateFlow()
 

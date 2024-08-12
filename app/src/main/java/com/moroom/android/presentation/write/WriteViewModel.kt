@@ -33,8 +33,8 @@ class WriteViewModel @Inject constructor(
     private val getLatLngUseCase: GetLatLngUseCase,
     private val saveLatLngUseCase: SaveLatLngUseCase,
     private val updateUserReviewStatusUseCase: UpdateUserReviewStatusUseCase
-
 ) : ViewModel() {
+
     val checkItems: StateFlow<List<CheckItem>> = getCheckItemsUseCase().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),

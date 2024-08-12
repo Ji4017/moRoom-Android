@@ -37,6 +37,7 @@ class SignupViewModel @Inject constructor(
     private val validateIdUseCase: ValidateIdUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase
 ) : ViewModel() {
+
     private val _domainValid = MutableLiveData<Boolean>()
     val domainValid: LiveData<Boolean>
         get() = _domainValid
