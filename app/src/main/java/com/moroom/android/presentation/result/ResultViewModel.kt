@@ -12,13 +12,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed class ReviewState {
-    data object Loading : ReviewState()
-    data class Success(val reviews: List<Review>) : ReviewState()
-    data object Empty : ReviewState()
-    data class Error(val message: String) : ReviewState()
-}
-
 @HiltViewModel
 class ResultViewModel @Inject constructor(
     private val getReviewsUseCase: GetReviewsUseCase,
@@ -34,4 +27,11 @@ class ResultViewModel @Inject constructor(
     fun fetchReviews(address: String) {
         viewModelScope.launch { fetchReviewsUseCase.invoke(address) }
     }
+}
+
+sealed class ReviewState {
+    data object Loading : ReviewState()
+    data class Success(val reviews: List<Review>) : ReviewState()
+    data object Empty : ReviewState()
+    data class Error(val message: String) : ReviewState()
 }
