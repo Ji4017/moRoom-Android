@@ -11,9 +11,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CheckItemsDataSourceImpl @Inject constructor(private val database: FirebaseDatabase) :
-    CheckItemsDataSource {
-    override val checkItems: MutableStateFlow<List<CheckItem>> = MutableStateFlow(emptyList<CheckItem>())
+class CheckItemsDataSourceImpl @Inject constructor(
+    private val database: FirebaseDatabase
+) : CheckItemsDataSource {
+
+    override val checkItems = MutableStateFlow<List<CheckItem>>(emptyList())
 
     override suspend fun fetchCheckItemsFromFirebase() =
         withContext(Dispatchers.IO) {
@@ -27,6 +29,7 @@ class CheckItemsDataSourceImpl @Inject constructor(private val database: Firebas
                         }
                         checkItems.value = checkItemList
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                         Log.d("fetchCheckItemsFromFirebase()", error.message)
                     }
