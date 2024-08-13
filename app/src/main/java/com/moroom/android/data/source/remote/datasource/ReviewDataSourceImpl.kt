@@ -10,8 +10,8 @@ import com.google.firebase.database.ValueEventListener
 import com.moroom.android.data.source.remote.model.Review
 import com.moroom.android.presentation.result.ReviewState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class ReviewDataSourceImpl @Inject constructor(
 ) : ReviewDataSource {
 
     private val _reviewsState = MutableStateFlow<ReviewState>(ReviewState.Loading)
-    override val reviewsState: Flow<ReviewState> = _reviewsState.asStateFlow()
+    override val reviewsState: StateFlow<ReviewState> = _reviewsState.asStateFlow()
 
     override suspend fun fetchReview(address: String) {
         val databaseReference = database.getReference("Address").child(address)

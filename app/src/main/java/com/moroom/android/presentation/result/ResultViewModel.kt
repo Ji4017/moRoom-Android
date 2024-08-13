@@ -18,11 +18,7 @@ class ResultViewModel @Inject constructor(
     private val fetchReviewsUseCase: FetchReviewsUseCase
 ) : ViewModel() {
 
-    val reviewsState: StateFlow<ReviewState> = getReviewsUseCase().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-        ReviewState.Loading
-    )
+    val reviewsState = getReviewsUseCase()
 
     fun fetchReviews(address: String) {
         viewModelScope.launch { fetchReviewsUseCase.invoke(address) }
