@@ -8,6 +8,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,7 +25,7 @@ fun AddressInput(
         modifier = modifier.fillMaxWidth(),
         value = address,
         enabled = false,
-        textStyle = LocalTextStyle.current.copy(fontWeight = FontWeight.Bold),
+        textStyle = LocalTextStyle.current.copy(color = Color.Black, fontWeight = FontWeight.Bold),
         onValueChange = { onAddressChange(it) },
         shape = RoundedCornerShape(8.dp),
         placeholder = { Text(stringResource(R.string.please_enter_address)) },
