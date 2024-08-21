@@ -21,10 +21,12 @@ jobs:
         cache: gradle
 
     - name: Load google-services
-      run: echo '${{ sesecrets.GOOGLE_SERVICES_JSON }}' | base64 -d > app/google-services.json
+      run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' | base64 -d > app/google-services.json
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
+    - name: Build debug
+      run: |
+        ./gradlew assembleDebug \
+        -PkakaoApiKey=${{ secrets.KAKAO_SDK_APPKEY }}
