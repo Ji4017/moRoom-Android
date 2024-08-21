@@ -6,18 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel : ViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor(private val firebaseAuth: FirebaseAuth) : ViewModel() {
     private val _isUserDeleted = MutableLiveData<Boolean>()
     val isUserDeleted: LiveData<Boolean>
         get() = _isUserDeleted
 
-    private val auth = FirebaseAuth.getInstance()
-    val currentUser = auth.currentUser
+    val currentUser = firebaseAuth.currentUser
 
-    fun logout() = auth.signOut()
+    fun logout() = firebaseAuth.signOut()
 
     fun deleteUserData() {
         viewModelScope.launch {

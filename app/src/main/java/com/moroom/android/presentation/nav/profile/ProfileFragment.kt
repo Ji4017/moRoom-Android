@@ -15,7 +15,9 @@ import com.moroom.android.R
 import com.moroom.android.databinding.FragmentProfileBinding
 import com.moroom.android.presentation.login.LoginActivity
 import com.moroom.android.presentation.nav.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
