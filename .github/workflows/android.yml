@@ -40,7 +40,9 @@ jobs:
       run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' | base64 -d > app/google-services.json
   
     - name: Build debug
-      run: ./gradlew assembleDebug
+      run: |
+        ./gradlew assembleDebug
+        -PKAKAO_SDK_APPKEY="${{ secrets.KAKAO_SDK_APPKEY }}"
 
     - name: Upload Debug APK to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
