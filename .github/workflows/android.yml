@@ -1,4 +1,4 @@
-name: dev Build&Upload
+name: dev Build Debug
 
 on:
   push:
@@ -23,8 +23,13 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Save Keystore
+      run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/keystore/keystore.jks
+
     - name: Create local.properties
-      run: echo '${{ secrets.LOCAL_PROPERTIES }}' > local.properties
+      run: |
+        echo '${{ secrets.LOCAL_PROPERTIES }}' > local.properties
+        echo "storeFile=keystore/keystore.jks" >> local.properties
   
     - name: Create google-services
       run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' | base64 -d > app/google-services.json
