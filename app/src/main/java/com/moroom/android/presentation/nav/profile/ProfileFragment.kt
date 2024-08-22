@@ -81,11 +81,11 @@ class ProfileFragment : Fragment() {
 
     private fun showDeleteDialog() {
         val builder = AlertDialog.Builder(requireContext())
+        val dialog = builder.create()
         builder.setTitle(getString(R.string.delete_account))
         builder.setMessage(getString(R.string.delete_account_box))
         builder.setPositiveButton(getString(R.string.yes)) { _: DialogInterface?, _: Int -> viewModel.deleteUserData() }
         builder.setNegativeButton(getString(R.string.no), null)
-        val dialog = builder.create()
         dialog.show()
     }
 
