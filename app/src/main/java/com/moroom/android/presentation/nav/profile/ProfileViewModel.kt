@@ -12,7 +12,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val firebaseAuth: FirebaseAuth) : ViewModel() {
+class ProfileViewModel @Inject constructor(
+    private val firebaseAuth: FirebaseAuth,
+    private val firebaseDatabase: FirebaseDatabase
+) : ViewModel() {
     private val _isUserDeleted = MutableLiveData<Boolean>()
     val isUserDeleted: LiveData<Boolean>
         get() = _isUserDeleted
@@ -30,11 +33,10 @@ class ProfileViewModel @Inject constructor(private val firebaseAuth: FirebaseAut
     }
 
     private suspend fun deleteUserFromDatabase(): Boolean {
-        val database = FirebaseDatabase.getInstance()
         val dbDeletionResult = CompletableDeferred<Boolean>()
 
         currentUser?.let { user ->
-            database.getReference("UserAccount").child(user.uid).removeValue()
+            firebaseDatabase.getReference("UserAccount").child(user.uid).removeValue()
                 .addOnCompleteListener { task ->
                     dbDeletionResult.complete(task.isSuccessful)
                 }
