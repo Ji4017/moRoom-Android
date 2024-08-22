@@ -32,6 +32,9 @@ jobs:
       run: |
         echo '${{ secrets.LOCAL_PROPERTIES }}' > local.properties
         echo "storeFile=keystore/keystore.jks" >> local.properties
+
+    - name: Print local.properties contents
+      run: cat local.properties
   
     - name: Create google-services
       run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' | base64 -d > app/google-services.json
