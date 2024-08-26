@@ -1,10 +1,10 @@
-name: dev Build&Upload
+name: dev Build Debug
 
 on:
   push:
-    branches: [ "develop", "feature/*" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -20,11 +20,29 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Load google-services
-      run: echo '${{ sesecrets.GOOGLE_SERVICES_JSON }}' | base64 -d > app/google-services.json
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+  
+    - name: Create google-services
+      run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 -d > app/google-services.json
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
+    - name: Create Keystore
+      run: |
+        mkdir -p app/keystore
+        echo "${{ secrets.DEBUG_KEYSTORE_BASE64 }}" | base64 -d > app/keystore/debug.keystore
+  
+    - name: Create local.properties
+      run: |
+        echo "${{ secrets.LOCAL_PROPERTIES }}" > local.properties
+        echo "DEBUG_STORE_FILE=keystore/debug.keystore" >> local.properties
+
+    - name: Build DebugAPK
+      run: ./gradlew assembleDebug --stacktrace
+
+    - name: Upload Debug APK to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
+      with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIAL_FILE_CONTENT }}
+          testers: ${{ secrets.ALPHA_TESTER }}
+          file: app/build/outputs/apk/debug/app-debug.apk
