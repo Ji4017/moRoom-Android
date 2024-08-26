@@ -2,9 +2,9 @@ name: dev Build Debug
 
 on:
   push:
-    branches: [ "develop", "feature/*" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -22,27 +22,22 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-
-    - name: Save Keystore
-      run: |
-        mkdir -p app/keystore
-        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/keystore/keystore.jks
-
-    - name: Create local.properties
-      run: |
-        echo '${{ secrets.LOCAL_PROPERTIES }}' > local.properties
-        echo "storeFile=keystore/keystore.jks" >> local.properties
-
-    - name: Print local.properties contents
-      run: cat local.properties
   
     - name: Create google-services
-      run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' | base64 -d > app/google-services.json
-  
-    - name: Build debug
+      run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 -d > app/google-services.json
+
+    - name: Create Keystore
       run: |
-        ./gradlew assembleDebug
-        -PKAKAO_SDK_APPKEY="${{ secrets.KAKAO_SDK_APPKEY }}"
+        mkdir -p app/keystore
+        echo "${{ secrets.DEBUG_KEYSTORE_BASE64 }}" | base64 -d > app/keystore/debug.keystore
+  
+    - name: Create local.properties
+      run: |
+        echo "${{ secrets.LOCAL_PROPERTIES }}" > local.properties
+        echo "DEBUG_STORE_FILE=keystore/debug.keystore" >> local.properties
+
+    - name: Build DebugAPK
+      run: ./gradlew assembleDebug --stacktrace
 
     - name: Upload Debug APK to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
