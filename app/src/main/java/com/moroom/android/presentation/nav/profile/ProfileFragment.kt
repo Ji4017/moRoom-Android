@@ -71,11 +71,11 @@ class ProfileFragment : Fragment() {
 
     private fun showLogoutDialog() {
         val builder = AlertDialog.Builder(requireContext())
+        val dialog = builder.create()
         builder.setTitle(getString(R.string.log_out))
         builder.setMessage(getString(R.string.log_out_box))
         builder.setPositiveButton(getString(R.string.yes)) { _: DialogInterface?, _: Int -> viewModel.logout(); navigateToMain() }
         builder.setNegativeButton(getString(R.string.no), null)
-        val dialog = builder.create()
         dialog.show()
     }
 
