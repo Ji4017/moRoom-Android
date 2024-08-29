@@ -36,6 +36,9 @@ jobs:
         echo "${{ secrets.LOCAL_PROPERTIES }}" > local.properties
         echo "DEBUG_STORE_FILE=keystore/debug.keystore" >> local.properties
 
+    - name: Run ktlint
+      run: ./gradlew ktlintCheck
+
     - name: Build DebugAPK
       run: ./gradlew assembleDebug --stacktrace
 
