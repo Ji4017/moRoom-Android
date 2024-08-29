@@ -39,10 +39,10 @@ jobs:
     - name: Run ktlint
       run: ./gradlew ktlintCheck
 
-    - name: Build DebugAPK
+    - name: Build ReleaseAPK
       run: ./gradlew assembleRelease --stacktrace
 
-    - name: Upload Debug APK to Firebase App Distribution
+    - name: Upload Release APK to Firebase App Distribution
       if: github.event_name == 'push'
       uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
       with:
