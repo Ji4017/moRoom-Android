@@ -2,9 +2,9 @@ name: dev Build Debug
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop", "feature/*" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "develop", "feature/*" ]
 
 jobs:
   build:
@@ -41,11 +41,3 @@ jobs:
 
     - name: Build DebugAPK
       run: ./gradlew assembleDebug --stacktrace
-
-    - name: Upload Debug APK to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
-      with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIAL_FILE_CONTENT }}
-          testers: ${{ secrets.ALPHA_TESTER }}
-          file: app/build/outputs/apk/debug/app-debug.apk
