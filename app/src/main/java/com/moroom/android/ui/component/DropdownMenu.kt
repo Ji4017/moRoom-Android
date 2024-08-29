@@ -2,6 +2,7 @@ package com.moroom.android.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -59,6 +60,7 @@ fun DropdownMenu(
         )
 
         ExposedDropdownMenu(
+            modifier = Modifier.heightIn(max = 320.dp),
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {

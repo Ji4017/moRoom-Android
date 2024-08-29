@@ -96,3 +96,4 @@ lint/tmp/
 .kotlin/sessions/kotlin-compiler-5374367789897210929.salive
 .kotlin/sessions/kotlin-compiler-325629991485911596.salive
 .kotlin/sessions/kotlin-compiler-16838136577375770151.salive
+.idea/ktlint-plugin.xml
