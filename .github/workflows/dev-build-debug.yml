@@ -41,3 +41,12 @@ jobs:
 
     - name: Build DebugAPK
       run: ./gradlew assembleDebug --stacktrace
+
+    - name: Slack Notification
+      uses: 8398a7/action-slack@v2
+      with:
+        text: 디버그 빌드
+        status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
