@@ -50,3 +50,12 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIAL_FILE_CONTENT }}
           testers: ${{ secrets.ALPHA_TESTER }}
           file: app/build/outputs/apk/release/app-release.apk
+
+    - name: Slack Notification
+      uses: 8398a7/action-slack@v2
+      with:
+        text: 릴리즈 빌드 & 배포
+        status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
