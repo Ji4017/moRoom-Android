@@ -2,9 +2,9 @@ name: release Build Distribution
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "release/*", "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "release/*", "main" ]
 
 jobs:
   build:
