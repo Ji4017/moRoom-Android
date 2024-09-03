@@ -38,8 +38,7 @@
 </h2>
 
 ### Architecture
-전체 - `Clean Architecture` & `MVVM`  
-일부 - `Layered Architecture`  
+`Clean Architecture` & `MVVM`    
 
 ### Design Pattern
 `Repository`  
@@ -55,7 +54,7 @@
 `DataBinding`  
 `Navigation`  
 `Jetpack Compose`  
-`Firebase (Crashlytics, Authentication, DynamicLinks, RealtimeDatabase, Hosting)`  
+`Firebase (Crashlytics, App Distribution, Authentication, DynamicLinks, RealtimeDatabase, Hosting)`  
 `Figma`
 
 ### External Library
@@ -75,7 +74,7 @@
 
 | 후기 작성 | 회원가입 | 로그인 |
 |:---:|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/3a01f01e-d9c7-4805-9032-0de2e1a77b20" width="200"> | <img src="https://github.com/user-attachments/assets/f1e674da-4253-4c44-b83b-917c524a3fb8" width="200"> | <img src="https://github.com/user-attachments/assets/be138eee-0e12-4e66-9f10-55844eedf241" width="200"> |
+| <img src="https://github.com/user-attachments/assets/e895c9ad-482f-4480-88ec-5cfca9d85aff" width="200"> | <img src="https://github.com/user-attachments/assets/f1e674da-4253-4c44-b83b-917c524a3fb8" width="200"> | <img src="https://github.com/user-attachments/assets/be138eee-0e12-4e66-9f10-55844eedf241" width="200"> |
 
 <hr>
 
