@@ -34,7 +34,7 @@ fun CompleteButton(
 @Composable
 fun CompleteButtonPreview() {
     CompleteButton(
-        buttonText = "작성 완료",
+        buttonText = "작성",
         enabled = true,
         onClick = { /* 클릭 동작 */ },
         modifier = Modifier
