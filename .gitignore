@@ -97,3 +97,5 @@ lint/tmp/
 .kotlin/sessions/kotlin-compiler-325629991485911596.salive
 .kotlin/sessions/kotlin-compiler-16838136577375770151.salive
 .idea/ktlint-plugin.xml
+.idea/AndroidProjectSystem.xml
+.idea/runConfigurations.xml
