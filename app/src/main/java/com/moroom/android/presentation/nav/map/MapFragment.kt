@@ -88,8 +88,15 @@ class MapFragment : Fragment() {
     private fun setOnLabelClickListener(kakaoMap: KakaoMap) {
         kakaoMap.setOnLabelClickListener { _, _, label ->
             when {
-                label.labelId.contains("parent") -> onParentLabelClicked(label)
-                label.labelId.contains("callout") -> onBalloonLabelClicked(label)
+                label.labelId.contains("parent") -> {
+                    onParentLabelClicked(label)
+                    true
+                }
+                label.labelId.contains("callout") -> {
+                    onBalloonLabelClicked(label)
+                    true
+                }
+                else -> false
             }
         }
     }
